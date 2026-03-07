@@ -12,6 +12,8 @@ struct TermsConditionsView: View {
     @State  private var message: String = "When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the"
     
     
+    var data = "hello to say hi"
+    
     @State private var isGotoHomeTab: Bool = false
   
     var body: some View {

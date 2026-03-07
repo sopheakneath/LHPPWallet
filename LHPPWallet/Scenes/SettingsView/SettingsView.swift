@@ -9,7 +9,15 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+       
+        ScrollView {
+                ProfileDetailView()
+                BlogOfSettingView(items: 4)
+                BlogOfSettingView(items: 2)
+                BlogOfSettingView(items: 5)
+        }
+        .padding(.bottom, 100)
+       
     }
 }
 

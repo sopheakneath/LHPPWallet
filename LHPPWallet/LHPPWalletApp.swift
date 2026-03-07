@@ -14,7 +14,8 @@ struct LHPPWalletApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            WelcomeView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
