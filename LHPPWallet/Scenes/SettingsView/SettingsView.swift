@@ -9,16 +9,16 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-       
+        
         ScrollView {
-                ProfileDetailView()
-                BlogOfSettingView(items: 4)
-                BlogOfSettingView(items: 2)
-                BlogOfSettingView(items: 5)
-             
+            ProfileDetailView()
+            BlogOfSettingView(items: 4)
+            BlogOfSettingView(items: 2)
+            BlogOfSettingView(items: 5)
+            
         }
         .padding(.bottom, 100)
-       
+        
     }
 }
 

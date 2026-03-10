@@ -15,7 +15,7 @@ struct TermsConditionsView: View {
     var data = "hello to say hi"
     
     @State private var isGotoHomeTab: Bool = false
-  
+    
     var body: some View {
         VStack {
             TextEditor(text: $message)
@@ -24,10 +24,10 @@ struct TermsConditionsView: View {
                 .disabled(true)
             Spacer()
             Button {
-              /// navigation
+                /// navigation
                 isGotoHomeTab = true
             } label: {
-               Text("I agree")
+                Text("I agree")
                     .foregroundStyle(Color.white)
                     .frame(maxWidth: .infinity, maxHeight: 44)
                     .cornerRadius(8)
@@ -42,7 +42,7 @@ struct TermsConditionsView: View {
         }
         .navigationTitle("Term and Condition")
         .navigationBarTitleDisplayMode(.automatic)
-       
+        
     }
 }
 

@@ -45,7 +45,7 @@ struct BlogOfSettingView: View {
                         isActive: $goToMap,
                     )
                     { EmptyView() }
-                   
+                    
                 }
                 
             }
@@ -71,11 +71,11 @@ func destinationView (indxt : Int) -> some View {
         MapView()
     case 1:
         CurrencyExchangeView()
-    
+        
     default:
         Text("Unknown")
     }
-
+    
 }
 
 

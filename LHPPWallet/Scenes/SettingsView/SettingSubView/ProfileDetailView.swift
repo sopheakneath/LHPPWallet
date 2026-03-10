@@ -10,23 +10,23 @@ import SwiftUI
 struct ProfileDetailView: View {
     var body: some View {
         ZStack (alignment: .center) {
-//            Color(.systemBackground)
-//                .edgesIgnoringSafeArea(.all)
+            //            Color(.systemBackground)
+            //                .edgesIgnoringSafeArea(.all)
             Image("bg")
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-                
+            
             VStack {
                 Image("profile")
                     .resizable()
                     .frame(width: 82, height: 82)
                     .cornerRadius(41)
                 Text ("jucy lala")
-                   
+                
                 Text ("+855 968707219")
                 Text ("Lyhour Pay Pro plc")
-                    
+                
                 HStack {
                     VStack {
                         Text ("70")
@@ -39,7 +39,7 @@ struct ProfileDetailView: View {
                         Text ("Classic")
                             .foregroundStyle(Color.red)
                             .fontWidth(.init(600))
-                            
+                        
                         
                         Text ("Wallet User type")
                     }

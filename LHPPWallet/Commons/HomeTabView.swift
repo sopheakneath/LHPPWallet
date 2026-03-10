@@ -23,28 +23,25 @@ struct HomeTabView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            // Custom Tab Bar (only one tab bar now)
+            
             HStack {
                 TabBarButton(icon: "home", isSelected: selectedTab == 0) {
                     selectedTab = 0
                 }
-                
                 TabBarButton(icon: "quick", isSelected: selectedTab == 1) {
                     selectedTab = 1
                 }
-                
                 // Custom middle button
                 Button(action: {
                     selectedTab = 2
                 }) {
                     ZStack {
-                           
+                        
                         Circle()
                             .fill(Color.red)
                             .frame(width: 62, height: 62)
                             .shadow(radius: 4)
-//                            .overlay(Circle().stroke(Color.green, lineWidth: 5))
+                        //                            .overlay(Circle().stroke(Color.green, lineWidth: 5))
                         
                         Image("ic_mobile_top_up")
                             .font(.system(size: 42, weight: .bold))
@@ -74,7 +71,7 @@ struct HomeTabView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .navigationBarBackButtonHidden(true)
-      
+        
     }
 }
 
@@ -89,15 +86,15 @@ struct TabBarButton: View {
                 Circle()
                     .frame(width: 48, height: 48)
                     .tint(isSelected ? Color.gray : Color.blue  )
-                    
+                
                 Image(icon)
                     .font(.system(size: 24))
                     .symbolRenderingMode(.hierarchical)
-                   // .foregroundColor(isSelected ? .red : .green)
+                // .foregroundColor(isSelected ? .red : .green)
                     .frame(maxWidth: .infinity)
             }
-          
-                
+            
+            
         }
     }
 }

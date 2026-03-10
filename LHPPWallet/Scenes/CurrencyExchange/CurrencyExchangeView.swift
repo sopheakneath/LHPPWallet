@@ -16,10 +16,9 @@ struct CurrencyExchangeView: View {
             Text("Rate are subject to change without prior notice")
             ItemSubView()
                 .padding(.top,36)
-        Spacer()
+            Spacer()
         }
         .padding(.leading,20)
-    
     }
 }
 

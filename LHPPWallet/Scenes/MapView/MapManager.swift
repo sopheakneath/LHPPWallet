@@ -12,11 +12,7 @@ import MapKit
 internal import Combine
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
- 
-    
-    
     private let manager = CLLocationManager()
-    
     @Published var userLocation: CLLocationCoordinate2D?
     
     override init() {
