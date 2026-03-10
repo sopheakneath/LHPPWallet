@@ -7,18 +7,17 @@
 
 import SwiftUI
 
-
-
 struct BlogOfSettingView: View {
     var items: Int = 2
     var text : String = "qw"
     @State var goToMap: Bool = false
     @State var selectedIdx  = 0
+    private let data = ["Map","Excange rate" ,"Cantact us"]
     var body: some View {
         NavigationStack {
             
             VStack {
-                ForEach(0..<items) { i in
+                ForEach(0..<data.count, id: \.self) { i in
                     HStack {
                         ZStack(alignment: .center) {
                             Circle()
@@ -31,7 +30,7 @@ struct BlogOfSettingView: View {
                         }
                         .padding(.horizontal, 12)
                         
-                        Text("Wallet verify")
+                        Text(data[i])
                     }
                     .frame(maxWidth: .infinity, alignment: .init(horizontal: .leading, vertical: .center))
                     .onTapGesture {
@@ -82,3 +81,4 @@ func destinationView (indxt : Int) -> some View {
 #Preview {
     BlogOfSettingView(items: 2)
 }
+

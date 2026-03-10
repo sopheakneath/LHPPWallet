@@ -12,9 +12,9 @@ struct SettingsView: View {
         
         ScrollView {
             ProfileDetailView()
-            BlogOfSettingView(items: 4)
-            BlogOfSettingView(items: 2)
-            BlogOfSettingView(items: 5)
+            BlogOfSettingView()
+            BlogOfSettingView()
+            BlogOfSettingView()
             
         }
         .padding(.bottom, 100)

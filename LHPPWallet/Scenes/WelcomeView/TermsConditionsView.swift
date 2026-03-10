@@ -28,9 +28,10 @@ struct TermsConditionsView: View {
                 isGotoHomeTab = true
             } label: {
                 Text("I agree")
+                    .cornerRadius(8)
                     .foregroundStyle(Color.white)
                     .frame(maxWidth: .infinity, maxHeight: 44)
-                    .cornerRadius(8)
+                    
             }
             .background(Color(.systemBlue)  )
             .padding(20)

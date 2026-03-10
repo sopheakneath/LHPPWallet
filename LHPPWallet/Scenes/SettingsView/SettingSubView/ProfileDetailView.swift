@@ -10,8 +10,6 @@ import SwiftUI
 struct ProfileDetailView: View {
     var body: some View {
         ZStack (alignment: .center) {
-            //            Color(.systemBackground)
-            //                .edgesIgnoringSafeArea(.all)
             Image("bg")
                 .resizable()
                 .scaledToFill()

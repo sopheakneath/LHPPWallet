@@ -15,8 +15,8 @@ struct HomeTabView: View {
             // Main content (no TabView = no system tab bar)
             Group {
                 switch selectedTab {
-                case 0: MapView()
-                case 2: CurrencyExchangeView() // Placeholder for middle tab
+                case 0: Color.clear
+                case 2: Color.clear // Placeholder for middle tab
                 case 3: Color.clear
                 case 4: SettingsView()
                 default: Color.clear

@@ -15,9 +15,6 @@ struct IdentifiableLocation: Identifiable {
 }
 
 struct MapView: View {
-    
-    
-    
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(
             latitude: 11.5564,
@@ -37,16 +34,24 @@ struct MapView: View {
     )
     
     var body: some View {
-        Map(
-            coordinateRegion: $region,
-            annotationItems: [location]
-        ) { item in
-            MapMarker(coordinate: item.coordinate)
+      
+            Map(
+                coordinateRegion: $region,
+                annotationItems: [location]
+            ) { item in
+                MapMarker(coordinate: item.coordinate)
+            }
+            .navigationTitle("Near Me")
+            .navigationBarTitleDisplayMode(.inline)
+            .ignoresSafeArea(.all, edges: .bottom)
             
+          
+            
+           
         }
-    }
 }
 
 #Preview {
     MapView()
 }
+
