@@ -9,7 +9,17 @@ import SwiftUI
 
 struct CurrencyExchangeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack() {
+            Text("Current Exchange Rate")
+                .font(Font.title.bold())
+            Text("Last Updated : 30 May 2026 12:34:12")
+            Text("Rate are subject to change without prior notice")
+            ItemSubView()
+                .padding(.top,36)
+        Spacer()
+        }
+        .padding(.leading,20)
+    
     }
 }
 

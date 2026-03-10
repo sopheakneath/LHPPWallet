@@ -5,15 +5,7 @@
 //  Created by sopheakneath on 5/3/26.
 //
 
-
-
-
-
-
-
 import SwiftUI
-
-
 struct HomeTabView: View {
     @State private var selectedTab = 0
     
@@ -23,8 +15,8 @@ struct HomeTabView: View {
             // Main content (no TabView = no system tab bar)
             Group {
                 switch selectedTab {
-                case 0: Color.clear
-                case 2: Color.clear // Placeholder for middle tab
+                case 0: MapView()
+                case 2: CurrencyExchangeView() // Placeholder for middle tab
                 case 3: Color.clear
                 case 4: SettingsView()
                 default: Color.clear
@@ -93,40 +85,24 @@ struct TabBarButton: View {
     
     var body: some View {
         Button(action: action) {
-            Image(icon)
-                .font(.system(size: 24))
-                .foregroundColor(isSelected ? .blue : .gray)
-                .frame(maxWidth: .infinity)
+            ZStack {
+                Circle()
+                    .frame(width: 48, height: 48)
+                    .tint(isSelected ? Color.gray : Color.blue  )
+                    
+                Image(icon)
+                    .font(.system(size: 24))
+                    .symbolRenderingMode(.hierarchical)
+                   // .foregroundColor(isSelected ? .red : .green)
+                    .frame(maxWidth: .infinity)
+            }
+          
+                
         }
     }
 }
+
 #Preview {
     HomeTabView()
 }
 
-
-
-// Example views
-//struct HomeView: View {
-//    var body: some View {
-//        Text("Home")
-//    }
-//}
-//
-//struct SearchView: View {
-//    var body: some View {
-//        Text("Search")
-//    }
-//}
-//
-//struct NotificationsView: View {
-//    var body: some View {
-//        Text("Notifications")
-//    }
-//}
-//
-//struct ProfileView: View {
-//    var body: some View {
-//        Text("Profile")
-//    }
-//}

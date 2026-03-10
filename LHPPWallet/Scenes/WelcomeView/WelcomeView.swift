@@ -19,17 +19,18 @@ struct WelcomeView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: .infinity, height: .infinity)
-            
-                            Text("SIMPLIFYING PAYMENTS FOR A BETTER TOMORROW. . .")
-                                .font(.custom("Mali", size: 20))
-            
-                            Text("An easy app to manager all payment to financial and related need")
-                                .lineLimit(2)
-                                .font(
-                                    .custom("Mali", size: 18))
+                VStack {
+                    Text("SIMPLIFYING PAYMENTS FOR A BETTER TOMORROW. . .")
+                        .font(.custom("Mali", size: 20))
+                    Text("An easy app to manager all payment to financial and related need")
+                        .font(
+                            .custom("Mali", size: 12))
+                }
+                .padding(20)
+                            
             
                         }
-                            .padding(25)
+            
                         }
         
                         Spacer()
