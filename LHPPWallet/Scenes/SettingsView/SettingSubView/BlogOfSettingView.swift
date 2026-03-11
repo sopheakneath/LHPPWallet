@@ -12,7 +12,7 @@ struct BlogOfSettingView: View {
     var text : String = "qw"
     @State var goToMap: Bool = false
     @State var selectedIdx  = 0
-    private let data = ["Map","Excange rate" ,"Cantact us"]
+    private let data = ["Map","Excange rate" ,"Term & Condition"]
     var body: some View {
         NavigationStack {
             
@@ -70,6 +70,8 @@ func destinationView (indxt : Int) -> some View {
         MapView()
     case 1:
         CurrencyExchangeView()
+    case 2:
+        TermsConditionsView()
         
     default:
         Text("Unknown")

@@ -15,27 +15,31 @@ struct TermsConditionsView: View {
     var data = "hello to say hi"
     
     @State private var isGotoHomeTab: Bool = false
+    @State private var isChecked: Bool = false
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             TextEditor(text: $message)
                 .frame(width: .infinity, height: .infinity)
                 .padding(20)
                 .disabled(true)
             Spacer()
+            checkBox(isChecked: $isChecked)
+                
             Button {
-                /// navigation
                 isGotoHomeTab = true
             } label: {
                 Text("I agree")
-                    .cornerRadius(8)
-                    .foregroundStyle(Color.white)
-                    .frame(maxWidth: .infinity, maxHeight: 44)
-                    
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(isChecked ? Color(.systemBlue): Color.gray)
+                    )
             }
-            .background(Color(.systemBlue)  )
+            .disabled(!isChecked)
             .padding(20)
-            .cornerRadius(8)
+           
             
             NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
                 
@@ -46,7 +50,33 @@ struct TermsConditionsView: View {
         
     }
 }
+@ViewBuilder
+func checkBox(isChecked: Binding<Bool>) -> some View {
 
+    HStack(){
+        RoundedRectangle(cornerRadius: 6)
+            .stroke(Color.gray,lineWidth: 0.5)
+            .frame(width: 20, height: 20)
+            .background(
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(isChecked.wrappedValue ? Color.green : Color.white )
+            )
+            .overlay(
+                Image(systemName: "checkmark")
+                    .foregroundColor(.white)
+                    .font(.system(size: 12))
+                    .opacity(isChecked.wrappedValue ? 1 : 0)
+            )
+            .onTapGesture {
+                isChecked.wrappedValue.toggle()
+            }
+        Text("I have read and agree to the privacy polocy")
+            .foregroundColor(.red)
+            .font(.system(size: 12))
+        
+    }
+    .padding(.leading,20)
+}
 #Preview {
     TermsConditionsView()
 }
