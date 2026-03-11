@@ -19,10 +19,11 @@ struct TermsConditionsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            TextEditor(text: $message)
-                .frame(width: .infinity, height: .infinity)
-                .padding(20)
-                .disabled(true)
+            ScrollView {
+                Text(message)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(20)
+            }
             Spacer()
             checkBox(isChecked: $isChecked)
                 
