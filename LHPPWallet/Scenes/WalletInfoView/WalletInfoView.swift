@@ -109,9 +109,6 @@ struct WalletInfoView: View {
                             title: "Provinc", placeHolder: "",
                             text: $province,
                             validator: { value in
-                                //                            if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                //                                return "Name must be at least 3 characters."
-                                //                            }
                                 return nil
                             }
                         )
@@ -120,9 +117,6 @@ struct WalletInfoView: View {
                             title: "District", placeHolder: "",
                             text: $District,
                             validator: { value in
-                                //                            let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
-                                //                            if trimmed.count < 6 { return "Password must be at least 6 characters." }
-                                //                            if trimmed.rangeOfCharacter(from: .decimalDigits) == nil { return "Password must contain at least one number." }
                                 return nil
                             },
                             keyboardType: .default,
