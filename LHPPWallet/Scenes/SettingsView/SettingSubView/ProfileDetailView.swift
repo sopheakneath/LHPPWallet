@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct ProfileDetailView: View {
     var body: some View {
         ZStack (alignment: .center) {
@@ -61,6 +62,10 @@ struct ProfileDetailView: View {
 }
 
 #Preview {
-    ProfileDetailView()
+    if #available(iOS 16.0, *) {
+        ProfileDetailView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
 

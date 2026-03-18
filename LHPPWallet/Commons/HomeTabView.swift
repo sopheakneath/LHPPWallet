@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+@available(iOS 16.0, *)
 struct HomeTabView: View {
     @State private var selectedTab = 0
     
     
+
+  //  @available(iOS 16.0, *)
     var body: some View {
         ZStack(alignment: .bottom) {
             // Main content (no TabView = no system tab bar)
@@ -18,6 +21,7 @@ struct HomeTabView: View {
                 case 0: Color.clear
                 case 2: Color.clear // Placeholder for middle tab
                 case 3: Color.clear
+               // case 4: Color.clear
                 case 4: SettingsView()
                 default: Color.clear
                 }
@@ -75,6 +79,7 @@ struct HomeTabView: View {
     }
 }
 
+@available(iOS 15.0, *)
 struct TabBarButton: View {
     let icon: String
     let isSelected: Bool
@@ -99,7 +104,17 @@ struct TabBarButton: View {
     }
 }
 
+#if canImport(SwiftUI)
 #Preview {
-    HomeTabView()
+    if #available(iOS 15.0, *) {
+        if #available(iOS 16.0, *) {
+            HomeTabView()
+        } else {
+            // Fallback on earlier versions
+        }
+    } else {
+        // Fallback on earlier versions
+    }
 }
+#endif
 

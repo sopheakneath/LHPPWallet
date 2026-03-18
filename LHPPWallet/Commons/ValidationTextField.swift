@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct ValidatedTextField: View {
     let title: String?
     let placeHolder: String?
@@ -95,12 +96,16 @@ struct ValidatedTextField: View {
 
 #Preview {
     @State var previewText: String = ""
-    ValidatedTextField(
-        title: "", placeHolder: "",
-        text: .constant("FULL "),
-        validator: { value in
-            // Example: require at least 3 characters
-            return value.count >= 3 ? nil : "Must be at least 3 characters"
-        }
-    )
+    if #available(iOS 17.0, *) {
+        ValidatedTextField(
+            title: "", placeHolder: "",
+            text: .constant("FULL "),
+            validator: { value in
+                // Example: require at least 3 characters
+                return value.count >= 3 ? nil : "Must be at least 3 characters"
+            }
+        )
+    } else {
+        // Fallback on earlier versions
+    }
 }

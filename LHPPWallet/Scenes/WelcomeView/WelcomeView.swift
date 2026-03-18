@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct WelcomeView: View {
     @State var gotoTerms: Bool = false
     var body: some View {
@@ -76,7 +77,11 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView()
+    if #available(iOS 17.0, *) {
+        WelcomeView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 

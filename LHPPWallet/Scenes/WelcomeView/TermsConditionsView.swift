@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct TermsConditionsView: View {
     
     @State  private var message: String = "When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the"
@@ -17,6 +18,7 @@ struct TermsConditionsView: View {
     @State private var isGotoHomeTab: Bool = false
     @State private var isChecked: Bool = false
     
+    @available(iOS 15.0, *)
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
@@ -31,7 +33,7 @@ struct TermsConditionsView: View {
                 isGotoHomeTab = true
             } label: {
                 Text("I agree")
-                    .foregroundStyle(.white)
+                    .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
@@ -42,8 +44,12 @@ struct TermsConditionsView: View {
             .padding(20)
            
             
-            NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
-                
+            if #available(iOS 16.0, *) {
+                NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
+                    
+                }
+            } else {
+                // Fallback on earlier versions
             }
         }
         .navigationTitle("Term and Condition")
@@ -71,7 +77,7 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
             .onTapGesture {
                 isChecked.wrappedValue.toggle()
             }
-        Text("I have read and agree to the privacy polocy")
+        Text("I have read and agree to the privacy policy")
             .foregroundColor(.red)
             .font(.system(size: 12))
         
@@ -79,5 +85,9 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
     .padding(.leading,20)
 }
 #Preview {
-    TermsConditionsView()
+    if #available(iOS 15.0, *) {
+        TermsConditionsView()
+    } else {
+        // Fallback on earlier versions
+    }
 }

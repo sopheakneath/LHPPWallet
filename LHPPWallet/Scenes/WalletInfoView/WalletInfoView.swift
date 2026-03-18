@@ -9,6 +9,7 @@ import SwiftUI
 
 
 
+@available(iOS 17.0, *)
 struct WalletInfoView: View {
     // User info
     @State private var firstName: String = ""
@@ -28,8 +29,6 @@ struct WalletInfoView: View {
     @State private var occupation : String = ""
     
     
-    
-    
     @State private var password: String = ""
     @State private var navigateToHome: Bool = false
     
@@ -39,8 +38,6 @@ struct WalletInfoView: View {
 
     @State private var nameError: String? = nil
     @State private var passwordError: String? = nil
-    
-    
 
     var body: some View {
         NavigationStack() {
@@ -50,7 +47,6 @@ struct WalletInfoView: View {
             .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
             .hidden()
             Form {
-               
                 Section(header: Text("Personal Information")) {
                     VStack {
                         ValidatedTextField(
@@ -230,7 +226,11 @@ struct WalletInfoView: View {
    
 
 #Preview {
-    WalletInfoView()
+    if #available(iOS 17.0, *) {
+        WalletInfoView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct BlogOfSettingView: View {
     var items: Int = 2
     var text : String = "qw"
@@ -63,6 +64,7 @@ struct BlogOfSettingView: View {
     }
 }
 
+@available(iOS 15.0, *)
 @ViewBuilder
 func destinationView (indxt : Int) -> some View {
     switch indxt {
@@ -73,7 +75,11 @@ func destinationView (indxt : Int) -> some View {
     case 2:
         TermsConditionsView()
     case 3:
-        WalletInfoView()
+        if #available(iOS 17.0, *) {
+            WalletInfoView()
+        } else {
+            // Fallback on earlier versions
+        }
         
     default:
         Text("Unknown")
@@ -83,6 +89,10 @@ func destinationView (indxt : Int) -> some View {
 
 
 #Preview {
-    BlogOfSettingView(items: 2)
+    if #available(iOS 16.0, *) {
+        BlogOfSettingView(items: 2)
+    } else {
+        // Fallback on earlier versions
+    }
 }
 

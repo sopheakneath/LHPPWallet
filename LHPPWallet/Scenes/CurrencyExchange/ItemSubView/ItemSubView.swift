@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct ItemSubView: View {
     var body: some View {
         ForEach (0..<4) { i in
@@ -43,5 +44,9 @@ struct ItemSubView: View {
 }
 
 #Preview {
-    ItemSubView()
+    if #available(iOS 15.0, *) {
+        ItemSubView()
+    } else {
+        // Fallback on earlier versions
+    }
 }

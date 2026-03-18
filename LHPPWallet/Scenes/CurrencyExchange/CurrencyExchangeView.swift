@@ -17,8 +17,22 @@ struct CurrencyExchangeView: View {
                 Text("Last Updated : 30 May 2026 12:34:12")
                 Text("Rate are subject to change without prior notice")
             }
-            ItemSubView()
-                .padding(.top,36)
+            if #available(iOS 15.0, *) {
+                ItemSubView()
+                    .padding(.top, 36)
+            } else {
+                // Fallback content for iOS versions earlier than 15.0
+                Group {
+                    if #available(iOS 15.0, *) {
+                        Text("Exchange items are not available on this iOS version.")
+                            .foregroundColor(.secondary)
+                    } else {
+                        Text("Exchange items are not available on this iOS version.")
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .padding(.top, 36)
+            }
             Spacer()
         }
         .navigationTitle(

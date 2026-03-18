@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct SettingsView: View {
     var body: some View {
         
@@ -29,5 +30,9 @@ struct datas: Identifiable {
 }
 
 #Preview {
-    SettingsView()
+    if #available(iOS 16.0, *) {
+        SettingsView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
