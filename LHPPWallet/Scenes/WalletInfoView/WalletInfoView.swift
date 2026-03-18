@@ -47,119 +47,141 @@ struct WalletInfoView: View {
             NavigationLink(destination: HomeTabView(), isActive: $navigateToHome) {
                 EmptyView()
             }
+            .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
             .hidden()
             Form {
+               
                 Section(header: Text("Personal Information")) {
-                    ValidatedTextField(
-                        title: "", placeHolder: "First Name",
-                        text: $firstName,
-                        validator: { value in
+                    VStack {
+                        ValidatedTextField(
+                            title: "", placeHolder: "First Name",
+                            text: $firstName,
+                            validator: { value in
+                                if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
+                                    return "First Name must be at least 3 characters."
+                                }
+                                return nil
+                            }
+                        )
+                        
+                        ValidatedTextField(
+                            title: "Last name", placeHolder: "",
+                            text: $lastName,
+                            validator: { value in
+                                if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
+                                    return "Last Name must be at least 3 characters."
+                                }
+                                return nil
+                                //                            let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+                                //                            if trimmed.count < 6 { return "Password must be at least 6 characters." }
+                                //                            if trimmed.rangeOfCharacter(from: .decimalDigits) == nil { return "Password must contain at least one number." }
+                                //                            return nil
+                            },
+                            keyboardType: .default,
+                            isSecure: true
+                        )
+                        
+                        ValidatedTextField(title: "Name", placeHolder: "", text: $name, validator: { value in
                             if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                return "First Name must be at least 3 characters."
+                                return "Name must be at least 3 characters."
                             }
                             return nil
-                        }
-                    )
-
-                    ValidatedTextField(
-                        title: "Last name", placeHolder: "",
-                        text: $lastName,
-                        validator: { value in
-                            if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                return "Last Name must be at least 3 characters."
+                        })
+                        
+                        ValidatedTextField(
+                            title: "Email", placeHolder: "",
+                            text: $mail,
+                            validator: { value in
+                                if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
+                                    return "Mail Name must be at least 3 characters."
+                                }
+                                return nil
                             }
-                            return nil
-//                            let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
-//                            if trimmed.count < 6 { return "Password must be at least 6 characters." }
-//                            if trimmed.rangeOfCharacter(from: .decimalDigits) == nil { return "Password must contain at least one number." }
-//                            return nil
-                        },
-                        keyboardType: .default,
-                        isSecure: true
-                    )
-                    
-                    ValidatedTextField(title: "Name", placeHolder: "", text: $name, validator: { value in
-                        if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                            return "Name must be at least 3 characters."
-                        }
-                        return nil
-                    })
-                    
-                    ValidatedTextField(
-                        title: "Email", placeHolder: "",
-                        text: $mail,
-                        validator: { value in
-                            if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                return "Mail Name must be at least 3 characters."
-                            }
-                            return nil
-                        }
+                        )
+                    }
+                    .padding(10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 0)
                     )
                 }
-
+                
                 Section(header: Text("Address Info")) {
-                    ValidatedTextField(
-                        title: "Provinc", placeHolder: "",
-                        text: $province,
-                        validator: { value in
-//                            if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-//                                return "Name must be at least 3 characters."
-//                            }
-                            return nil
-                        }
-                    )
-
-                    ValidatedTextField(
-                        title: "District", placeHolder: "",
-                        text: $District,
-                        validator: { value in
-//                            let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
-//                            if trimmed.count < 6 { return "Password must be at least 6 characters." }
-//                            if trimmed.rangeOfCharacter(from: .decimalDigits) == nil { return "Password must contain at least one number." }
-                            return nil
-                        },
-                        keyboardType: .default,
-                        isSecure: false
-                    )
-                    
-                    ValidatedTextField(
-                        title: "Commune", placeHolder: "",
-                        text: $commune,
-                        validator: { value in
-                            return nil
-                        }
-                    )
-                    
-                    ValidatedTextField(
-                        title: "Village", placeHolder: "",
-                        text: $village,
-                        validator: { value in
-                            return nil
-                        }
-                    )
-                    ValidatedTextField(
-                        title: "Address", placeHolder: "",
-                        text: $Address,
-                        validator: { value in
-                            return nil
-                        }
-                    )
-                    ValidatedTextField(
-                        title: "Address 1", placeHolder: "",
-                        text: $Address1,
-                        validator: { value in
-                            return nil
-                        }
-                    )
-                    ValidatedTextField(
-                        title: "Occupation", placeHolder: "Occupation",
-                        text: $occupation,
-                        validator: { value in
-                            return nil
-                        }
+                    VStack {
+                        ValidatedTextField(
+                            title: "Provinc", placeHolder: "",
+                            text: $province,
+                            validator: { value in
+                                //                            if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
+                                //                                return "Name must be at least 3 characters."
+                                //                            }
+                                return nil
+                            }
+                        )
+                        
+                        ValidatedTextField(
+                            title: "District", placeHolder: "",
+                            text: $District,
+                            validator: { value in
+                                //                            let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+                                //                            if trimmed.count < 6 { return "Password must be at least 6 characters." }
+                                //                            if trimmed.rangeOfCharacter(from: .decimalDigits) == nil { return "Password must contain at least one number." }
+                                return nil
+                            },
+                            keyboardType: .default,
+                            isSecure: false
+                        )
+                        
+                        ValidatedTextField(
+                            title: "Commune", placeHolder: "",
+                            text: $commune,
+                            validator: { value in
+                                return nil
+                            }
+                        )
+                        
+                        ValidatedTextField(
+                            title: "Village", placeHolder: "",
+                            text: $village,
+                            validator: { value in
+                                return nil
+                            }
+                        )
+                        ValidatedTextField(
+                            title: "Address", placeHolder: "",
+                            text: $Address,
+                            validator: { value in
+                                return nil
+                            }
+                        )
+                        ValidatedTextField(
+                            title: "Address 1", placeHolder: "",
+                            text: $Address1,
+                            validator: { value in
+                                return nil
+                            }
+                        )
+                        ValidatedTextField(
+                            title: "Occupation", placeHolder: "Occupation",
+                            text: $occupation,
+                            validator: { value in
+                                return nil
+                            }
+                        )
+                    }
+                    .padding(10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 0)
                     )
                 }
+                
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.white)
+           
             .navigationTitle("Wallet Info")
             .onAppear {
                 if let savedName = UserDefaults.standard.string(forKey: "wallet.name") {
@@ -174,7 +196,7 @@ struct WalletInfoView: View {
             } message: { message in
                 Text(message)
             }
-            
+            .background(Color.white.ignoresSafeArea())
             Button {
                 UserDefaults.standard.set(name, forKey: "wallet.name")
                 UserDefaults.standard.set(password, forKey: "wallet.password")
@@ -190,9 +212,10 @@ struct WalletInfoView: View {
             }
             .cornerRadius(8)
             .padding()
-            .background(Color.white)
+          
                
             }
+       
     }
       
     private var isFormValid: Bool {

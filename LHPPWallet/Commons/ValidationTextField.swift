@@ -60,7 +60,7 @@ struct ValidatedTextField: View {
                         .strokeBorder(borderColor, lineWidth: 1)
                         .background(
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(Color(.secondarySystemBackground))
+                               .fill(Color(.white))
                         )
                 )
                 .onChange(of: text) { _ in
@@ -75,8 +75,10 @@ struct ValidatedTextField: View {
                         .accessibilityLabel("Error: \(error)")
                 }
             }
+            .padding(.vertical, 10)
         }
         .onAppear { validate() }
+       
     }
 
     private var borderColor: Color {
