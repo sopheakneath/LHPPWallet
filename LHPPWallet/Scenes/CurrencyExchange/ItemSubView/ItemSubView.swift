@@ -39,7 +39,6 @@ struct ItemSubView: View {
             }
         }
         .padding(.horizontal,20)
-        
     }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 17.0, *)
 struct WelcomeView: View {
     @State var gotoTerms: Bool = false
+    
     var body: some View {
         
         NavigationStack {
@@ -26,7 +27,6 @@ struct WelcomeView: View {
                         
                         Text("An easy app to manager all payment to financial and related need")
                             .font(.maliMedium)
-                                
                     }
                     .padding(20)
                 }
@@ -70,15 +70,19 @@ struct WelcomeView: View {
                             .resizable()
                             .frame(width: 56, height: 56)
                     }
+                    .buttonStyle(.plain)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         print("Profile tapped")
                     } label: {
-                        Image("ic_language")
+                        Image("ic_language_kh")
                     }
+                    .buttonStyle(.plain)
                 }
             }
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(Color.clear, for: .navigationBar)
         }
     }
 }

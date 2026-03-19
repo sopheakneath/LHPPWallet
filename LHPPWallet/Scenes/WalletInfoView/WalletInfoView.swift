@@ -76,7 +76,7 @@ struct WalletInfoView: View {
                                 //                            return nil
                             },
                             keyboardType: .default,
-                            isSecure: true
+                           // isSecure: true
                         )
                         
                         ValidatedTextField(title: "Prefer Name", placeHolder: "", text: $name, validator: { value in
@@ -206,10 +206,7 @@ struct WalletInfoView: View {
             }
             .cornerRadius(8)
             .padding()
-          
-               
             }
-       
     }
       
     private var isFormValid: Bool {

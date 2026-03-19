@@ -23,17 +23,19 @@ struct BlogOfSettingView: View {
                         ZStack(alignment: .center) {
                             Circle()
                                 .fill(Color.white)
-                                .frame(width: 40, height: 40)
-                                .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
+                                .frame(width: 38, height: 39)
+                                .shadow(color: Color(red: 226/255, green: 233/255, blue: 255/255).opacity(1),
+                                        radius: 2, x: 0, y: 0)
+                            // #E2E9FF
                             Image("ic_support")
                                 .resizable()
-                                .frame(width: 20, height: 20)
+                                .frame(width: 19, height: 22)
                         }
                         .padding(.horizontal, 12)
-                        
                         Text(data[i])
                             .font(.maliRegular)
                     }
+                    .padding(.vertical,8)
                     .frame(maxWidth: .infinity, alignment: .init(horizontal: .leading, vertical: .center))
                     .onTapGesture {
                         goToMap = true
@@ -52,7 +54,8 @@ struct BlogOfSettingView: View {
             }
             
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 20)
+            .padding(.vertical, 12)
+           
             .background(Color.white)
             .cornerRadius(8)
             .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
