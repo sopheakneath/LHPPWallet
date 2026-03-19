@@ -17,7 +17,6 @@ struct ValidatedTextField: View {
     var isSecure: Bool = false
     var isTitleFrame: Bool = false
     
-
     @State private var error: String? = nil
     @FocusState private var isFocused: Bool
 
@@ -25,17 +24,16 @@ struct ValidatedTextField: View {
         VStack(alignment: .leading, spacing: 6) {
             if let placeHolder, !placeHolder.isEmpty {
                 Text(placeHolder)
-                    .font(.caption)
+                    .font(.maliBold)
                     .foregroundStyle(.secondary)
             }
             Group {
                 HStack{
-                    Image(systemName: "heart.fill")
+                    Image(systemName: "person")
                         .scaledToFit()
                         .frame(width: 20,height: 20)
                         .foregroundColor(.secondary)
                     if isSecure {
-                        
                         SecureField(title ?? "", text: $text)
                             .textContentType(.password)
                             .keyboardType(keyboardType)
@@ -46,6 +44,7 @@ struct ValidatedTextField: View {
                             .onSubmit(validate)
                     } else {
                         TextField(title ?? "", text: $text)
+                            .font(.maliRegular)
                             .keyboardType(keyboardType)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
@@ -68,18 +67,16 @@ struct ValidatedTextField: View {
                     // Live validate while typing
                     error = validator(text)
                 }
-                
                 if let error = error, !error.isEmpty {
                     Text(error)
-                        .font(.footnote)
+                        .font(.maliRegular)
                         .foregroundStyle(.red)
                         .accessibilityLabel("Error: \(error)")
                 }
             }
-            .padding(.vertical, 10)
+            .padding(.vertical, 1)
         }
         .onAppear { validate() }
-       
     }
 
     private var borderColor: Color {

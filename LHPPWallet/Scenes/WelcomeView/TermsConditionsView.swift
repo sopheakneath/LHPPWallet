@@ -25,6 +25,7 @@ struct TermsConditionsView: View {
                 Text(message)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(20)
+                    .font(.maliRegular)
             }
             Spacer()
             checkBox(isChecked: $isChecked)
@@ -33,6 +34,7 @@ struct TermsConditionsView: View {
                 isGotoHomeTab = true
             } label: {
                 Text("I agree")
+                    .font(.custom("Mali-Medium", fixedSize: 16))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background(
@@ -79,7 +81,7 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
             }
         Text("I have read and agree to the privacy policy")
             .foregroundColor(.red)
-            .font(.system(size: 12))
+            .font(.custom("Mali-Medium", fixedSize: 12))
         
     }
     .padding(.leading,20)

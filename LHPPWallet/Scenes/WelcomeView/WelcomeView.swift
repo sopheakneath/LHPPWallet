@@ -19,13 +19,14 @@ struct WelcomeView: View {
                     Image("image_banner")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: .infinity, height: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     VStack {
                         Text("SIMPLIFYING PAYMENTS FOR A BETTER TOMORROW. . .")
-                            .font(.custom("Mali", size: 20))
+                            .font(.MaliSemiBold)
+                        
                         Text("An easy app to manager all payment to financial and related need")
-                            .font(
-                                .custom("Mali", size: 12))
+                            .font(.maliMedium)
+                                
                     }
                     .padding(20)
                 }
@@ -36,7 +37,9 @@ struct WelcomeView: View {
                 gotoTerms = true
             } label: {
                 Text("Get Started")
-                    .foregroundStyle(Color.white)
+                    .font(.system(size: 16, weight: .semibold))
+                    .font(.custom("Mali-Medium", fixedSize: 16))
+                    .foregroundColor(.white)
                     .padding(.vertical, 12)
                     .padding(.horizontal, 52)
             }
@@ -47,10 +50,14 @@ struct WelcomeView: View {
             
             HStack {
                 Text("You already have an account?" )
-                    .foregroundStyle(Color.black)
+                    .foregroundColor(.black)
+                    .font(.maliRegular)
                 
-                Button("Login") {
+                Button(action: {
                     //
+                }) {
+                    Text("LOGIN")
+                        .font(.maliRegular)
                 }
             }
             .padding(.top,24)
@@ -83,6 +90,4 @@ struct WelcomeView: View {
         // Fallback on earlier versions
     }
 }
-
-
 

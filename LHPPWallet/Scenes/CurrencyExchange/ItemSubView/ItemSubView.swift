@@ -24,16 +24,16 @@ struct ItemSubView: View {
                         .padding(.leading, -15)
                 }
                 VStack (alignment: .leading){
-                    Text("USD / KH")
-                    Text("US Dollar / Cambodian Riel")
-                        .font(.system(size: 12))
+                    Text("USD / KH").font(.maliMedium)
+                    Text("US Dollar / Cambodian Riel").font(.maliRegular)
+                        .font(.custom("Mali-Regular", fixedSize: 12))
                         .foregroundStyle(Color.gray)
                 }
                 Spacer()
                 VStack (alignment: .trailing){
-                    Text("4,000 / 4,100")
+                    Text("4,000 / 4,100").font(.maliMedium)
                     Text("Buy / Sell")
-                        .font(Font.system(size: 12))
+                        .font(.custom("Mali-Regular", fixedSize: 12))
                         .foregroundStyle(Color.gray)
                 }
             }

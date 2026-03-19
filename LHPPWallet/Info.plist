@@ -12,5 +12,16 @@
     <string>1.0</string>
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>
+    
+    <key>UIAppFonts</key>
+       <array>
+           <string>Mali-Regular.ttf</string>
+           <string>Mali-Bold.ttf</string>
+           <string>Mali-Medium.ttf</string>
+           <string>Mali-SemiBold.ttf</string>
+           
+       </array>
+       
 </dict>
 </plist>
+

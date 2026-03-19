@@ -47,10 +47,12 @@ struct WalletInfoView: View {
             .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
             .hidden()
             Form {
-                Section(header: Text("Personal Information")) {
+                Section(header: Text("Personal Information")
+                    .foregroundColor(Color.black)
+                    .font(.maliMedium)) {
                     VStack {
                         ValidatedTextField(
-                            title: "", placeHolder: "First Name",
+                            title: "First Name", placeHolder: "",
                             text: $firstName,
                             validator: { value in
                                 if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
@@ -77,7 +79,7 @@ struct WalletInfoView: View {
                             isSecure: true
                         )
                         
-                        ValidatedTextField(title: "Name", placeHolder: "", text: $name, validator: { value in
+                        ValidatedTextField(title: "Prefer Name", placeHolder: "", text: $name, validator: { value in
                             if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
                                 return "Name must be at least 3 characters."
                             }
@@ -85,12 +87,9 @@ struct WalletInfoView: View {
                         })
                         
                         ValidatedTextField(
-                            title: "Email", placeHolder: "",
+                            title: "Email(optional)", placeHolder: "",
                             text: $mail,
                             validator: { value in
-                                if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                    return "Mail Name must be at least 3 characters."
-                                }
                                 return nil
                             }
                         )
@@ -103,7 +102,10 @@ struct WalletInfoView: View {
                     )
                 }
                 
-                Section(header: Text("Address Info")) {
+                Section(header: Text("Address Info")
+                    .font(.maliMedium)
+                    .foregroundColor(Color.black)
+                ) {
                     VStack {
                         ValidatedTextField(
                             title: "Provinc", placeHolder: "",
@@ -153,7 +155,7 @@ struct WalletInfoView: View {
                             }
                         )
                         ValidatedTextField(
-                            title: "Occupation", placeHolder: "Occupation",
+                            title: "Occupation", placeHolder: "",
                             text: $occupation,
                             validator: { value in
                                 return nil
@@ -189,12 +191,14 @@ struct WalletInfoView: View {
             .background(Color.white.ignoresSafeArea())
             Button {
                 UserDefaults.standard.set(name, forKey: "wallet.name")
+                    
                 UserDefaults.standard.set(password, forKey: "wallet.password")
                 saveMessage = "Saved successfully"
                 showingSaveAlert = true
                 navigateToHome = true
             } label: {
                 Text("Done")
+                    .font(.maliRegular)
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background(Color.blue)

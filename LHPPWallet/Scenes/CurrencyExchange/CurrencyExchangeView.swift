@@ -9,14 +9,17 @@ import SwiftUI
 
 struct CurrencyExchangeView: View {
     var body: some View {
-        VStack() {
+        VStack(alignment: .leading) {
            
             VStack (alignment: .leading){
                 Text("Current Exchange Rate")
-                    .font(Font.title.bold())
+                    .font(.maliMedium)
                 Text("Last Updated : 30 May 2026 12:34:12")
+                    .font(.maliRegular)
                 Text("Rate are subject to change without prior notice")
+                    .font(.custom("Mali-Regular", fixedSize: 12))
             }
+            .padding(.leading, 20)
             if #available(iOS 15.0, *) {
                 ItemSubView()
                     .padding(.top, 36)
@@ -31,12 +34,13 @@ struct CurrencyExchangeView: View {
                             .foregroundColor(.secondary)
                     }
                 }
-                .padding(.top, 36)
+               // .padding(.top, 36)
             }
             Spacer()
         }
         .navigationTitle(
             Text("Exchange Rate")
+                .font(.custom("Mali-Medium", fixedSize: 18))
         )
     }
 }

@@ -32,6 +32,7 @@ struct BlogOfSettingView: View {
                         .padding(.horizontal, 12)
                         
                         Text(data[i])
+                            .font(.maliRegular)
                     }
                     .frame(maxWidth: .infinity, alignment: .init(horizontal: .leading, vertical: .center))
                     .onTapGesture {

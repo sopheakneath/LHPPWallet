@@ -65,15 +65,11 @@
 		};
 		0DE8F0C02F57DF3A00888B9D /* LHPPWalletTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = LHPPWalletTests;
 			sourceTree = "<group>";
 		};
 		0DE8F0CA2F57DF3A00888B9D /* LHPPWalletUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = LHPPWalletUITests;
 			sourceTree = "<group>";
 		};
@@ -139,7 +135,6 @@
 				F0DDFF7D2666A2CD7070F111 /* Pods-LHPPWalletTests.debug.xcconfig */,
 				B5C436F66BD6B033784121BE /* Pods-LHPPWalletTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
