@@ -14,6 +14,7 @@ struct IdentifiableLocation: Identifiable {
     let coordinate: CLLocationCoordinate2D
 }
 
+@available(iOS 15.0, *)
 struct MapView: View {
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(
@@ -25,7 +26,9 @@ struct MapView: View {
             longitudeDelta: 0.05
         )
     )
-    
+    @State private var didDismiss = false
+    @Environment(\.dismiss) var dismiss
+
     let location = IdentifiableLocation(
         coordinate: CLLocationCoordinate2D(
             latitude: 11.5564,
@@ -41,17 +44,16 @@ struct MapView: View {
             ) { item in
                 MapMarker(coordinate: item.coordinate)
             }
-            .navigationTitle("Near Me")
-            .navigationBarTitleDisplayMode(.inline)
+            .customBackToolbar(title: "Near me")
             .ignoresSafeArea(.all, edges: .bottom)
-            
-          
-            
-           
         }
 }
 
 #Preview {
-    MapView()
+    if #available(iOS 15.0, *) {
+        MapView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
 

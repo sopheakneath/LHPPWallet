@@ -7,8 +7,14 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct CurrencyExchangeView: View {
+    
+    @State private var didDismiss = false
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
+        
         VStack(alignment: .leading) {
            
             VStack (alignment: .leading){
@@ -38,13 +44,15 @@ struct CurrencyExchangeView: View {
             }
             Spacer()
         }
-        .navigationTitle(
-            Text("Exchange Rate")
-                .font(.custom("Mali-Medium", fixedSize: 18))
-        )
+        .customBackToolbar(title: "Exchange Rate")
+
     }
 }
 
 #Preview {
-    CurrencyExchangeView()
+    if #available(iOS 15.0, *) {
+        CurrencyExchangeView()
+    } else {
+        // Fallback on earlier versions
+    }
 }

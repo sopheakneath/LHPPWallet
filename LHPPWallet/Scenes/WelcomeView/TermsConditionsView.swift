@@ -8,9 +8,10 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
+
 struct TermsConditionsView: View {
-    
-    @State  private var message: String = "When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the"
+
+    @State  private var message: String = "When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the"
     
     
     var data = "hello to say hi"
@@ -29,7 +30,6 @@ struct TermsConditionsView: View {
             }
             Spacer()
             checkBox(isChecked: $isChecked)
-                
             Button {
                 isGotoHomeTab = true
             } label: {
@@ -39,26 +39,23 @@ struct TermsConditionsView: View {
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(isChecked ? Color(.systemBlue): Color.gray)
+                            .fill(isChecked ? Color(.systemBlue) : Color.gray)
                     )
             }
             .disabled(!isChecked)
             .padding(20)
-           
-            
             if #available(iOS 16.0, *) {
                 NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
-                    
+                    EmptyView()
                 }
             } else {
                 // Fallback on earlier versions
             }
         }
-        .navigationTitle("Term and Condition")
-        .navigationBarTitleDisplayMode(.automatic)
-        
+        .customBackToolbar(title: "Privacy Policy")
     }
 }
+
 @ViewBuilder
 func checkBox(isChecked: Binding<Bool>) -> some View {
 
@@ -84,7 +81,10 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
             .font(.custom("Mali-Medium", fixedSize: 12))
         
     }
+//    .navigationBarBackButtonHidden(true)
+//    .navigationTitle("Term")
     .padding(.leading,20)
+    
 }
 #Preview {
     if #available(iOS 15.0, *) {
@@ -93,3 +93,4 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
         // Fallback on earlier versions
     }
 }
+

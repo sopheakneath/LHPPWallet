@@ -11,6 +11,15 @@ import SwiftUI
 struct WelcomeView: View {
     @State var gotoTerms: Bool = false
     
+//    init() {
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithOpaqueBackground()
+//        appearance.backgroundColor = .red
+//        UINavigationBar.appearance().standardAppearance = appearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//        UINavigationBar.appearance().compactAppearance = appearance
+//    }
+    
     var body: some View {
         
         NavigationStack {
@@ -71,6 +80,8 @@ struct WelcomeView: View {
                             .frame(width: 56, height: 56)
                     }
                     .buttonStyle(.plain)
+                    .background(Color.clear)
+                   
                 }
     
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -83,9 +94,7 @@ struct WelcomeView: View {
                 }
             }
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(Color.clear, for: .navigationBar)
-           
-
+            
         }
     }
 }
@@ -97,4 +106,5 @@ struct WelcomeView: View {
         // Fallback on earlier versions
     }
 }
+
 

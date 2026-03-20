@@ -38,8 +38,10 @@ struct WalletInfoView: View {
 
     @State private var nameError: String? = nil
     @State private var passwordError: String? = nil
+    
 
     var body: some View {
+        
         NavigationStack() {
             NavigationLink(destination: HomeTabView(), isActive: $navigateToHome) {
                 EmptyView()
@@ -174,7 +176,7 @@ struct WalletInfoView: View {
             .scrollContentBackground(.hidden)
             .background(Color.white)
            
-            .navigationTitle("Wallet Info")
+            
             .onAppear {
                 if let savedName = UserDefaults.standard.string(forKey: "wallet.name") {
                     name = savedName
@@ -207,6 +209,7 @@ struct WalletInfoView: View {
             .cornerRadius(8)
             .padding()
             }
+        .customBackToolbar(title: "Wallet info")
     }
       
     private var isFormValid: Bool {

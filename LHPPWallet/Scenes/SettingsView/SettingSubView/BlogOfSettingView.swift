@@ -9,23 +9,20 @@ import SwiftUI
 
 @available(iOS 16.0, *)
 struct BlogOfSettingView: View {
-    var items: Int = 2
-    var text : String = "qw"
-    @State var goToMap: Bool = false
-    @State var selectedIdx  = 0
     private let data = ["Map","Excange rate" ,"Term & Condition", "Wallet Info"]
     var body: some View {
-        NavigationStack {
-            
-            VStack {
-                ForEach(0..<data.count, id: \.self) { i in
+        VStack {
+            ForEach(0..<data.count, id: \.self) { i in
+                NavigationLink(destination: destinationView(indxt: i)) {
                     HStack {
                         ZStack(alignment: .center) {
                             Circle()
                                 .fill(Color.white)
                                 .frame(width: 38, height: 39)
-                                .shadow(color: Color(red: 226/255, green: 233/255, blue: 255/255).opacity(1),
-                                        radius: 2, x: 0, y: 0)
+                                .shadow(
+                                    color: Color(red: 226/255, green: 233/255, blue: 255/255).opacity(1),
+                                    radius: 2, x: 0, y: 0
+                                )
                             // #E2E9FF
                             Image("ic_support")
                                 .resizable()
@@ -35,36 +32,23 @@ struct BlogOfSettingView: View {
                         Text(data[i])
                             .font(.maliRegular)
                     }
-                    .padding(.vertical,8)
-                    .frame(maxWidth: .infinity, alignment: .init(horizontal: .leading, vertical: .center))
-                    .onTapGesture {
-                        goToMap = true
-                        selectedIdx = i
-                        print(i)
-                        
-                    }
-                    NavigationLink(
-                        destination: destinationView(indxt: selectedIdx),
-                        isActive: $goToMap,
+                    .padding(.vertical, 8)
+                    .frame(
+                        maxWidth: .infinity,
+                        alignment: .init(horizontal: .leading, vertical: .center)
                     )
-                    { EmptyView() }
-                    
                 }
-                
+                .buttonStyle(.plain)
             }
-            
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-           
-            .background(Color.white)
-            .cornerRadius(8)
-            .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
-            
-            .padding(.leading, 19)
-            .padding(.trailing, 15)
-            .padding(.bottom, 20)
-            
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .background(Color.white)
+        .cornerRadius(8)
+        .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
+        .padding(.leading, 19)
+        .padding(.trailing, 15)
+        .padding(.bottom, 20)
     }
 }
 
@@ -94,7 +78,7 @@ func destinationView (indxt : Int) -> some View {
 
 #Preview {
     if #available(iOS 16.0, *) {
-        BlogOfSettingView(items: 2)
+        BlogOfSettingView()
     } else {
         // Fallback on earlier versions
     }
