@@ -22,5 +22,9 @@ extension Font {
     static let maliMedium = Font.custom("Mali-Medium", size: 16)
     static let maliBold = Font.custom("Mali-Bold", size: 14)
     static let MaliSemiBold = Font.custom("Mali-SemiBold", size: 20)
+    
+    static let montserratRegular = Font.custom("Montserrat-Regular", size: 14)
+    static let montserratMedium = Font.custom("Montserrat-Medium", size: 18)
+    
   
 }
