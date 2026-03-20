@@ -72,6 +72,7 @@ struct WelcomeView: View {
                     }
                     .buttonStyle(.plain)
                 }
+    
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         print("Profile tapped")
@@ -83,6 +84,8 @@ struct WelcomeView: View {
             }
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarBackground(Color.clear, for: .navigationBar)
+           
+
         }
     }
 }

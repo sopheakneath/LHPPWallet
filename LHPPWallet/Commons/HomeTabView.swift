@@ -9,9 +9,6 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct HomeTabView: View {
     @State private var selectedTab = 0
-    
-    
-
   //  @available(iOS 16.0, *)
     var body: some View {
         ZStack(alignment: .bottom) {
