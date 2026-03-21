@@ -7,8 +7,19 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct WelcomeView: View {
     @State var gotoTerms: Bool = false
+    
+//    init() {
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithOpaqueBackground()
+//        appearance.backgroundColor = .red
+//        UINavigationBar.appearance().standardAppearance = appearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//        UINavigationBar.appearance().compactAppearance = appearance
+//    }
+    
     var body: some View {
         
         NavigationStack {
@@ -18,13 +29,13 @@ struct WelcomeView: View {
                     Image("image_banner")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: .infinity, height: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     VStack {
                         Text("SIMPLIFYING PAYMENTS FOR A BETTER TOMORROW. . .")
-                            .font(.custom("Mali", size: 20))
+                            .font(.MaliSemiBold)
+                        
                         Text("An easy app to manager all payment to financial and related need")
-                            .font(
-                                .custom("Mali", size: 12))
+                            .font(.maliMedium)
                     }
                     .padding(20)
                 }
@@ -35,7 +46,9 @@ struct WelcomeView: View {
                 gotoTerms = true
             } label: {
                 Text("Get Started")
-                    .foregroundStyle(Color.white)
+                    .font(.system(size: 16, weight: .semibold))
+                    .font(.custom("Mali-Medium", fixedSize: 16))
+                    .foregroundColor(.white)
                     .padding(.vertical, 12)
                     .padding(.horizontal, 52)
             }
@@ -46,10 +59,14 @@ struct WelcomeView: View {
             
             HStack {
                 Text("You already have an account?" )
-                    .foregroundStyle(Color.black)
+                    .foregroundColor(.black)
+                    .font(.maliRegular)
                 
-                Button("Login") {
+                Button(action: {
                     //
+                }) {
+                    Text("LOGIN")
+                        .font(.maliRegular)
                 }
             }
             .padding(.top,24)
@@ -62,22 +79,32 @@ struct WelcomeView: View {
                             .resizable()
                             .frame(width: 56, height: 56)
                     }
+                    .buttonStyle(.plain)
+                    .background(Color.clear)
+                   
                 }
+    
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         print("Profile tapped")
                     } label: {
-                        Image("ic_language")
+                        Image("ic_language_kh")
                     }
+                    .buttonStyle(.plain)
                 }
             }
+            .toolbarBackground(.visible, for: .navigationBar)
+            
         }
     }
 }
 
 #Preview {
-    WelcomeView()
+    if #available(iOS 17.0, *) {
+        WelcomeView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
-
 
 

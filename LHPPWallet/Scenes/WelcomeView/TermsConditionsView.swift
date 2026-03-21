@@ -7,9 +7,11 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
+
 struct TermsConditionsView: View {
-    
-    @State  private var message: String = "When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the"
+
+    @State  private var message: String = "When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the When idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of theWhen idling resources are needed to test the results of your app's asynchronous work, you might find yourself having to use one of the"
     
     
     var data = "hello to say hi"
@@ -17,40 +19,43 @@ struct TermsConditionsView: View {
     @State private var isGotoHomeTab: Bool = false
     @State private var isChecked: Bool = false
     
+    @available(iOS 15.0, *)
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
                 Text(message)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(20)
+                    .font(.maliRegular)
             }
             Spacer()
             checkBox(isChecked: $isChecked)
-                
             Button {
                 isGotoHomeTab = true
             } label: {
                 Text("I agree")
-                    .foregroundStyle(.white)
+                    .font(.custom("Mali-Medium", fixedSize: 16))
+                    .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(isChecked ? Color(.systemBlue): Color.gray)
+                            .fill(isChecked ? Color(.systemBlue) : Color.gray)
                     )
             }
             .disabled(!isChecked)
             .padding(20)
-           
-            
-            NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
-                
+            if #available(iOS 16.0, *) {
+                NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
+                    EmptyView()
+                }
+            } else {
+                // Fallback on earlier versions
             }
         }
-        .navigationTitle("Term and Condition")
-        .navigationBarTitleDisplayMode(.automatic)
-        
+        .customBackToolbar(title: "Privacy Policy")
     }
 }
+
 @ViewBuilder
 func checkBox(isChecked: Binding<Bool>) -> some View {
 
@@ -71,13 +76,21 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
             .onTapGesture {
                 isChecked.wrappedValue.toggle()
             }
-        Text("I have read and agree to the privacy polocy")
+        Text("I have read and agree to the privacy policy")
             .foregroundColor(.red)
-            .font(.system(size: 12))
+            .font(.custom("Mali-Medium", fixedSize: 12))
         
     }
+//    .navigationBarBackButtonHidden(true)
+//    .navigationTitle("Term")
     .padding(.leading,20)
+    
 }
 #Preview {
-    TermsConditionsView()
+    if #available(iOS 15.0, *) {
+        TermsConditionsView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
+

@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 
+@available(iOS 17.0, *)
 @main
 struct LHPPWalletApp: App {
     let persistenceController = PersistenceController.shared
@@ -19,4 +20,10 @@ struct LHPPWalletApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
+    
+    
+    
+    
+   
+    
 }

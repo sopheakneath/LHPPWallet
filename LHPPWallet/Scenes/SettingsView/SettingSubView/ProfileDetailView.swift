@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct ProfileDetailView: View {
     var body: some View {
         ZStack (alignment: .center) {
@@ -21,32 +22,40 @@ struct ProfileDetailView: View {
                     .frame(width: 82, height: 82)
                     .cornerRadius(41)
                 Text ("jucy lala")
+                    .font(.custom("Mali-Medium", fixedSize: 18))
+                
                 
                 Text ("+855 968707219")
+                    .font(.maliRegular)
                 Text ("Lyhour Pay Pro plc")
+                    .font(.maliRegular)
                 
                 HStack {
                     VStack {
                         Text ("70")
                             .foregroundStyle(Color.blue)
-                            .fontWidth(.expanded)
+                            .font(.custom("Mali-Bold", fixedSize: 24))
+                        
                         Text ("Loyal point")
+                            .font(.maliRegular)
                     }
                     Spacer()
                     VStack {
                         Text ("Classic")
                             .foregroundStyle(Color.red)
-                            .fontWidth(.init(600))
+                            .font(.custom("Mali-Bold", fixedSize: 24))
                         
                         
                         Text ("Wallet User type")
+                            .font(.maliRegular)
                     }
                     Spacer()
                     VStack {
                         Text ("6w349k")
                             .foregroundStyle(Color.red)
-                            .fontWidth(.init(600))
+                            .font(.maliRegular)
                         Text ("Refferal code")
+                            .font(.maliRegular)
                     }
                     
                 }
@@ -61,6 +70,10 @@ struct ProfileDetailView: View {
 }
 
 #Preview {
-    ProfileDetailView()
+    if #available(iOS 16.0, *) {
+        ProfileDetailView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
 

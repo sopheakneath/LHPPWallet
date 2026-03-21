@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>UAT Wallet</string>
+    <key>CFBundleName</key>
+    <string>UAT Wallet</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.yourcompany.LHPPWallet</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    
+    <key>UIAppFonts</key>
+       <array>
+           <string>Mali-Regular.ttf</string>
+           <string>Mali-Bold.ttf</string>
+           <string>Mali-Medium.ttf</string>
+           <string>Mali-SemiBold.ttf</string>
+       </array>
+    
+
+    <key>UIDesignRequiresCompatibility</key>
+    <true />
+
+       
+</dict>
+</plist>
+

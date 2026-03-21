@@ -9,6 +9,7 @@ import SwiftUI
 
 
 
+@available(iOS 17.0, *)
 struct WalletInfoView: View {
     // User info
     @State private var firstName: String = ""
@@ -28,8 +29,6 @@ struct WalletInfoView: View {
     @State private var occupation : String = ""
     
     
-    
-    
     @State private var password: String = ""
     @State private var navigateToHome: Bool = false
     
@@ -40,9 +39,9 @@ struct WalletInfoView: View {
     @State private var nameError: String? = nil
     @State private var passwordError: String? = nil
     
-    
 
     var body: some View {
+        
         NavigationStack() {
             NavigationLink(destination: HomeTabView(), isActive: $navigateToHome) {
                 EmptyView()
@@ -50,11 +49,12 @@ struct WalletInfoView: View {
             .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
             .hidden()
             Form {
-               
-                Section(header: Text("Personal Information")) {
+                Section(header: Text("Personal Information")
+                    .foregroundColor(Color.black)
+                    .font(.maliMedium)) {
                     VStack {
                         ValidatedTextField(
-                            title: "", placeHolder: "First Name",
+                            title: "First Name", placeHolder: "",
                             text: $firstName,
                             validator: { value in
                                 if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
@@ -78,10 +78,10 @@ struct WalletInfoView: View {
                                 //                            return nil
                             },
                             keyboardType: .default,
-                            isSecure: true
+                           // isSecure: true
                         )
                         
-                        ValidatedTextField(title: "Name", placeHolder: "", text: $name, validator: { value in
+                        ValidatedTextField(title: "Prefer Name", placeHolder: "", text: $name, validator: { value in
                             if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
                                 return "Name must be at least 3 characters."
                             }
@@ -89,12 +89,9 @@ struct WalletInfoView: View {
                         })
                         
                         ValidatedTextField(
-                            title: "Email", placeHolder: "",
+                            title: "Email(optional)", placeHolder: "",
                             text: $mail,
                             validator: { value in
-                                if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                    return "Mail Name must be at least 3 characters."
-                                }
                                 return nil
                             }
                         )
@@ -107,15 +104,15 @@ struct WalletInfoView: View {
                     )
                 }
                 
-                Section(header: Text("Address Info")) {
+                Section(header: Text("Address Info")
+                    .font(.maliMedium)
+                    .foregroundColor(Color.black)
+                ) {
                     VStack {
                         ValidatedTextField(
                             title: "Provinc", placeHolder: "",
                             text: $province,
                             validator: { value in
-                                //                            if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                //                                return "Name must be at least 3 characters."
-                                //                            }
                                 return nil
                             }
                         )
@@ -124,9 +121,6 @@ struct WalletInfoView: View {
                             title: "District", placeHolder: "",
                             text: $District,
                             validator: { value in
-                                //                            let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
-                                //                            if trimmed.count < 6 { return "Password must be at least 6 characters." }
-                                //                            if trimmed.rangeOfCharacter(from: .decimalDigits) == nil { return "Password must contain at least one number." }
                                 return nil
                             },
                             keyboardType: .default,
@@ -163,7 +157,7 @@ struct WalletInfoView: View {
                             }
                         )
                         ValidatedTextField(
-                            title: "Occupation", placeHolder: "Occupation",
+                            title: "Occupation", placeHolder: "",
                             text: $occupation,
                             validator: { value in
                                 return nil
@@ -182,7 +176,7 @@ struct WalletInfoView: View {
             .scrollContentBackground(.hidden)
             .background(Color.white)
            
-            .navigationTitle("Wallet Info")
+            
             .onAppear {
                 if let savedName = UserDefaults.standard.string(forKey: "wallet.name") {
                     name = savedName
@@ -199,12 +193,14 @@ struct WalletInfoView: View {
             .background(Color.white.ignoresSafeArea())
             Button {
                 UserDefaults.standard.set(name, forKey: "wallet.name")
+                    
                 UserDefaults.standard.set(password, forKey: "wallet.password")
                 saveMessage = "Saved successfully"
                 showingSaveAlert = true
                 navigateToHome = true
             } label: {
                 Text("Done")
+                    .font(.maliRegular)
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background(Color.blue)
@@ -212,10 +208,8 @@ struct WalletInfoView: View {
             }
             .cornerRadius(8)
             .padding()
-          
-               
             }
-       
+        .customBackToolbar(title: "Wallet info")
     }
       
     private var isFormValid: Bool {
@@ -230,7 +224,11 @@ struct WalletInfoView: View {
    
 
 #Preview {
-    WalletInfoView()
+    if #available(iOS 17.0, *) {
+        WalletInfoView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 

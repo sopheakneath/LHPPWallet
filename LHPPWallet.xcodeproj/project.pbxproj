@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2B1E6ABCA6A8828CB3F54C44 /* Pods_LHPPWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A39F82CF66E345F3611BEA0C /* Pods_LHPPWallet.framework */; };
+		63806AD2F91DAC1C1863FECE /* Pods_LHPPWallet_LHPPWalletUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877E18BD9C00BF7A3425833D /* Pods_LHPPWallet_LHPPWalletUITests.framework */; };
+		8CDE9158CA698D7601160EDA /* Pods_LHPPWalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83235434863425F1FCA089D7 /* Pods_LHPPWalletTests.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		0DE8F0BE2F57DF3A00888B9D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,14 +30,36 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01A1C6D3D69E0F84904A4963 /* Pods-LHPPWallet-LHPPWalletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHPPWallet-LHPPWalletUITests.debug.xcconfig"; path = "Target Support Files/Pods-LHPPWallet-LHPPWalletUITests/Pods-LHPPWallet-LHPPWalletUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		0DE8F0AB2F57DF3800888B9D /* LHPPWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LHPPWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE8F0BD2F57DF3A00888B9D /* LHPPWalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LHPPWalletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE8F0C72F57DF3A00888B9D /* LHPPWalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LHPPWalletUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2235EB85A4A64BF8208A69D3 /* Pods-LHPPWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHPPWallet.debug.xcconfig"; path = "Target Support Files/Pods-LHPPWallet/Pods-LHPPWallet.debug.xcconfig"; sourceTree = "<group>"; };
+		83235434863425F1FCA089D7 /* Pods_LHPPWalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LHPPWalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		877E18BD9C00BF7A3425833D /* Pods_LHPPWallet_LHPPWalletUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LHPPWallet_LHPPWalletUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A39F82CF66E345F3611BEA0C /* Pods_LHPPWallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LHPPWallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5C436F66BD6B033784121BE /* Pods-LHPPWalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHPPWalletTests.release.xcconfig"; path = "Target Support Files/Pods-LHPPWalletTests/Pods-LHPPWalletTests.release.xcconfig"; sourceTree = "<group>"; };
+		F0DDFF7D2666A2CD7070F111 /* Pods-LHPPWalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHPPWalletTests.debug.xcconfig"; path = "Target Support Files/Pods-LHPPWalletTests/Pods-LHPPWalletTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F55AF1C8B74249C4350BA410 /* Pods-LHPPWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHPPWallet.release.xcconfig"; path = "Target Support Files/Pods-LHPPWallet/Pods-LHPPWallet.release.xcconfig"; sourceTree = "<group>"; };
+		F6C5FB632D8D5EE2B8CAFB2B /* Pods-LHPPWallet-LHPPWalletUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHPPWallet-LHPPWalletUITests.release.xcconfig"; path = "Target Support Files/Pods-LHPPWallet-LHPPWalletUITests/Pods-LHPPWallet-LHPPWalletUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0D561B7D2F6A8CE80097A63B /* Exceptions for "LHPPWallet" folder in "LHPPWallet" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0DE8F0AA2F57DF3800888B9D /* LHPPWallet */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0DE8F0AD2F57DF3800888B9D /* LHPPWallet */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0D561B7D2F6A8CE80097A63B /* Exceptions for "LHPPWallet" folder in "LHPPWallet" target */,
+			);
 			path = LHPPWallet;
 			sourceTree = "<group>";
 		};
@@ -52,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B1E6ABCA6A8828CB3F54C44 /* Pods_LHPPWallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CDE9158CA698D7601160EDA /* Pods_LHPPWalletTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63806AD2F91DAC1C1863FECE /* Pods_LHPPWallet_LHPPWalletUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +110,8 @@
 				0DE8F0C02F57DF3A00888B9D /* LHPPWalletTests */,
 				0DE8F0CA2F57DF3A00888B9D /* LHPPWalletUITests */,
 				0DE8F0AC2F57DF3800888B9D /* Products */,
+				3524B5D2C31DC5208ED287C0 /* Pods */,
+				873F5DFD41E4A5D478258F2E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +125,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		3524B5D2C31DC5208ED287C0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2235EB85A4A64BF8208A69D3 /* Pods-LHPPWallet.debug.xcconfig */,
+				F55AF1C8B74249C4350BA410 /* Pods-LHPPWallet.release.xcconfig */,
+				01A1C6D3D69E0F84904A4963 /* Pods-LHPPWallet-LHPPWalletUITests.debug.xcconfig */,
+				F6C5FB632D8D5EE2B8CAFB2B /* Pods-LHPPWallet-LHPPWalletUITests.release.xcconfig */,
+				F0DDFF7D2666A2CD7070F111 /* Pods-LHPPWalletTests.debug.xcconfig */,
+				B5C436F66BD6B033784121BE /* Pods-LHPPWalletTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		873F5DFD41E4A5D478258F2E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A39F82CF66E345F3611BEA0C /* Pods_LHPPWallet.framework */,
+				877E18BD9C00BF7A3425833D /* Pods_LHPPWallet_LHPPWalletUITests.framework */,
+				83235434863425F1FCA089D7 /* Pods_LHPPWalletTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -99,6 +155,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DE8F0D12F57DF3A00888B9D /* Build configuration list for PBXNativeTarget "LHPPWallet" */;
 			buildPhases = (
+				635D472F3B460EECD2E940E3 /* [CP] Check Pods Manifest.lock */,
 				0DE8F0A72F57DF3800888B9D /* Sources */,
 				0DE8F0A82F57DF3800888B9D /* Frameworks */,
 				0DE8F0A92F57DF3800888B9D /* Resources */,
@@ -111,8 +168,6 @@
 				0DE8F0AD2F57DF3800888B9D /* LHPPWallet */,
 			);
 			name = LHPPWallet;
-			packageProductDependencies = (
-			);
 			productName = LHPPWallet;
 			productReference = 0DE8F0AB2F57DF3800888B9D /* LHPPWallet.app */;
 			productType = "com.apple.product-type.application";
@@ -121,6 +176,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DE8F0D42F57DF3A00888B9D /* Build configuration list for PBXNativeTarget "LHPPWalletTests" */;
 			buildPhases = (
+				DDBECFC5E18DC59F3DB4526C /* [CP] Check Pods Manifest.lock */,
 				0DE8F0B92F57DF3A00888B9D /* Sources */,
 				0DE8F0BA2F57DF3A00888B9D /* Frameworks */,
 				0DE8F0BB2F57DF3A00888B9D /* Resources */,
@@ -134,8 +190,6 @@
 				0DE8F0C02F57DF3A00888B9D /* LHPPWalletTests */,
 			);
 			name = LHPPWalletTests;
-			packageProductDependencies = (
-			);
 			productName = LHPPWalletTests;
 			productReference = 0DE8F0BD2F57DF3A00888B9D /* LHPPWalletTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -144,6 +198,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DE8F0D72F57DF3A00888B9D /* Build configuration list for PBXNativeTarget "LHPPWalletUITests" */;
 			buildPhases = (
+				E0844553F68ECE108D5C051D /* [CP] Check Pods Manifest.lock */,
 				0DE8F0C32F57DF3A00888B9D /* Sources */,
 				0DE8F0C42F57DF3A00888B9D /* Frameworks */,
 				0DE8F0C52F57DF3A00888B9D /* Resources */,
@@ -157,8 +212,6 @@
 				0DE8F0CA2F57DF3A00888B9D /* LHPPWalletUITests */,
 			);
 			name = LHPPWalletUITests;
-			packageProductDependencies = (
-			);
 			productName = LHPPWalletUITests;
 			productReference = 0DE8F0C72F57DF3A00888B9D /* LHPPWalletUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -230,6 +283,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		635D472F3B460EECD2E940E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LHPPWallet-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DDBECFC5E18DC59F3DB4526C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LHPPWalletTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0844553F68ECE108D5C051D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LHPPWallet-LHPPWalletUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0DE8F0A72F57DF3800888B9D /* Sources */ = {
@@ -390,6 +512,7 @@
 		};
 		0DE8F0D22F57DF3A00888B9D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2235EB85A4A64BF8208A69D3 /* Pods-LHPPWallet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -397,11 +520,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LHPPWallet/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -421,6 +548,7 @@
 		};
 		0DE8F0D32F57DF3A00888B9D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F55AF1C8B74249C4350BA410 /* Pods-LHPPWallet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -428,11 +556,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LHPPWallet/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -452,6 +584,7 @@
 		};
 		0DE8F0D52F57DF3A00888B9D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0DDFF7D2666A2CD7070F111 /* Pods-LHPPWalletTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -473,6 +606,7 @@
 		};
 		0DE8F0D62F57DF3A00888B9D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5C436F66BD6B033784121BE /* Pods-LHPPWalletTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -494,6 +628,7 @@
 		};
 		0DE8F0D82F57DF3A00888B9D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01A1C6D3D69E0F84904A4963 /* Pods-LHPPWallet-LHPPWalletUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -513,6 +648,7 @@
 		};
 		0DE8F0D92F57DF3A00888B9D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6C5FB632D8D5EE2B8CAFB2B /* Pods-LHPPWallet-LHPPWalletUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
