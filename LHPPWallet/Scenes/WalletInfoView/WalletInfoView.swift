@@ -43,9 +43,7 @@ struct WalletInfoView: View {
     var body: some View {
         
         NavigationStack() {
-            NavigationLink(destination: HomeTabView(), isActive: $navigateToHome) {
-                EmptyView()
-            }
+            NavigationLink(destination: HomeTabView(), isActive: $navigateToHome) {EmptyView()}
             .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
             .hidden()
             Form {

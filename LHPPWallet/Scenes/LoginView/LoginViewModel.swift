@@ -9,13 +9,33 @@ import Foundation
 import SwiftUI
 import Combine
 
-final class LoginViewModel: ObservableObject {
-    // Example of observable state for the login screen
+
+class LoginViewModel: ObservableObject {
+    
+    // Input
     @Published var username: String = ""
     @Published var password: String = ""
-
-    init() {
-        // Safe place to perform side effects or initial logging
-        print("LoginViewModel initialized")
+    
+    // Validation
+    @Published var usernameError: String? = nil
+    @Published var passwordError: String? = nil
+    
+    // Computed
+    var isValid: Bool {
+        !username.isEmpty && !password.isEmpty
+    }
+    
+    // Actions
+    func validate() {
+        usernameError = username.isEmpty ? "Username is required" : nil
+        passwordError = password.isEmpty ? "Password is required" : nil
+    }
+    
+    func login() {
+        validate()
+        guard isValid else { return }
+        
+        // Call API
+        print("Login with \(username), \(password)")
     }
 }
