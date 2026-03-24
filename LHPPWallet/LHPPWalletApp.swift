@@ -18,12 +18,7 @@ struct LHPPWalletApp: App {
             //ContentView()
             WelcomeView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+    
         }
     }
-    
-    
-    
-    
-   
-    
 }
