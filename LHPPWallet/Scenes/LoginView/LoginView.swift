@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-@available(iOS 16.0, *)
+//@available(iOS 16.0, *)
 struct LoginView: View {
     
     @State private var isFocused: Bool = false
@@ -74,13 +74,15 @@ struct LoginView: View {
                             .foregroundColor(Color.blue)
                             .padding(.trailing, 20)
                     }
-                    
-                    
                 }
                 
-                Button {
-                    viewModel.login()
-                    print("Login ")
+                NavigationLink {
+                    if #available(iOS 16.0, *) {
+                        HomeTabView()
+                    } else {
+                        // Fallback on earlier versions
+                      
+                    }
                 } label: {
                     Text("Login ")
                         .foregroundColor(Color.white)
@@ -91,10 +93,27 @@ struct LoginView: View {
                                 .fill(Color.blue)
                         )
                         .padding(.horizontal, 108)
-                    
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 34)
+//                
+//                Button {
+//                    viewModel.login()
+//                    print("Login ")
+//                } label: {
+//                    Text("Login ")
+//                        .foregroundColor(Color.white)
+//                        .frame(maxWidth: .infinity, minHeight: 45)
+//                    
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 12)
+//                                .fill(Color.blue)
+//                        )
+//                        .padding(.horizontal, 108)
+//                    
+//                }
+//                .frame(maxWidth: .infinity)
+//                .padding(.top, 34)
                 
                 HStack {
                     Button{
@@ -155,13 +174,9 @@ struct LoginView: View {
             //.disabled(!viewModel.isValid)
             .ignoresSafeArea()
             .navigationBarBackButtonHidden()
-            
-            
         }
-           
-        
+        .navigationBarBackButtonHidden()
     }
-        
 }
 
 #Preview {

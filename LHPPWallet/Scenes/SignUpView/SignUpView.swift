@@ -49,32 +49,38 @@ struct SignUpView: View {
                         // Fallback on earlier versions
                     }
                 } label: {
-                    HStack {
+                   
                         
                         Text("GET OTP")
-                            .foregroundColor(.blue)
-                            .fontWeight(.semibold)
-                    }
-                }
-                .padding(.top, 8)
-                
-                Button {
-                    // viewModel.login()
-                    print("Login ")
-                } label: {
-                    Text("GET OTP")
-                        .foregroundColor(Color.white)
-                        .frame(maxWidth: .infinity, minHeight: 45)
+                            .foregroundColor(Color.white)
+                            .frame(maxWidth: .infinity, minHeight: 45)
+                        
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.blue)
+                            )
+                            .padding(.horizontal, 108)
                     
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.blue)
-                        )
-                        .padding(.horizontal, 108)
-    
                 }
                 .padding(.top,67)
                 .padding(.horizontal, 22)
+                
+//                Button {
+//                    // viewModel.login()
+//                    print("Login ")
+//                } label: {
+//                    Text("GET OTP")
+//                        .foregroundColor(Color.white)
+//                        .frame(maxWidth: .infinity, minHeight: 45)
+//                    
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 12)
+//                                .fill(Color.blue)
+//                        )
+//                        .padding(.horizontal, 108)
+//    
+//                }
+               
                 Spacer()
                 ZStack{
                     Image("camb")

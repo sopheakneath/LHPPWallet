@@ -47,7 +47,6 @@ struct OTPView: View {
                 
                 Text("Enter your OTP code")
                 
-                
                 HStack(spacing: 12) {
                     ForEach(0..<otpCount, id: \.self) { index in
                         OTPTextField(
@@ -84,10 +83,10 @@ struct OTPView: View {
                 }
                 .padding()
                 .onAppear {focusedIndex = 0}
-                
-                Button {
-                    viewModel.verifyOTP()
-                } label: {
+
+                NavigationLink{
+                    LoginView()
+                }label: {
                     Text("VERIFY OTP ")
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity, minHeight: 45)
@@ -96,11 +95,10 @@ struct OTPView: View {
                                 .fill(viewModel.isComplete ? Color.blue : Color.gray)
                         )
                         .padding(.horizontal, 108)
-                    
                 }
-                .padding(.top,67)
+                .padding(.top, 67)
                 .disabled(!viewModel.isComplete)
-                .padding(.horizontal, 22)
+                .padding(.horizontal,22)
                 
                 
                 Spacer()
@@ -115,8 +113,8 @@ struct OTPView: View {
                 
                 
             }
+            .ignoresSafeArea()
         }
-    .ignoresSafeArea()
     }
 }
 

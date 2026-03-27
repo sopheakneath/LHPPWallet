@@ -9,7 +9,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct HomeTabView: View {
     @State private var selectedTab = 0
-    @available(iOS 16.0, *)
+   
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -17,10 +17,10 @@ struct HomeTabView: View {
             if #available(iOS 17.0, *) {
                 Group {
                     switch selectedTab {
-                    case 0: Color.clear
-                    case 2: WalletInfoView()
-                    case 3: Color.clear
-                   // case 4: Color.clear
+                    case 0: TransactionListView()
+                    case 1: TransactionListView()
+                    case 2: Color.clear
+                    case 3: SettingsView()
                     case 4: SettingsView()
                     default: Color.clear
                     }
