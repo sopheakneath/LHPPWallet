@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 17.0, *)
+//@available(iOS 17.0, *)
 struct ValidatedTextField: View {
     let title: String?
     let placeHolder: String?
@@ -18,14 +18,14 @@ struct ValidatedTextField: View {
     var isTitleFrame: Bool = false
     
     @State private var error: String? = nil
-    @FocusState private var isFocused: Bool
+    var isFocused: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             if let placeHolder, !placeHolder.isEmpty {
                 Text(placeHolder)
                     .font(.maliBold)
-                    .foregroundStyle(.secondary)
+                   // .foregroundStyle(.secondary)
             }
             Group {
                 HStack{
@@ -37,20 +37,20 @@ struct ValidatedTextField: View {
                         SecureField(title ?? "", text: $text)
                             .textContentType(.password)
                             .keyboardType(keyboardType)
-                            .textInputAutocapitalization(.never)
+                            //.textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
-                            .focused($isFocused)
-                            .submitLabel(.done)
-                            .onSubmit(validate)
+                          //  .focused($isFocused)
+                            //.submitLabel(.done)
+                          //  .onSubmit(validate)
                     } else {
                         TextField(title ?? "", text: $text)
                             .font(.maliRegular)
                             .keyboardType(keyboardType)
-                            .textInputAutocapitalization(.never)
+                            //.textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
-                            .focused($isFocused)
-                            .submitLabel(.done)
-                            .onSubmit(validate)
+                            //.focused($isFocused)
+                           // .submitLabel(.done)
+                           // .onSubmit(validate)
                     }
                 }
                 .padding(.horizontal, 12)
@@ -70,7 +70,8 @@ struct ValidatedTextField: View {
                 if let error = error, !error.isEmpty {
                     Text(error)
                         .font(.maliRegular)
-                        .foregroundStyle(.red)
+                        .foregroundColor(Color.red)
+                        
                         .accessibilityLabel("Error: \(error)")
                 }
             }
@@ -100,7 +101,7 @@ struct ValidatedTextField: View {
             validator: { value in
                 // Example: require at least 3 characters
                 return value.count >= 3 ? nil : "Must be at least 3 characters"
-            }
+            }, isFocused: true
         )
     } else {
         // Fallback on earlier versions

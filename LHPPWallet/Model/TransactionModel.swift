@@ -96,8 +96,6 @@ extension TransactionModel {
         TransactionModel(txnNoInCbs: "FT260831PH0W", txnRefNo: "FTQR260830810000009", isDebit: true, debitAccName: "Makara71,", accountName: "Makara", debitAccNo: "000482502", creditAccNo: "000483990", icon: "", currency: "KHQR", creditAccName: "TBA TEST12", isPayment: false, title: "transfer to testing", txnDescription: "to QR Within Bank", accountId: "XCvwwOh+5/7JkPHflvtcmUlc9rc6PnpW7g==", txnDate: "01 Jan 2026, 11:35 AM", amount: 34, txnType: "1021"),
         TransactionModel(txnNoInCbs: "FT260831PH0W", txnRefNo: "FTQR260830810000009", isDebit: true, debitAccName: "Makara71,", accountName: "Makara", debitAccNo: "000482502", creditAccNo: "000483990", icon: "", currency: "KHQR", creditAccName: "TBA TEST12", isPayment: false, title: "transfer to testing", txnDescription: "to QR Within Bank", accountId: "XCvwwOh+5/7JkPHflvtcmUlc9rc6PnpW7g==", txnDate: "21 Jan 2026, 11:35 AM", amount: 34, txnType: "1021"),
         
-        
-        
     ]
 }
 

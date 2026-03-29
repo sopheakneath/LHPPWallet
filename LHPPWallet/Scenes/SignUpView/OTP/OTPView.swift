@@ -19,7 +19,7 @@ struct OTPView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading) {
                 Image("otp-banner")
                 
                     .resizable()
@@ -44,10 +44,18 @@ struct OTPView: View {
                 .padding(.trailing, 20)
                 
                 // OTP Verify
+              
+                    Text("Enter your OTP code")
+                    .padding(.leading, 20)
+                      
+            
                 
-                Text("Enter your OTP code")
+            
+                    
+                   
                 
                 HStack(spacing: 12) {
+                    
                     ForEach(0..<otpCount, id: \.self) { index in
                         OTPTextField(
                             text: $viewModel.otp[index],
@@ -85,7 +93,8 @@ struct OTPView: View {
                 .onAppear {focusedIndex = 0}
 
                 NavigationLink{
-                    LoginView()
+                  //  LoginView()
+                    RegisterFormView()
                 }label: {
                     Text("VERIFY OTP ")
                         .foregroundColor(Color.white)
