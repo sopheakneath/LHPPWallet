@@ -73,9 +73,8 @@ struct CollectionViewWrapper: UIViewControllerRepresentable {
         let layout = UICollectionViewFlowLayout()
         layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 34)
         
-        
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
-       // layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.minimumLineSpacing = 12
+        layout.minimumInteritemSpacing = 0
 
         let vc = UICollectionViewController(collectionViewLayout: layout)
         vc.collectionView.register(HostingCollectionViewCell.self,
@@ -193,13 +192,70 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
                                                       for: indexPath) as! HostingCollectionViewCell
         let transaction = sections[indexPath.section].items[indexPath.row]
-        cell.backgroundColor = UIColor.blue
         cell.host(
             SwiftUICellView(transaction: transaction)
         )
         return cell
     }
+    // layout cell
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width > 0
+            ? collectionView.bounds.width
+            : UIScreen.main.bounds.width
+        let transaction = sections[indexPath.section].items[indexPath.row]
+       //  Custom  dynamic   height matches multiline text.
+        let host = UIHostingController(rootView: SwiftUICellView(transaction: transaction))
+        let target = CGSize(width: width, height: UIView.layoutFittingCompressedSize.height)
+        var height = host.view.systemLayoutSizeFitting(
+            target,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        ).height
+        return CGSize(width: width, height: height)
+    }
+    
+    
+// MARK  : Custom  dynamic   height matches multiline text.
+    
+//    private static func measureCellHeight(for transaction: TransactionModel, fittingWidth width: CGFloat) -> CGFloat {
+//        let host = UIHostingController(rootView: SwiftUICellView(transaction: transaction))
+//        host.view.translatesAutoresizingMaskIntoConstraints = false
+//        host.view.backgroundColor = .clear
+//
+//        let container = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 0))
+//        container.addSubview(host.view)
+//
+//        NSLayoutConstraint.activate([
+//            host.view.widthAnchor.constraint(equalToConstant: width),
+//            host.view.topAnchor.constraint(equalTo: container.topAnchor),
+//            host.view.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+//            host.view.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+//        ])
+//
+//        container.layoutIfNeeded()
+//        host.view.setNeedsLayout()
+//        host.view.layoutIfNeeded()
+//
+//        let target = CGSize(width: width, height: UIView.layoutFittingCompressedSize.height)
+//        var height = host.view.systemLayoutSizeFitting(
+//            target,
+//            withHorizontalFittingPriority: .required,
+//            verticalFittingPriority: .fittingSizeLevel
+//        ).height
+//
+//        if height < 2, #available(iOS 16.0, *) {
+//            height = host.view.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height
+//        }
+//        
+//        
+//        height = host.view.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height
+//
+//        return ceil(max(height, 1))
+//    }
 
+    
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
@@ -234,16 +290,14 @@ class HostingCollectionViewCell: UICollectionViewCell {
 
     private var hostingController: UIHostingController<AnyView>?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError()
+//    }
     
-    
-
     func host<Content: View>(_ view: Content) {
         if let hostingController = hostingController {
             hostingController.rootView = AnyView(view)
@@ -267,6 +321,7 @@ class HostingCollectionViewCell: UICollectionViewCell {
 
 class HostingCollectionReusableView: UICollectionReusableView {
     private var hostingController: UIHostingController<AnyView>?
+   // private var hostingController: UIHostingConfiguration<AnyView>?
     func host<Content: View>(_ view: Content) {
         if let hostingController = hostingController {
             hostingController.rootView = AnyView(view)
@@ -293,26 +348,29 @@ struct SwiftUICellView: View {
     let transaction: TransactionModel
 
     var body: some View {
-        VStack {
-            HStack {
+        VStack(spacing: 0) {
+            HStack(alignment: .top, spacing: 8) {
                 Image((transaction.icon.isEmpty == false) ? transaction.icon : "logo")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
                     .cornerRadius(30)
                 
-                VStack(alignment: .leading){
+                VStack(alignment: .leading, spacing: 4) {
                     Text(transaction.accountName)
                         .font(.MaliSemiBold)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
                     Text(transaction.txnDate)
                         .font(.maliRegular)
                 }
-                Spacer()
-                VStack (alignment: .trailing){
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                VStack(alignment: .trailing, spacing: 4) {
                     Text("\(transaction.isDebit ? "-" : "+")\(String(format:"%.2f", transaction.amount)) \(transaction.currency)")
                         .font(.MaliSemiBold)
                     // .foregroundColor(Color.red)
-                        .foregroundColor((transaction.isDebit ?? false) ? .red : .green)
+                        .foregroundColor(transaction.isDebit ? .red : .green)
                     Text(" ")
                 }
             }
@@ -326,7 +384,6 @@ struct SwiftUICellView: View {
              .padding(.horizontal, 20)
              .background(Color(UIColor.systemGray6))
         }
-        .background(Color.red)
     }
 }
 
