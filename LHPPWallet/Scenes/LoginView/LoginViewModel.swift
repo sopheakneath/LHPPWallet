@@ -20,6 +20,11 @@ class LoginViewModel: ObservableObject {
     @Published var usernameError: String? = nil
     @Published var passwordError: String? = nil
     
+    @Published var isSuccess: Bool = false
+
+    // Navigation flag used by LoginView
+    @Published var isLoggedIn: Bool = false
+    
     // Computed
     var isValid: Bool {
         !username.isEmpty && !password.isEmpty
@@ -34,6 +39,8 @@ class LoginViewModel: ObservableObject {
     func login() {
         validate()
         guard isValid else { return }
+        isSuccess = true
+        isLoggedIn = true
         
         // Call API
         print("Login with \(username), \(password)")

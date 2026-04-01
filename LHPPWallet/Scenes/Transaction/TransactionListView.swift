@@ -217,7 +217,7 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     
-// MARK  : Custom  dynamic   height matches multiline text.
+// MARK  : Custom  dynamic   height matches multiline text. // 
     
 //    private static func measureCellHeight(for transaction: TransactionModel, fittingWidth width: CGFloat) -> CGFloat {
 //        let host = UIHostingController(rootView: SwiftUICellView(transaction: transaction))

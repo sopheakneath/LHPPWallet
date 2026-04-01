@@ -25,7 +25,7 @@ struct OTPView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: .infinity )
-                    .padding(.top, 24)
+                    .padding(.top, 100)
                     .padding(.bottom, 30)
                     .padding(.horizontal,103)
                 
@@ -47,13 +47,7 @@ struct OTPView: View {
               
                     Text("Enter your OTP code")
                     .padding(.leading, 20)
-                      
-            
-                
-            
-                    
-                   
-                
+
                 HStack(spacing: 12) {
                     
                     ForEach(0..<otpCount, id: \.self) { index in
@@ -120,11 +114,14 @@ struct OTPView: View {
                         .font(.montserratMedium)
                 }
                 
-                
             }
             .ignoresSafeArea()
         }
+        .customBackToolbar(title: "Mobile Number verification")
+        
+      
     }
+        
 }
 
 // ===============================================

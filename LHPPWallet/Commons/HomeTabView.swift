@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-@available(iOS 16.0, *)
+//@available(iOS 16.0, *)
 struct HomeTabView: View {
     @State private var selectedTab = 0
    
@@ -17,7 +17,7 @@ struct HomeTabView: View {
             if #available(iOS 17.0, *) {
                 Group {
                     switch selectedTab {
-                    case 0: TransactionListView()
+                    case 0: HomeView()
                     case 1: TransactionListView()
                     case 2: Color.clear
                     case 3: SettingsView()
@@ -79,7 +79,7 @@ struct HomeTabView: View {
     }
 }
 
-@available(iOS 16.0, *)
+//@available(iOS 16.0, *)
 struct TabBarButton: View {
     let icon: String
     let isSelected: Bool
@@ -90,12 +90,11 @@ struct TabBarButton: View {
             ZStack {
                 Circle()
                     .frame(width: 48, height: 48)
-                    .tint(isSelected ? Color.gray : Color.blue  )
+                    .foregroundColor(isSelected ? Color.gray : Color.blue)
                 
                 Image(icon)
                     .font(.system(size: 24))
-                    .symbolRenderingMode(.hierarchical)
-                // .foregroundColor(isSelected ? .red : .green)
+                    //.symbolRenderingMode(.hierarchical)
                     .frame(maxWidth: .infinity)
             }
             
@@ -106,11 +105,9 @@ struct TabBarButton: View {
 
 #if canImport(SwiftUI)
 #Preview {
-    if #available(iOS 16.0, *) {
+  
         HomeTabView()
-    } else {
-        Text("Requires iOS 16+")
-    }
+   
 }
-#endif
+#endif // canImport(SwiftUI)
 

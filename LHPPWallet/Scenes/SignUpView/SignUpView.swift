@@ -17,7 +17,7 @@ struct SignUpView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: .infinity )
-                    .padding(.top, 24)
+                    .padding(.top, 100)
                     .padding(.bottom, 30)
                     .padding(.horizontal,60)
                 
@@ -94,6 +94,7 @@ struct SignUpView: View {
             }
             .ignoresSafeArea()
         }
+        .customBackToolbar(title: "Verify Phone Number")
     }
 }
 

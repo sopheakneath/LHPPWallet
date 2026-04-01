@@ -9,10 +9,12 @@ import SwiftUI
 
 
 //@available(iOS 16.0, *)
+//@available(iOS 15.0, *)
+@available(iOS 15.0, *)
 struct LoginView: View {
     
     @State private var isFocused: Bool = false
-    @StateObject var viewModel = LoginViewModel()
+    @StateObject var viewModel = LoginViewModel() // viewModel should expose an @Published var isLoggedIn: Bool used to drive navigation
     
     
     var body: some View {
@@ -28,7 +30,7 @@ struct LoginView: View {
                     .padding(.top, 8)
                 
                 HStack {
-                    TextField("Email", text: $viewModel.username)
+                    TextField("Phone or Username", text: $viewModel.username)
                         .padding(.vertical)
                     Spacer(minLength: 10)
                     Image(systemName: "person")
@@ -76,18 +78,22 @@ struct LoginView: View {
                     }
                 }
                 
-                NavigationLink {
-                    if #available(iOS 16.0, *) {
-                        HomeTabView()
-                    } else {
-                        // Fallback on earlier versions
-                      
+                NavigationLink(destination: HomeTabView(), isActive: $viewModel.isLoggedIn) {
+                    EmptyView()
+                }
+                .hidden()
+                .onChange(of: viewModel.isSuccess) { newValue in
+                    if newValue {
+                        print("success123")
                     }
+                }
+               
+                Button {
+                    viewModel.login()
                 } label: {
                     Text("Login ")
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity, minHeight: 45)
-                    
                         .background(
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.blue)
@@ -96,7 +102,8 @@ struct LoginView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 34)
-//                
+              
+//s
 //                Button {
 //                    viewModel.login()
 //                    print("Login ")
@@ -176,6 +183,7 @@ struct LoginView: View {
             .navigationBarBackButtonHidden()
         }
         .navigationBarBackButtonHidden()
+        //.customBackToolbar(title: "Mobile verification")
     }
 }
 

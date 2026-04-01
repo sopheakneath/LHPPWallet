@@ -9,7 +9,7 @@ import SwiftUI
 
 
 
-@available(iOS 17.0, *)
+//@available(iOS 17.0, *)
 struct WalletInfoView: View {
     // User info
     @State private var firstName: String = ""
@@ -42,7 +42,7 @@ struct WalletInfoView: View {
 
     var body: some View {
         
-        NavigationStack() {
+        NavigationView {
             NavigationLink(destination: HomeTabView(), isActive: $navigateToHome) {EmptyView()}
             .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
             .hidden()
@@ -171,7 +171,7 @@ struct WalletInfoView: View {
                 }
                 
             }
-            .scrollContentBackground(.hidden)
+            //.scrollContentBackground(.hidden)
             .background(Color.white)
            
             
@@ -183,11 +183,11 @@ struct WalletInfoView: View {
                     password = savedPassword
                 }
             }
-            .alert("Saved", isPresented: $showingSaveAlert, presenting: saveMessage) { _ in
-                Button("OK", role: .cancel) {}
-            } message: { message in
-                Text(message)
-            }
+//            .alert("Saved", isPresented: $showingSaveAlert, presenting: saveMessage) { _ in
+//                Button("OK", role: .cancel) {}
+//            } message: { message in
+//                Text(message)
+//            }
             .background(Color.white.ignoresSafeArea())
             Button {
                 UserDefaults.standard.set(name, forKey: "wallet.name")
@@ -199,14 +199,15 @@ struct WalletInfoView: View {
             } label: {
                 Text("Done")
                     .font(.maliRegular)
-                    .foregroundStyle(.white)
+                    .foregroundColor(Color.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background(Color.blue)
-    
+                    
             }
             .cornerRadius(8)
             .padding()
             }
+        .navigationBarBackButtonHidden(true)
         .customBackToolbar(title: "Wallet info")
     }
       

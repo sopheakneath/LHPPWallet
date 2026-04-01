@@ -11,6 +11,7 @@ import SwiftUI
 struct ValidatedTextField: View {
     let title: String?
     let placeHolder: String?
+    // let imageName: String?
     @Binding var text: String
     var validator: (String) -> String?
     var keyboardType: UIKeyboardType = .default
@@ -52,6 +53,15 @@ struct ValidatedTextField: View {
                            // .submitLabel(.done)
                            // .onSubmit(validate)
                     }
+//                    if let name = imageName, !name.isEmpty {
+//                                    Image(name)
+//                                        .resizable()
+//                                        .frame(width: 40, height: 40)
+//                                }
+//                    Image(imageName ?? "")
+//                        .scaledToFit()
+//                        .frame(width: 20,height: 20)
+//                        .foregroundColor(.secondary)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 10)
@@ -67,6 +77,8 @@ struct ValidatedTextField: View {
                     // Live validate while typing
                     error = validator(text)
                 }
+                
+                
                 if let error = error, !error.isEmpty {
                     Text(error)
                         .font(.maliRegular)
@@ -78,6 +90,7 @@ struct ValidatedTextField: View {
             .padding(.vertical, 1)
         }
         .onAppear { validate() }
+        .padding(.bottom, 19)
     }
 
     private var borderColor: Color {
