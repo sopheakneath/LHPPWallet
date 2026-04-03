@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//@available(iOS 16.0, *)
+
 struct HomeTabView: View {
     @State private var selectedTab = 0
    
