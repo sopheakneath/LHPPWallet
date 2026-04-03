@@ -6,11 +6,12 @@
 //
 import SwiftUI
 
-@available(iOS 15.0, *)
+//@available(iOS 15.0, *)
 struct CustomBackToolbar: ViewModifier {
     let title: String
     
-    @Environment(\.dismiss) private var dismiss
+   // @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
     @State private var didDismiss = false
     
     func body(content: Content) -> some View {
@@ -19,9 +20,10 @@ struct CustomBackToolbar: ViewModifier {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        guard !didDismiss else { return }
-                        didDismiss = true
-                        dismiss()
+//                        guard !didDismiss else { return }
+//                        didDismiss = true
+//                        dismiss()
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         HStack {
                             Image(systemName: "arrow.left")
@@ -29,7 +31,7 @@ struct CustomBackToolbar: ViewModifier {
                             
                             Text(title)
                                 .foregroundColor(.black)
-                                .font(.montserratMedium)
+                                .font(.maliRegular)
                         }
                     }
                     .disabled(didDismiss)

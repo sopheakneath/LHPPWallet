@@ -45,9 +45,14 @@ struct TermsConditionsView: View {
             .disabled(!isChecked)
             .padding(20)
             if #available(iOS 16.0, *) {
-                NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
+//                NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
+//                    EmptyView()
+//                }
+                
+                NavigationLink(destination: LoginView(), isActive: $isGotoHomeTab) {
                     EmptyView()
                 }
+                
             } else {
                 // Fallback on earlier versions
             }

@@ -9,7 +9,7 @@
 
 import CoreLocation
 import MapKit
-internal import Combine
+import Combine
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
