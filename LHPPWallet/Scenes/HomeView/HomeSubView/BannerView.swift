@@ -26,31 +26,25 @@ struct BannerView: View {
             ForEach(0..<images.count, id: \.self) { index in
                 VStack {
                     Image(images[index])
-                        
                         .resizable()
                         .scaledToFill()
-                        .cornerRadius(30)
-                       // .frame(maxWidth: 300)
                         .tag(index)
-                        .clipped()
-                        .padding(20)
-                        .foregroundColor(Color.success)
-                        //.background(Color.red)
+//
+               //
                         .cornerRadius(30)
+                        .padding(.horizontal, 30)
+                      
                 }
-                .cornerRadius(30)
-                .background(Color.vividBlue)
-                .background(Color.prettyGreen)
-                    
+
             }
+           
         }
       
         //.background(Color.blue)
         .frame(height: 200)
-        .frame(width: 300)
-       
-        .tabViewStyle(PageTabViewStyle())
-        .onReceive(timer) { _ in
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+
+        .onReceive(timer) { data in
             withAnimation {
                 currentIndex = (currentIndex + 1) % images.count
             }

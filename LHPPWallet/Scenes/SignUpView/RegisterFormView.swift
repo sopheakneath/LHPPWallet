@@ -12,6 +12,7 @@ import SwiftUI
 //@available(iOS 17.0, *)
 
 //@available(iOS 16.0, *)
+
 @available(iOS 15.0, *)
 struct RegisterFormView: View {
     @State var firsName: String = ""
@@ -69,7 +70,6 @@ struct RegisterFormView: View {
                                    isTitleFrame: false
                                    
                 )
-                
             
                 ValidatedTextField(title: "Date of birth", placeHolder: "", text: $dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
                 ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
@@ -111,6 +111,14 @@ struct RegisterFormView: View {
       
     }
 }
+
+//func register(){
+//    var registerParam: RegisterModel{
+//        RegisterModel.init(fk: "", deviceId: "", handle: "", lang: "", firstName: "", lastName:"", preferredName: "", gender: "", dob: "", userName: "", userPass: "", timeStamp: "" , type: "", challengeKey: "" , referalCode: "")
+//    }
+//}
+
+
 @available(iOS 15.0, *)
 extension RegisterFormView {
     func genderButton(title: String, value: String) -> some View {
@@ -126,7 +134,6 @@ extension RegisterFormView {
         }
     }
 }
-
 
 
 #Preview {

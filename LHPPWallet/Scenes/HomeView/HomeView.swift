@@ -14,65 +14,6 @@ struct HomeView: View {
         NavigationView{
             ScrollView {
                 HomeHeader(isShowbalance: $isShowBalance)
-//                VStack {
-//                    HStack {
-//                        Text("Sopheakneath")
-//                            .font(.maliBold)
-//                        Spacer()
-//                        Image("profile")
-//                            .resizable()
-//                            .frame(width: 60, height: 60)
-//                            .cornerRadius(30)
-//                    }
-//                    
-//                    .padding(.horizontal,20)
-//                    .frame(maxWidth: .infinity)
-//                    .padding(.vertical, 20)
-//                    .background(
-//                        Color.white
-//                            .clipShape(
-//                                RoundedCorner(
-//                                    radius: 60,
-//                                    corners: [.bottomRight]
-//                                )
-//                            )
-//                    )
-////                    .overlay(
-////                        Rectangle().stroke(Color.green, lineWidth: 5)
-////                            .cornerRadius(60)
-////                            .background(
-////                                Color.clear
-////                                    .clipShape(
-////                                        CustomCorner(
-////                                           
-////                                            bottomRight: 200
-////                                        )
-////                                    )
-////                            )
-////                       // Circle().stroke(Color.green, lineWidth: 5)
-////                    )
-//                  
-//                    // -----------------------------------
-//                    Text("Show balance")
-//                        .padding(10)
-//                        .frame(maxWidth: .infinity)
-//                }
-//                .background(
-//                    Color.red
-//                        .clipShape(
-//                            CustomCorner(
-//                                bottomLeft : 60,
-//                                bottomRight: 200
-//                            )
-//                        )
-//                )
-//                
-//                Spacer()
-//                
-//                VStack {
-//                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-//                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-//                }
                 
                 HStack{
                     Text("Service")
@@ -128,16 +69,9 @@ struct HomeView: View {
                     Spacer()
                     Text("")
                 }.padding(.horizontal, 20)
-               
-                
-                
-               
-                   
                 BannerView()
                     .padding(.bottom, 50)
-                
             }
-         
            
           //  .background(Color.black)
         }
