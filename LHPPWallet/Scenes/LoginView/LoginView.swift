@@ -102,26 +102,7 @@ struct LoginView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 34)
-              
-//s
-//                Button {
-//                    viewModel.login()
-//                    print("Login ")
-//                } label: {
-//                    Text("Login ")
-//                        .foregroundColor(Color.white)
-//                        .frame(maxWidth: .infinity, minHeight: 45)
-//                    
-//                        .background(
-//                            RoundedRectangle(cornerRadius: 12)
-//                                .fill(Color.blue)
-//                        )
-//                        .padding(.horizontal, 108)
-//                    
-//                }
-//                .frame(maxWidth: .infinity)
-//                .padding(.top, 34)
-                
+            
                 HStack {
                     Button{
                         
@@ -177,16 +158,16 @@ struct LoginView: View {
                     .frame(height: 73)
             }
             
-            // .padding(.horizontal, 20)
-            //.disabled(!viewModel.isValid)
             .ignoresSafeArea()
             .navigationBarBackButtonHidden()
+            .alert(viewModel.alertMessage ?? "", isPresented: $viewModel.showAlert) {
+                Button("OK", role: .cancel) { }
+            }
         }
         .navigationBarBackButtonHidden()
-        //.customBackToolbar(title: "Mobile verification")
     }
 }
-
+// 100 0.001 x 400 
 #Preview {
     if #available(iOS 16.0, *) {
         LoginView()

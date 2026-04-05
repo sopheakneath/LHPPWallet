@@ -24,6 +24,8 @@ class LoginViewModel: ObservableObject {
 
     // Navigation flag used by LoginView
     @Published var isLoggedIn: Bool = false
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String? = nil
     
     // Computed
     var isValid: Bool {
@@ -32,17 +34,24 @@ class LoginViewModel: ObservableObject {
     
     // Actions
     func validate() {
-        usernameError = username.isEmpty ? "Username is required" : nil
-        passwordError = password.isEmpty ? "Password is required" : nil
+        usernameError = username.isEmpty ? AppError.invalidData.localizedDescription : nil
+        passwordError = password.isEmpty ? AppError.noData.localizedDescription : nil
+        print("function validate")
     }
     
     func login() {
-        validate()
-        guard isValid else { return }
-        isSuccess = true
-        isLoggedIn = true
+        if username.isEmpty && password.isEmpty {
+            alertMessage = alertMessage ?? "Please fill in all fields."
+            showAlert = true
+            return
+        }else{
+            isLoggedIn = true
+         
+        }
+    }
+    
+    func VALIDATE() {
         
-        // Call API
-        print("Login with \(username), \(password)")
+        print("VALIDATE")
     }
 }
