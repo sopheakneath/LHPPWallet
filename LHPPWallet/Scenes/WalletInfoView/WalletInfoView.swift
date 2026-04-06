@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-
-
 //@available(iOS 17.0, *)
+@available(iOS 15.0, *)
 struct WalletInfoView: View {
     // User info
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var name: String = ""
     @State private var mail: String = ""
+    @State private var password: String = ""
     
     //address info
     
@@ -29,7 +29,7 @@ struct WalletInfoView: View {
     @State private var occupation : String = ""
     
     
-    @State private var password: String = ""
+  
     @State private var navigateToHome: Bool = false
     
     
@@ -39,12 +39,15 @@ struct WalletInfoView: View {
     @State private var nameError: String? = nil
     @State private var passwordError: String? = nil
     
+    //
+    @StateObject var viewModel = WalletInfoViewModel()
+    
 
     var body: some View {
         
         NavigationView {
             VStack {
-                NavigationLink(destination: HomeTabView(), isActive: $navigateToHome) {EmptyView()}
+                NavigationLink(destination: HomeTabView(), isActive: $viewModel.submitted) {EmptyView()}
                     .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 0)
                     .hidden()
                 Form {
@@ -54,38 +57,43 @@ struct WalletInfoView: View {
                             VStack {
                                 ValidatedTextField(
                                     title: "First Name", placeHolder: "",
-                                    text: $firstName,
+                                    text: $viewModel.firstName,
                                     validator: { value in
-                                        if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                            return "First Name must be at least 3 characters."
+                                        if viewModel.firstName.isEmpty {
+                                            return "First name can't be empty"
                                         }
                                         return nil
-                                    }
+                                    },
+                                    isSubmit: viewModel.showMessage
+                                    
                                 )
                                 
                                 ValidatedTextField(
                                     title: "Last name", placeHolder: "",
-                                    text: $lastName,
+                                    text: $viewModel.lastName,
                                     validator: { value in
-                                        if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                            return "Last Name must be at least 3 characters."
+                                        if viewModel.lastName.isEmpty {
+                                            return "Last name can't be empty"
                                         }
                                         return nil
-                                        //                            let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
-                                        //                            if trimmed.count < 6 { return "Password must be at least 6 characters." }
-                                        //                            if trimmed.rangeOfCharacter(from: .decimalDigits) == nil { return "Password must contain at least one number." }
-                                        //                            return nil
                                     },
                                     keyboardType: .default,
+                                    isSubmit: viewModel.showMessage
                                     // isSecure: true
                                 )
                                 
-                                ValidatedTextField(title: "Prefer Name", placeHolder: "", text: $name, validator: { value in
-                                    if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 3 {
-                                        return "Name must be at least 3 characters."
-                                    }
+                                ValidatedTextField(
+                                    title: "Prefer Name",
+                                    placeHolder: "",
+                                    text: $viewModel.name,
+                                    validator: { value in
+                                        if viewModel.name.isEmpty {
+                                            return "User name can't be empty"
+                                        }
                                     return nil
-                                })
+                                },
+                                    isSubmit: viewModel.showMessage
+                                )
                                 
                                 ValidatedTextField(
                                     title: "Email(optional)", placeHolder: "",
@@ -112,6 +120,9 @@ struct WalletInfoView: View {
                                 title: "Provinc", placeHolder: "",
                                 text: $province,
                                 validator: { value in
+                                    if value.isEmpty {
+                                        viewModel.errorMessage = "error province"
+                                    }
                                     return nil
                                 }
                             )
@@ -172,10 +183,7 @@ struct WalletInfoView: View {
                     }
                     
                 }
-                //.scrollContentBackground(.hidden)
                 .background(Color.white)
-                
-                
                 .onAppear {
                     if let savedName = UserDefaults.standard.string(forKey: "wallet.name") {
                         name = savedName
@@ -184,35 +192,26 @@ struct WalletInfoView: View {
                         password = savedPassword
                     }
                 }
-                //            .alert("Saved", isPresented: $showingSaveAlert, presenting: saveMessage) { _ in
-                //                Button("OK", role: .cancel) {}
-                //            } message: { message in
-                //                Text(message)
-                //            }
+                
                 .background(Color.white.ignoresSafeArea())
+                
                 Button {
-                    UserDefaults.standard.set(name, forKey: "wallet.name")
-                    
-                    UserDefaults.standard.set(password, forKey: "wallet.password")
-                    saveMessage = "Saved successfully"
-                    showingSaveAlert = true
+                    print("Action button")
+                    viewModel.saveInfo()
                     navigateToHome = true
                 } label: {
+                    
                     Text("Done")
                         .font(.maliRegular)
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(Color.blue)
-                    
                 }
                 .cornerRadius(8)
                 .padding()
             }
-            
-            .customBackToolbar(title: "wallet info")
-            .navigationBarBackButtonHidden(true)
-            
         }
+        .customBackToolbar(title: "wallet info")
     }
        
       
@@ -225,7 +224,8 @@ struct WalletInfoView: View {
         return nameValid && passwordValid
     }
 }
-  
+
+
    
 
 #Preview {

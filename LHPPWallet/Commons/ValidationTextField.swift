@@ -20,6 +20,7 @@ struct ValidatedTextField: View {
     
     @State private var error: String? = nil
     var isFocused: Bool = false
+    var isSubmit: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -38,30 +39,13 @@ struct ValidatedTextField: View {
                         SecureField(title ?? "", text: $text)
                             .textContentType(.password)
                             .keyboardType(keyboardType)
-                            //.textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
-                          //  .focused($isFocused)
-                            //.submitLabel(.done)
-                          //  .onSubmit(validate)
                     } else {
                         TextField(title ?? "", text: $text)
                             .font(.maliRegular)
                             .keyboardType(keyboardType)
-                            //.textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
-                            //.focused($isFocused)
-                           // .submitLabel(.done)
-                           // .onSubmit(validate)
                     }
-//                    if let name = imageName, !name.isEmpty {
-//                                    Image(name)
-//                                        .resizable()
-//                                        .frame(width: 40, height: 40)
-//                                }
-//                    Image(imageName ?? "")
-//                        .scaledToFit()
-//                        .frame(width: 20,height: 20)
-//                        .foregroundColor(.secondary)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 10)
@@ -74,18 +58,22 @@ struct ValidatedTextField: View {
                         )
                 )
                 .onChange(of: text) { _ in
-                    // Live validate while typing
+
                     error = validator(text)
                 }
+               
                 
-                
-                if let error = error, !error.isEmpty {
-                    Text(error)
-                        .font(.maliRegular)
-                        .foregroundColor(Color.red)
+              if  isSubmit {
+                    if let error = error, !error.isEmpty {
                         
-                        .accessibilityLabel("Error: \(error)")
+                        Text(error)
+                            .font(.maliRegular)
+                            .foregroundColor(Color.red)
+                            
+                            .accessibilityLabel("Error: \(error)")
+                    }
                 }
+               
             }
             .padding(.vertical, 1)
         }
@@ -94,7 +82,10 @@ struct ValidatedTextField: View {
     }
 
     private var borderColor: Color {
-        if let error = error, !error.isEmpty {
+//        if let error = error, !error.isEmpty {
+//            return .red
+//        }
+        if isSubmit {
             return .red
         }
         return isFocused ? .accentColor : .secondary

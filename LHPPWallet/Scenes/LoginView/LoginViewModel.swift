@@ -13,8 +13,8 @@ import Combine
 class LoginViewModel: ObservableObject {
     
     // Input
-    @Published var username: String = ""
-    @Published var password: String = ""
+    @Published var username: String = "hi"
+    @Published var password: String = "123"
     
     // Validation
     @Published var usernameError: String? = nil
@@ -31,23 +31,32 @@ class LoginViewModel: ObservableObject {
     var isValid: Bool {
         !username.isEmpty && !password.isEmpty
     }
+
+    func emptyData() -> Bool {
+        usernameError = username.isEmpty || password.isEmpty ? AppError.noData.localizedDescription : nil
+        return usernameError == nil && passwordError == nil
+    }
     
-    // Actions
-    func validate() {
-        usernameError = username.isEmpty ? AppError.invalidData.localizedDescription : nil
-        passwordError = password.isEmpty ? AppError.noData.localizedDescription : nil
-        print("function validate")
+    func validate() -> Bool {
+        usernameError = username != "hi" ? AppError.invalidData.localizedDescription : nil
+        passwordError = password != "123" ? AppError.invalidData.localizedDescription : nil
+        return usernameError == nil && passwordError == nil
     }
     
     func login() {
-        if username.isEmpty && password.isEmpty {
-            alertMessage = alertMessage ?? "Please fill in all fields."
+        if !emptyData() {
+            alertMessage = AppError.noData.localizedDescription
             showAlert = true
             return
-        }else{
-            isLoggedIn = true
-         
         }
+        
+        if !validate() {
+            alertMessage = AppError.invalidData.localizedDescription
+            showAlert = true
+            return
+        }
+        
+        isLoggedIn = true
     }
     
     func VALIDATE() {
@@ -55,3 +64,4 @@ class LoginViewModel: ObservableObject {
         print("VALIDATE")
     }
 }
+
