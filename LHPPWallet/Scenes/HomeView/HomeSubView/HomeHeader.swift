@@ -9,11 +9,16 @@ import SwiftUI
 
 struct HomeHeader: View {
    @Binding var isShowbalance: Bool
+    var versionApp: String = "3.2.2"
     var body: some View {
         VStack {
             HStack {
-                Text("Sopheakneath")
-                    .font(.maliBold)
+                VStack (alignment: .leading){
+                    Text("Sopheakneath")
+                        .font(.maliBold)
+                    Text("\("app_version".localized) \(versionApp)")
+                }
+               
                 Spacer()
                 Image("profile")
                     .resizable()

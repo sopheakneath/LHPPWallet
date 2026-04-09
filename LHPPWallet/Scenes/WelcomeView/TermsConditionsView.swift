@@ -33,7 +33,7 @@ struct TermsConditionsView: View {
             Button {
                 isGotoHomeTab = true
             } label: {
-                Text("I agree")
+                Text("btn_agree".localized)
                     .font(.custom("Mali-Medium", fixedSize: 16))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
@@ -81,7 +81,7 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
             .onTapGesture {
                 isChecked.wrappedValue.toggle()
             }
-        Text("I have read and agree to the privacy policy")
+        Text("term".localized)
             .foregroundColor(.red)
             .font(.custom("Mali-Medium", fixedSize: 12))
         

@@ -12,71 +12,115 @@ import UIKit
 struct TransactionListView: View {
     
     @StateObject var viewModel = TransactionViewModel()
-    @State private var isLoading: Bool = false
-    
     var body: some View {
         ZStack {
             VStack {
-                Text("Transaction")
-                    .font(.headline)
-                    .padding(.top, 50)
+//                ProgressView()
+//                    .progressViewStyle(CircularProgressViewStyle())
+                  
+                if  viewModel.isloading  {
+                            ProgressView()
+                        .padding(.top, 50)
+                    
+                }
+                
                 CollectionViewWrapper(transactions: viewModel.item)
-                    .refreshable {
-                        guard !isLoading else { return }
-                        await refresh()
-                    }
+                    
+//                    .refreshable {
+//                        print("I'm refresh \(refresh)")
+//                        await refresh()
+//                        
+//                    }
+                
+//                if viewModel.item.isEmpty {
+//                    ProgressView()
+//                }else {
+//                    CollectionViewWrapper(transactions: viewModel.item)
+//                        .refreshable {
+//                            guard !isLoading else { return }
+//                            await refresh()
+//                        }
+//                }
+              
                 
             }
-            if isLoading {
-                ZStack {
-                    Color.black.opacity(0.05).ignoresSafeArea()
-                    ProgressView("Loading…")
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .padding()
-                        .background(Color(.systemBackground))
-                        .cornerRadius(12)
-                }
-            }
+//            if isLoading {
+//                ZStack {
+//                    Text("LOSINF")
+//                        .background(Color.red)
+//                    Color.black.opacity(0.05).ignoresSafeArea()
+//                    ProgressView("Loading…")
+//                        .progressViewStyle(CircularProgressViewStyle())
+//                        .padding()
+//                        .background(Color(.systemBackground))
+//                        .cornerRadius(12)
+//                }
+//                .background(Color.red)
+//            }
         }
         .task {
-            isLoading = true
             await refresh()
-            print("loading")
+            
+        }
+        .refreshable {
+            print(" refresh 123")
         }
         .padding(.vertical, 50)
-        
         .ignoresSafeArea()
         .background(Color(UIColor.systemGray6))
         .padding(.bottom, 50)
         
     }
     
-    private func setLoading(_ loading: Bool) {
-        isLoading = loading
-    }
+   
 
     @MainActor
     private func refresh() async {
-        setLoading(true)
-        defer { setLoading(false) }
+        viewModel.isloading = true
         await viewModel.getTransactionAsync()
     }
        
 }
 // ---------------
 
+final class RefreshableCollectionViewController: UICollectionViewController {
+    var onRefresh: (() async -> Void)?
+    private let refreshControl = UIRefreshControl()
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+    }
+
+    @objc private func handleRefresh() {
+        guard let onRefresh else {
+            refreshControl.endRefreshing()
+            return
+        }
+        Task { @MainActor in
+            await onRefresh()
+            self.refreshControl.endRefreshing()
+        }
+    }
+}
+
 struct CollectionViewWrapper: UIViewControllerRepresentable {
+    
+   // var onRefresh: (() async -> Void)?
+
     
     let transactions: [TransactionModel]
 
-    func makeUIViewController(context: Context) -> UICollectionViewController {
+    func makeUIViewController(context: Context) -> RefreshableCollectionViewController {
         let layout = UICollectionViewFlowLayout()
         layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 34)
         
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 0
 
-        let vc = UICollectionViewController(collectionViewLayout: layout)
+        let vc = RefreshableCollectionViewController(collectionViewLayout: layout)
         vc.collectionView.register(HostingCollectionViewCell.self,
                                    forCellWithReuseIdentifier: "cell")
         vc.collectionView.register(
@@ -87,10 +131,11 @@ struct CollectionViewWrapper: UIViewControllerRepresentable {
         vc.collectionView.dataSource = context.coordinator
         vc.collectionView.delegate = context.coordinator
         vc.collectionView.backgroundColor = UIColor.systemGray6
+       // vc.onRefresh = onRefresh
         return vc
     }
 
-    func updateUIViewController(_ uiViewController: UICollectionViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: RefreshableCollectionViewController, context: Context) {
         context.coordinator.transactions = transactions
         uiViewController.collectionView.reloadData()
     }
@@ -213,6 +258,7 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
         ).height
+           
         return CGSize(width: width, height: height)
     }
     

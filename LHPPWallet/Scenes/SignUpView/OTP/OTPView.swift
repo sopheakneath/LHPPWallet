@@ -37,7 +37,7 @@ struct OTPView: View {
                         .frame(width: 33, height: 22)
                     Text("+855")
                     Text("|")
-                    TextField("Phone Number", text: $phone)
+                    TextField("phone_number".localized, text: $phone)
                     
                 }
                 .padding(.leading, 20)
@@ -45,7 +45,7 @@ struct OTPView: View {
                 
                 // OTP Verify
               
-                    Text("Enter your OTP code")
+                    Text("enter_otp")
                     .padding(.leading, 20)
 
                 HStack(spacing: 12) {

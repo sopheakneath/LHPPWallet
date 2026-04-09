@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 17.0, *)
 struct WelcomeView: View {
     @State var gotoTerms: Bool = false
+    @StateObject var localization = LocalizationManager.shared
     
 //    init() {
 //        let appearance = UINavigationBarAppearance()
@@ -31,10 +32,10 @@ struct WelcomeView: View {
                         .scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     VStack {
-                        Text("SIMPLIFYING PAYMENTS FOR A BETTER TOMORROW. . .")
+                        Text("slogan".localized)
                             .font(.MaliSemiBold)
                         
-                        Text("An easy app to manager all payment to financial and related need")
+                        Text("discretion".localized)
                             .font(.maliMedium)
                     }
                     .padding(20)
@@ -45,7 +46,8 @@ struct WelcomeView: View {
             Button {
                 gotoTerms = true
             } label: {
-                Text("Get Started")
+                Text ("get_start".localized)
+                
                     .font(.system(size: 16, weight: .semibold))
                     .font(.custom("Mali-Medium", fixedSize: 16))
                     .foregroundColor(.white)
@@ -58,14 +60,14 @@ struct WelcomeView: View {
             NavigationLink(destination: TermsConditionsView(), isActive: $gotoTerms) {}
             
             HStack {
-                Text("You already have an account?" )
+                Text("have_acc".localized)
                     .foregroundColor(.black)
                     .font(.maliRegular)
                 
                 Button(action: {
                     //
                 }) {
-                    Text("LOGIN")
+                    Text("login.loginButton".localized)
                         .font(.maliRegular)
                 }
             }
@@ -86,9 +88,13 @@ struct WelcomeView: View {
     
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("Profile tapped")
+                        localization.toggleLanguage()
                     } label: {
-                        Image("ic_language_kh")
+                        Text(localization.titleForLanguageButton())
+                            .font(.maliRegular)
+                        Image(localization.imageForLanguageButton())
+                            .resizable()
+                            .frame(width: 40,height: 40)
                     }
                     .buttonStyle(.plain)
                 }
