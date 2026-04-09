@@ -26,7 +26,8 @@ struct HomeView: View {
                         }
                 }
                 .padding(.horizontal, 17)
-              // --------------
+                
+              // --------------------------
                 
                HomeFeature()
                     .task {

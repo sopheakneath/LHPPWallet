@@ -13,8 +13,8 @@ import Combine
 class LoginViewModel: ObservableObject {
     
     // Input
-    @Published var username: String = ""
-    @Published var password: String = ""
+    @Published var username: String = "hi"
+    @Published var password: String = "123"
     
     // Validation
     @Published var usernameError: String? = nil
@@ -24,25 +24,44 @@ class LoginViewModel: ObservableObject {
 
     // Navigation flag used by LoginView
     @Published var isLoggedIn: Bool = false
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String? = nil
     
     // Computed
     var isValid: Bool {
         !username.isEmpty && !password.isEmpty
     }
+
+    func emptyData() -> Bool {
+        usernameError = username.isEmpty || password.isEmpty ? AppError.noData.localizedDescription : nil
+        return usernameError == nil && passwordError == nil
+    }
     
-    // Actions
-    func validate() {
-        usernameError = username.isEmpty ? "Username is required" : nil
-        passwordError = password.isEmpty ? "Password is required" : nil
+    func validate() -> Bool {
+        usernameError = username != "hi" ? AppError.invalidData.localizedDescription : nil
+        passwordError = password != "123" ? AppError.invalidData.localizedDescription : nil
+        return usernameError == nil && passwordError == nil
     }
     
     func login() {
-        validate()
-        guard isValid else { return }
-        isSuccess = true
-        isLoggedIn = true
+        if !emptyData() {
+            alertMessage = AppError.noData.localizedDescription
+            showAlert = true
+            return
+        }
         
-        // Call API
-        print("Login with \(username), \(password)")
+        if !validate() {
+            alertMessage = AppError.invalidData.localizedDescription
+            showAlert = true
+            return
+        }
+        
+        isLoggedIn = true
+    }
+    
+    func VALIDATE() {
+        
+        print("VALIDATE")
     }
 }
+
