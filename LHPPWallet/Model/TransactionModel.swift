@@ -29,6 +29,7 @@ struct TransactionModel: Codable {
     let txnType : String
 
 }
+
 class TransactionSevice {
     static let shared = TransactionSevice()
     func getNotifications(completion: @escaping ([TransactionModel]) -> ()) {
@@ -37,6 +38,8 @@ class TransactionSevice {
             completion(.init(TransactionModel.mock))
         }}
 }
+
+ 
 
 //class TransactionSevice {
 //    static let share = TransactionSevice()

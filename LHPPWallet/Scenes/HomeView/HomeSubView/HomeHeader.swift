@@ -18,7 +18,6 @@ struct HomeHeader: View {
                         .font(.maliBold)
                     Text("\("app_version".localized) \(versionApp)")
                 }
-               
                 Spacer()
                 Image("profile")
                     .resizable()
@@ -38,6 +37,8 @@ struct HomeHeader: View {
                         )
                     )
             )
+          
+            
            
 //                    .overlay(
 //                        Rectangle().stroke(Color.green, lineWidth: 5)
@@ -84,7 +85,6 @@ struct HomeHeader: View {
                             Text("PRIMARY ACCOUNT")
                                 .font(.maliRegular)
                         }
-                        
                         
                        
                     }

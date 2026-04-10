@@ -19,6 +19,8 @@
   
   "phone_number" : "Phone Number",
   "phone_verify" : "Verify Phone Number",
-  "enter_otp" : "Enter your OTP"
+  "enter_otp" : "Enter your OTP",
+  "transfer" : "Transfers",
+  "wallets" : "Wallets"
   
 }

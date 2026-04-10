@@ -19,7 +19,6 @@ struct SettingsView: View {
                 BlogOfSettingView()
                 BlogOfSettingView()
                 BlogOfSettingView()
-                
             }
             .padding(.bottom, 100)
             

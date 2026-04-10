@@ -17,5 +17,8 @@
   
   "phone_number" : "លេខទូរស័ព្ទ",
   "phone_verify" : "ផ្ទៀងផ្ទាត់លេខទូរស័ព្ទ",
-  "enter_otp" : "បញ្ចូល OTP របស់អ្នក"
+  "enter_otp" : "បញ្ចូល OTP របស់អ្នក",
+  "transfer" : "ផ្ទេរ",
+  "wallets" : "ការបូប"
+
 }

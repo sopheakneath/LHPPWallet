@@ -20,16 +20,11 @@ final class LocalizationManager: ObservableObject {
    private init() {
         let raw = UserDefaults.standard.string(forKey: storageKey)
         self.language = Language(rawValue: raw ?? "") ?? .kh
-      
-       
     }
-    
-   
 
     func toggleLanguage() {
         language = (language == .en) ? .kh : .en
         UserDefaults.standard.set(language.rawValue, forKey: storageKey)
-        
     }
     
 //    private func loadLanguage() {
@@ -45,7 +40,6 @@ final class LocalizationManager: ObservableObject {
 //        }
 
     func titleForLanguageButton() -> String {
-      
         switch language {
         case .en: return "KH"
         case .kh: return "EN"
