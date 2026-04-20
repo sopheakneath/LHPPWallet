@@ -89,7 +89,10 @@ struct LoginView: View {
                 }
                
                 Button {
-                    viewModel.login()
+                   // viewModel.login()
+                    Task {
+                        await viewModel.loginSe()
+                    }
                 } label: {
                     Text("login.loginButton".localized)
                         .foregroundColor(Color.white)
@@ -102,6 +105,14 @@ struct LoginView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 34)
+                .onAppear {
+                    Task {
+                        await viewModel.loginTestSecurity()
+                    }
+                }
+                
+                Text(viewModel.alertMessage ?? "error message not found")
+                    .foregroundColor(Color.red)
             
                 HStack {
                     Button{
@@ -174,7 +185,8 @@ struct LoginView: View {
                 Button("OK", role: .cancel) { }
             }
         }
-        .navigationBarBackButtonHidden()
+       
+       
     }
 }
 // 100 0.001 x 400 

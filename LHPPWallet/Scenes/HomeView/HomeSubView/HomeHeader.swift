@@ -92,6 +92,9 @@ struct HomeHeader: View {
                     
                     Text("More Account")
                         .font(.maliRegular)
+                        .onTapGesture {
+                            print("add more account")
+                        }
                     
                 }
                 .padding(.leading, 25)

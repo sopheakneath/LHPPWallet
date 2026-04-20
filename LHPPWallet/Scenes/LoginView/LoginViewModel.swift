@@ -12,9 +12,16 @@ import Combine
 
 class LoginViewModel: ObservableObject {
     
+    private let service = AuthenticationSevice()
+    
+    @Published var username = ""
+    @Published var password = ""
+    @Published var isLoading = false
+
+    
     // Input
-    @Published var username: String = "hi"
-    @Published var password: String = "123"
+//    @Published var username: String = "hi"
+//    @Published var password: String = "123"
     
     // Validation
     @Published var usernameError: String? = nil
@@ -59,9 +66,57 @@ class LoginViewModel: ObservableObject {
         isLoggedIn = true
     }
     
-    func VALIDATE() {
-        
-        print("VALIDATE")
-    }
+    func loginSe() async {
+            isLoading = true
+
+            do {
+                let user = try await service.login(username: username, password: password)
+                
+                print("username\(username)")
+
+                // 🔐 Store token securely
+                SecureStorage.share.save(value: user.token, for: "auth_token")
+               // print("login success")
+                isLoggedIn = true
+                print("username encript\(username)")
+
+            } catch {
+                print("Login error:", error)
+            }
+
+            isLoading = false
+        }
+    
+    
+    
+   
+        func loginTestSecurity() async {
+            isLoading = true
+
+            do {
+                let user = try await service.login(username: username, password: password)
+                print("tocken before save\(user.token)")
+                // 🔐 Save token
+                SecureStorage.share.save(value: user.token, for: "auth_token")
+                print("tocken\(user.token)")
+                // ✅ Immediately verify
+                let savedToken = SecureStorage.share.getValue(for: "auth_token")
+
+                if savedToken == user.token {
+                    alertMessage = "✅ Login + Secure Save SUCCESS"
+                } else {
+                    alertMessage = "❌ Token mismatch"
+                }
+
+            } catch {
+                alertMessage = "❌ Login failed: \(error)"
+            }
+
+            isLoading = false
+        }
+    
+    
+    
+    
 }
 

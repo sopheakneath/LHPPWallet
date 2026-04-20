@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CryptoKit
 
 @available(iOS 15.0, *)
 struct HomeView: View {
@@ -23,6 +24,7 @@ struct HomeView: View {
                         .font(.maliRegular)
                         .onTapGesture {
                             print("GO TO ")
+                           
                         }
                 }
                 .padding(.horizontal, 17)
@@ -33,7 +35,7 @@ struct HomeView: View {
                     .task {
                         print("")
                     }
-            HStack{
+                 HStack{
                     Text("Recent Transaction")
                     .font(.maliRegular)
                     Spacer()
