@@ -12,6 +12,7 @@ import UIKit
 struct TransactionListView: View {
     
     @StateObject var viewModel = TransactionViewModel()
+    @State var isGoToDetail : Bool = false
     var body: some View {
         ZStack {
             VStack {
@@ -24,7 +25,7 @@ struct TransactionListView: View {
                     
                 }
                 
-                CollectionViewWrapper(transactions: viewModel.item)
+                CollectionViewWrapper(isGoToDetail: $isGoToDetail, transactions: viewModel.item)
                     
 //                    .refreshable {
 //                        print("I'm refresh \(refresh)")
@@ -108,7 +109,7 @@ final class RefreshableCollectionViewController: UICollectionViewController {
 
 struct CollectionViewWrapper: UIViewControllerRepresentable {
     
-   // var onRefresh: (() async -> Void)?
+    @Binding var isGoToDetail: Bool
 
     
     let transactions: [TransactionModel]
@@ -141,7 +142,7 @@ struct CollectionViewWrapper: UIViewControllerRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(transactions: transactions)
+        Coordinator(transactions: transactions, isGoToDetail: $isGoToDetail)
     }
 }
 // ---------------
@@ -158,9 +159,12 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
     var transactions: [TransactionModel] {
         didSet { rebuildSections() }
     }
+    
+    private var isGoToDetail: Binding<Bool>
 
-    init(transactions: [TransactionModel]) {
+    init(transactions: [TransactionModel], isGoToDetail: Binding<Bool>) {
         self.transactions = transactions
+        self.isGoToDetail = isGoToDetail
         super.init()
         rebuildSections()
     }
@@ -238,7 +242,7 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
                                                       for: indexPath) as! HostingCollectionViewCell
         let transaction = sections[indexPath.section].items[indexPath.row]
         cell.host(
-            SwiftUICellView(transaction: transaction)
+            SwiftUICellView(transaction: transaction, isGoToDetail: isGoToDetail)
         )
         return cell
     }
@@ -251,7 +255,7 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
             : UIScreen.main.bounds.width
         let transaction = sections[indexPath.section].items[indexPath.row]
        //  Custom  dynamic   height matches multiline text.
-        let host = UIHostingController(rootView: SwiftUICellView(transaction: transaction))
+        let host = UIHostingController(rootView: SwiftUICellView(transaction: transaction, isGoToDetail: isGoToDetail))
         let target = CGSize(width: width, height: UIView.layoutFittingCompressedSize.height)
         var height = host.view.systemLayoutSizeFitting(
             target,
@@ -262,6 +266,22 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
         return CGSize(width: width, height: height)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Tapped item at \(indexPath.row)")
+    }
+    
+//    private func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)  {
+//        
+//        
+//        
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
+//                                                      for: indexPath) as! HostingCollectionViewCell
+//        let transaction = sections[indexPath.section].items[indexPath.row]
+//        cell.host(
+//            SwiftUICellView(transaction: transaction, isGoToDetail: isGoToDetail)
+//        )
+//        return cell
+//    }
     
 // MARK  : Custom  dynamic   height matches multiline text. // 
     
@@ -392,6 +412,7 @@ class HostingCollectionReusableView: UICollectionReusableView {
 
 struct SwiftUICellView: View {
     let transaction: TransactionModel
+    @Binding var isGoToDetail: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -424,11 +445,23 @@ struct SwiftUICellView: View {
 //            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.5))
              .background(Color(UIColor.white))
             .onTapGesture {
-                print("hello")
+                isGoToDetail = true
+                
+                print("hello : \(transaction.txnNoInCbs) ")
             }
             .cornerRadius(8)
              .padding(.horizontal, 20)
              .background(Color(UIColor.systemGray6))
+            
+            if #available(iOS 15.0, *) {
+                NavigationLink(destination: TransactionDetailView(txnNo: transaction.txnNoInCbs), isActive: $isGoToDetail) {
+                   //
+                    EmptyView()
+                }
+            } else {
+                // Fallback on earlier versions
+                
+            }
         }
     }
 }

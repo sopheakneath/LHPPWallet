@@ -67,7 +67,7 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
     HStack(){
         RoundedRectangle(cornerRadius: 6)
             .stroke(Color.gray,lineWidth: 0.5)
-            .frame(width: 20, height: 20)
+            .frame(width: 25, height: 25)
             .background(
                 RoundedRectangle(cornerRadius: 6)
                     .fill(isChecked.wrappedValue ? Color.green : Color.white )
@@ -89,7 +89,6 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
 //    .navigationBarBackButtonHidden(true)
 //    .navigationTitle("Term")
     .padding(.leading,20)
-    
 }
 #Preview {
     if #available(iOS 15.0, *) {

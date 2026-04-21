@@ -35,19 +35,6 @@ struct TransferView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Transfer screen")
-                .font(.headline)
-            
-            // If you need to iterate over items from the view model, use one of the following patterns:
-            // ForEach(viewModel.item, id: \.self) { element in
-            //     // Your row view for each element
-            // }
-            // or, if elements are not Hashable/Identifiable, iterate over indices:
-            // ForEach(viewModel.item.indices, id: \.self) { idx in
-            //     let element = viewModel.item[idx]
-            //     // Your row view for each element
-            // }
-            
             ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
                 NavigationLink(destination: navigationview(idx: index)){
                     HStack(spacing: 8) {
@@ -76,9 +63,6 @@ struct TransferView: View {
                
                
             }
-           
-            
-           
             Spacer()
         }
         
@@ -100,8 +84,7 @@ private func navigationview(idx: Int)-> some View {
     case 0 :
         return WalletListView()
     default:
-      
-            return WalletListView()
+        return WalletListView()
        
     }
     
