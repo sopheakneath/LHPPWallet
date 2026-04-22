@@ -442,12 +442,15 @@ struct SwiftUICellView: View {
                 }
             }
             .padding(14)
+         
 //            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.5))
              .background(Color(UIColor.white))
             .onTapGesture {
                 isGoToDetail = true
                 
                 print("hello : \(transaction.txnNoInCbs) ")
+                let uuid = NSUUID().uuidString
+                print(uuid)
             }
             .cornerRadius(8)
              .padding(.horizontal, 20)

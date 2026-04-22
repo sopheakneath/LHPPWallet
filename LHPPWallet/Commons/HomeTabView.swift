@@ -19,7 +19,7 @@ struct HomeTabView: View {
                     switch selectedTab {
                     case 0: HomeView()
                     case 1: TransactionListView()
-                    case 2: Color.clear
+                    case 2: ScanQRView()
                     case 3: SettingsView()
                     case 4: SettingsView()
                     default: Color.clear

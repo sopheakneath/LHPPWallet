@@ -30,21 +30,6 @@ struct TransactionModel: Codable {
 
 }
 
-class TransactionSevice {
-    static let shared = TransactionSevice()
-    func getNotifications(completion: @escaping ([TransactionModel]) -> ()) {
-    
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion(.init(TransactionModel.mock))
-        }}
-    
-    
-    func getTransactionDetail(txnNoInCbs: String) -> TransactionDetailModel? {
-        return TransactionDetailModel.mockTransactions.first { $0.txnNoInCbs == txnNoInCbs }
-       }
-}
- 
- 
 struct TransactionDetailModel: Codable, Identifiable {
     let id = UUID()
     let txnNoInCbs: String
@@ -61,16 +46,29 @@ struct TransactionDetailModel: Codable, Identifiable {
     
 }
 
+class TransactionSevice {
+    
+    static let shared = TransactionSevice()
+    
+    
+    func getNotifications(completion: @escaping ([TransactionModel]) -> ()) {
+    
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            completion(.init(TransactionModel.mock))
+        }}
+    
+    
+    func getTransactionDetail(txnNoInCbs: String) -> TransactionDetailModel? {
+        return TransactionDetailModel.mockTransactions.first { $0.txnNoInCbs == txnNoInCbs }
+       }
+}
+ 
+ 
 
 
-//class TransactionSevice {
-//    static let share = TransactionSevice()
-//    func getListTransaction(completion: ([TransactionModel])) {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1 ) {
-//            completion(.init(TransactionModel.mock))
-//        }
-//    }
-//}
+
+
+
 
 
 extension TransactionModel {
