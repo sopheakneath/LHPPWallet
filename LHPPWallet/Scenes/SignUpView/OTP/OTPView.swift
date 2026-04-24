@@ -9,13 +9,35 @@ import SwiftUI
 import Combine
 
 @available(iOS 15.0, *)
+
+//
+
 struct OTPView: View {
+    
+    
     
     @State var phone: String = ""
     @StateObject private var viewModel = OTPViewModel()
     @FocusState private var focusedIndex: Int?
-    
+    @State private var path: [OTPDestination] = []
+    let source: OTPSource
+   
     let otpCount = 6
+    
+    //
+    var NavigationtoSucess: String {
+        switch source {
+        case .register:
+            return "/api/register/otp"
+        case .transfer:
+            return "/api/transfer/confirm"
+        case .resetPassword:
+            return "/api/reset"
+        }
+    }
+    func handleOTPVerified(for source: OTPSource) {
+        path.append(source.nextDestination)
+    }
     
     var body: some View {
         NavigationView {
@@ -44,12 +66,9 @@ struct OTPView: View {
                 .padding(.trailing, 20)
                 
                 // OTP Verify
-              
                     Text("enter_otp")
                     .padding(.leading, 20)
-
                 HStack(spacing: 12) {
-                    
                     ForEach(0..<otpCount, id: \.self) { index in
                         OTPTextField(
                             text: $viewModel.otp[index],
@@ -87,8 +106,17 @@ struct OTPView: View {
                 .onAppear {focusedIndex = 0}
 
                 NavigationLink{
-                  //  LoginView()
-                    RegisterFormView()
+                    switch source.nextDestination {
+                    case .registrationSuccess:
+                        RegisterFormView()
+                    case .registrationFlow:
+                        RegisterFormView()
+                    case .transferSuccess:
+                        TransferView()
+                    case .resetPasswordFlow:
+                        TransferView()
+                    }
+
                 }label: {
                     Text("VERIFY OTP ")
                         .foregroundColor(Color.white)
@@ -117,12 +145,12 @@ struct OTPView: View {
             }
             .ignoresSafeArea()
         }
-        .customBackToolbar(title: "Mobile Number verification")
-        
-      
+        .customBackToolbar(title: source.title)
     }
         
 }
+
+
 
 // ===============================================
 
@@ -148,10 +176,23 @@ struct OTPTextField: View {
 }
 
 
+private func Hdeader(idx: Int) -> String {
+    switch idx {
+    case 0:
+        return "txt"
+    default:
+        return ""
+    }
+}
+
+
+
+
+
 // ------------------------------------------------
 #Preview {
     if #available(iOS 15.0, *) {
-        OTPView()
+        OTPView(source: .register)
     } else {
         // Fallback on earlier versions
     }

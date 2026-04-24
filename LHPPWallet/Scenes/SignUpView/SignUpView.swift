@@ -44,7 +44,7 @@ struct SignUpView: View {
                 NavigationLink {
                     
                     if #available(iOS 15.0, *) {
-                        OTPView()
+                        OTPView( source: .register)
                     } else {
                         // Fallback on earlier versions
                     }

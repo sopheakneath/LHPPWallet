@@ -71,7 +71,7 @@ class LoginViewModel: ObservableObject {
 
             do {
                 let user = try await service.login(username: username, password: password)
-                
+               
                 print("username\(username)")
 
                 // 🔐 Store token securely
@@ -92,7 +92,6 @@ class LoginViewModel: ObservableObject {
    
         func loginTestSecurity() async {
             isLoading = true
-
             do {
                 let user = try await service.login(username: username, password: password)
                 print("tocken before save\(user.token)")

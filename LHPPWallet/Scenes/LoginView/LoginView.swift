@@ -131,7 +131,8 @@ struct LoginView: View {
                         
                     } label: {
                         VStack{
-                            Rectangle()
+                            ZStack{
+                                Rectangle( )
                                 .cornerRadius(20)
                                 .frame(width: 38, height: 60)
                                 .foregroundColor(Color.clear)
@@ -139,6 +140,10 @@ struct LoginView: View {
                                     RoundedRectangle(cornerRadius: 30)
                                         .stroke(Color.gray, lineWidth: 2)
                                 )
+                                Text("***")
+                                    .foregroundColor(Color.black)
+                            }
+                            
                             Text("login.pin".localized)
                         }
                         

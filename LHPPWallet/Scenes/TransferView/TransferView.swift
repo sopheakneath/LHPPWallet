@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// init transfer type
+
 struct TransferItem: Identifiable {
     let id = UUID()
     let image: String
@@ -50,7 +52,7 @@ struct TransferView: View {
                         
                     }
                 }
-                
+              //   transfer screen => validation => stransfer success
                 .padding()
                
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -70,7 +72,6 @@ struct TransferView: View {
         .customBackToolbar(title: "transfer".localized)
         .task {
             await viewModel.fetchWalletList()
-
             print("wallet list \(viewModel.item.count)")
         }
     }
