@@ -43,6 +43,7 @@ struct WelcomeView: View {
             }
             
             Spacer()
+           
             Button {
                 gotoTerms = true
             } label: {

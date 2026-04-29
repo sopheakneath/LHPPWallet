@@ -112,7 +112,8 @@ struct OTPView: View {
                     case .registrationFlow:
                         RegisterFormView()
                     case .transferSuccess:
-                        TransferView()
+                      
+                        SuccessView(successTyp: .transfer)
                     case .resetPasswordFlow:
                         TransferView()
                     }

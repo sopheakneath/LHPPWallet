@@ -67,13 +67,14 @@ struct TransferView: View {
             }
             Spacer()
         }
-        
+    
         .padding()
         .customBackToolbar(title: "transfer".localized)
         .task {
             await viewModel.fetchWalletList()
             print("wallet list \(viewModel.item.count)")
         }
+        .navigationDestination(for: .==(lhs: `Self`, rhs: <#T##Self#>), destination: <#T##(Hashable) -> View#>)
     }
        
 }

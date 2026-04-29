@@ -45,6 +45,17 @@ extension OTPSource {
             return "Continue"
         }
     }
+    
+    var successTitle: String {
+        switch self {
+        case .register:
+            return "your registeration is successfully!"
+        case .transfer:
+            return "Transfer Successfully"
+        case .resetPassword:
+            return "Your password reset success"
+        }
+    }
    
     /// The next screen to navigate to after OTP validation, depending on source
     var nextDestination: OTPDestination {

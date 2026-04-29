@@ -72,7 +72,7 @@ class LoginViewModel: ObservableObject {
             do {
                 let user = try await service.login(username: username, password: password)
                
-                print("username\(username)")
+                print("username : \(username)")
 
                 // 🔐 Store token securely
                 SecureStorage.share.save(value: user.token, for: "auth_token")
@@ -86,10 +86,10 @@ class LoginViewModel: ObservableObject {
 
             isLoading = false
         }
-    
-    
-    
+  
    
+    // store data encript in keychain
+  
         func loginTestSecurity() async {
             isLoading = true
             do {
@@ -97,10 +97,11 @@ class LoginViewModel: ObservableObject {
                 print("tocken before save\(user.token)")
                 // 🔐 Save token
                 SecureStorage.share.save(value: user.token, for: "auth_token")
+               
                 print("tocken\(user.token)")
                 // ✅ Immediately verify
-                let savedToken = SecureStorage.share.getValue(for: "auth_token")
-
+                let savedToken = SecureStorage.share.getValue(for: "auth_token_test")
+ 
                 if savedToken == user.token {
                     alertMessage = "✅ Login + Secure Save SUCCESS"
                 } else {
@@ -110,7 +111,7 @@ class LoginViewModel: ObservableObject {
             } catch {
                 alertMessage = "❌ Login failed: \(error)"
             }
-
+            
             isLoading = false
         }
     

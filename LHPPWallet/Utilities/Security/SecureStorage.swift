@@ -32,9 +32,12 @@ final class SecureStorage {
         let encryptionKey = getKey()
         guard let data = value.data(using: .utf8), let encrypted = try? CryptoManager.share.encrypt(data: data, key: encryptionKey) else { return }
        
-        
+        print("Encrypted: \(encrypted)")
         UserDefaults.standard.set( encrypted, forKey: key )
         print("🔐 Encrypted data:", encrypted.base64EncodedString())
+        print("🔐 Encrypted data:", encrypted)
+        
+        
     }
     
     func getValue(for key: String) -> String? {
@@ -44,7 +47,6 @@ final class SecureStorage {
         return String(data: decrypted, encoding: .utf8)
         
     }
-    
     func delete(key: String) {
         UserDefaults.standard.removeObject(forKey: key )
     }
@@ -52,7 +54,7 @@ final class SecureStorage {
 
 
 
-//get plain text from api
+//get plain text from api 6 , 750, 850
 //stare in keychain as encrypt Data
 //get data by decrypt all data and show real data on app
 //

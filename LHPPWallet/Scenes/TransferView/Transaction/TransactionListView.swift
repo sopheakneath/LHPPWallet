@@ -450,7 +450,7 @@ struct SwiftUICellView: View {
                 
                 print("hello : \(transaction.txnNoInCbs) ")
                 let uuid = NSUUID().uuidString
-                print(uuid)
+                print("UUID:",uuid)
             }
             .cornerRadius(8)
              .padding(.horizontal, 20)
