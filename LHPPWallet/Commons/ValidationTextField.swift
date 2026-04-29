@@ -17,6 +17,7 @@ struct ValidatedTextField: View {
     var keyboardType: UIKeyboardType = .default
     var isSecure: Bool = false
     var isTitleFrame: Bool = false
+    let isImage: Bool = true
     
     @State private var error: String? = nil
     var isFocused: Bool = false

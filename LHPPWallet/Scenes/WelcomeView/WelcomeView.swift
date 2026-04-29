@@ -65,13 +65,25 @@ struct WelcomeView: View {
                     .foregroundColor(.black)
                     .font(.maliRegular)
                 
-                Button(action: {
-                    //
-                }) {
+               
+                
+                NavigationLink {
+                    LoginView()
+                } label: {
                     Text("login.loginButton".localized)
                         .font(.maliRegular)
                 }
+                
+//                Button(action: {
+//                    LoginView()
+//                    print("i'm login")
+//                }) {
+//                    Text("login.loginButton".localized)
+//                        .font(.maliRegular)
+//                }
             }
+            
+            
             .padding(.top,24)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

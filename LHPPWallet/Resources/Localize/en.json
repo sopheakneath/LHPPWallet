@@ -21,6 +21,8 @@
   "phone_verify" : "Verify Phone Number",
   "enter_otp" : "Enter your OTP",
   "transfer" : "Transfers",
-  "wallets" : "Wallets"
+  "wallets" : "Wallets",
   
+  "otp_decription" : "We’ll send SMS to you with one time password 6 digits on this phone number",
+  "verify_code" : "Verication Code"
 }

@@ -32,14 +32,21 @@ struct RegisterFormView: View {
     
     var body: some View {
     NavigationView{
-        
-            VStack{
-                
-                Image("profile")
-                    .resizable()
-                    .frame(width: 120, height: 120)
-                    .cornerRadius(60)
-                    .padding(.vertical, 28)
+        ScrollView {
+                HStack{
+                    Text("1")
+                        .frame(width: 40,height: 40)
+                        .background(Color.red)
+                        .cornerRadius(20)
+                   
+                    Text("---------------")
+                        .foregroundColor(Color.red)
+                   
+                    Text("2")
+                        .frame(width: 40,height: 40)
+                        .background(Color.gray)
+                        .cornerRadius(20)
+                }
                 
                 HStack {
                     ValidatedTextField(title: "First Name", placeHolder: "", text: $firsName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
@@ -73,21 +80,27 @@ struct RegisterFormView: View {
             
                 ValidatedTextField(title: "Date of birth", placeHolder: "", text: $dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
                 ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-               
-                HStack(spacing: 0) {
-                        genderButton(title: "Male", value: "M")
-                        genderButton(title: "Female", value: "F")
-                    }
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(30)
-                    .padding(.horizontal, 30)
-                    .onChange(of: gender, perform: {newValue in
-                        print("hello \(newValue)")
-                    },  )
+            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+//
+//                HStack(spacing: 0) {
+//                        genderButton(title: "Male", value: "M")
+//                        genderButton(title: "Female", value: "F")
+//                    }
+//                    .background(Color.gray.opacity(0.2))
+//                    .cornerRadius(30)
+//                    .padding(.horizontal, 30)
+//                    .onChange(of: gender, perform: {newValue in
+//                        print("hello \(newValue)")
+//                    },  )
 
                 
                 NavigationLink{
-                    LoginView()
+                   // LoginView()
+                    DocumentForm()
                 }label: {
                     Text("Register")
                         .frame(maxWidth: .infinity)
@@ -102,10 +115,11 @@ struct RegisterFormView: View {
                         .padding(.horizontal, 90)
                        
                 }
-                .padding(.top, 50)
+               // .padding(.top, 50)
                 
             }
             .padding(.horizontal, 14)
+            .background(Color.lightGray)
         }
     .customBackToolbar(title: "Account Registration")
       

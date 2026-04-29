@@ -24,6 +24,11 @@ struct OTPView: View {
    
     let otpCount = 6
     
+    
+    @State private var timeRemaining = 60 // seconds
+    @State private var timer: Timer? = nil
+
+    
     //
     var NavigationtoSucess: String {
         switch source {
@@ -51,23 +56,26 @@ struct OTPView: View {
                     .padding(.bottom, 30)
                     .padding(.horizontal,103)
                 
-                
-                HStack {
-                    Image("ic-kh-flag")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 33, height: 22)
-                    Text("+855")
-                    Text("|")
-                    TextField("phone_number".localized, text: $phone)
-                    
+                VStack {
+                    Text("verify_code".localized)
+                    Text("Please type the verification code sent to")
+                    Text("+855 xxx xx x19")
+                        .foregroundColor(Color.blue)
+                        .font(.maliMedium)
                 }
-                .padding(.leading, 20)
-                .padding(.trailing, 20)
+                .frame(maxWidth: .infinity, alignment: .center)
                 
-                // OTP Verify
-                    Text("enter_otp")
-                    .padding(.leading, 20)
+                
+                
+                
+                // OTP Verify not a 111
+                VStack {
+                    Text("Re-send code in")
+                        .padding(.leading, 20)
+                    Text("\(timeRemaining) sec")
+                        .padding(.leading, 20)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
                 HStack(spacing: 12) {
                     ForEach(0..<otpCount, id: \.self) { index in
                         OTPTextField(
@@ -103,7 +111,11 @@ struct OTPView: View {
                     }
                 }
                 .padding()
-                .onAppear {focusedIndex = 0}
+                .onAppear {
+                    focusedIndex = 0
+                    startTimer()
+                    
+                }
 
                 NavigationLink{
                     switch source.nextDestination {
@@ -148,6 +160,23 @@ struct OTPView: View {
         }
         .customBackToolbar(title: source.title)
     }
+    
+    
+    func startTimer() {
+            stopTimer() // prevent multiple timers
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                if timeRemaining > 0 {
+                    timeRemaining -= 1
+                } else {
+                    stopTimer()
+                }
+            }
+        }
+    func stopTimer() {
+         //timeRemaining = 60
+            timer?.invalidate()
+            timer = nil
+        }
         
 }
 

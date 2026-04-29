@@ -22,25 +22,54 @@ struct SignUpView: View {
                     .padding(.horizontal,60)
                 
                 
-                HStack {
-                    Image("ic-kh-flag")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 33, height: 22)
-                    Text("+855")
-                    Text("|")
-                    TextField("Phone Number", text: $phone)
-                        .keyboardType(.phonePad)
-                        .onTapGesture {
-                            print(" on tap gesture")
-                        }
-                    //  .firstReserved
+                VStack(alignment: .leading) {
+//                    Image("ic-kh-flag")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 33, height: 22)
+//                    Text("+855")
+//                    Text("|")
+                   
                     
+                    ValidatedTextField(title: "Country", placeHolder: "Country", text: $phone, validator: { input in
+                       
+                        let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if trimmed.isEmpty {
+                            return "Phone require"
+                        }
+                        // Basic numeric and length check (adjust as needed)
+                        let digits = trimmed.filter { $0.isNumber }
+                        if digits.count < 8 { // simplistic minimum length
+                            return "Invalid phone number"
+                        }
+                        return nil
+                    })
+                    
+                  
+                    ValidatedTextField(title: "phone number", placeHolder: "Phone Number", text: $phone, validator: { input in
+                       
+                        let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if trimmed.isEmpty {
+                            return "Phone require"
+                        }
+                        // Basic numeric and length check (adjust as needed)
+                        let digits = trimmed.filter { $0.isNumber }
+                        if digits.count < 8 { // simplistic minimum length
+                            return "Invalid phone number"
+                        }
+                        return nil
+                    })
+                  
                 }
                 .padding(.leading, 20)
                 .padding(.trailing, 20)
                 
-                // Replace the Button around "SIGN UP" with:
+                Text("otp_decription".localized)
+                    .padding(40)
+                    
+                   
+                
+                Spacer()
                 NavigationLink {
                     
                     if #available(iOS 15.0, *) {
@@ -56,14 +85,14 @@ struct SignUpView: View {
                             .frame(maxWidth: .infinity, minHeight: 45)
                         
                             .background(
-                                RoundedRectangle(cornerRadius: 12)
+                                RoundedRectangle(cornerRadius: 8)
                                     .fill(Color.blue)
                             )
-                            .padding(.horizontal, 108)
+                            .padding(.horizontal, 20)
                     
                 }
-                .padding(.top,67)
-                .padding(.horizontal, 22)
+                .padding(.bottom,30)
+               // .padding(.horizontal, 22)
                 
 //                Button {
 //                    // viewModel.login()
@@ -81,14 +110,21 @@ struct SignUpView: View {
 //    
 //                }
                
-                Spacer()
-                ZStack{
-                    Image("camb")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 80)
-                    Text("Ly Hour App")
-                }
+                
+                
+           // --------------------------------------------------------------------
+                
+                
+                
+                
+//                Spacer()
+//                ZStack{
+//                    Image("camb")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(height: 80)
+//                    Text("Ly Hour App")
+//                }
                 
                 
             }

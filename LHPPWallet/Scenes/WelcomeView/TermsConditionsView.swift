@@ -49,7 +49,7 @@ struct TermsConditionsView: View {
 //                    EmptyView()
 //                }
                 
-                NavigationLink(destination: LoginView(), isActive: $isGotoHomeTab) {
+                NavigationLink(destination: SignUpView(), isActive: $isGotoHomeTab) {
                     EmptyView()
                 }
                 

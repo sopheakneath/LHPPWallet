@@ -156,7 +156,8 @@ struct LoginView: View {
                 
                 Spacer()
                 NavigationLink {
-                    SignUpView()
+                   // SignUpView()
+                    TermsConditionsView()
                 } label: {
                     HStack {
                         Text("login.noAccount".localized)
@@ -171,7 +172,7 @@ struct LoginView: View {
                 
                 Image("camb")
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFit() 
                     .frame(height: 73)
             }
             

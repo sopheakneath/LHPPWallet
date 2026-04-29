@@ -74,7 +74,7 @@ struct TransferView: View {
             await viewModel.fetchWalletList()
             print("wallet list \(viewModel.item.count)")
         }
-        .navigationDestination(for: .==(lhs: `Self`, rhs: <#T##Self#>), destination: <#T##(Hashable) -> View#>)
+       
     }
        
 }
@@ -87,9 +87,7 @@ private func navigationview(idx: Int)-> some View {
         return WalletListView()
     default:
         return WalletListView()
-       
     }
-    
 }
 
 #Preview {
