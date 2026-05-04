@@ -27,15 +27,15 @@ struct ValidatedTextField: View {
         VStack(alignment: .leading, spacing: 6) {
             if let placeHolder, !placeHolder.isEmpty {
                 Text(placeHolder)
-                    .font(.maliBold)
+                    .font(.maliRegular)
                    // .foregroundStyle(.secondary)
             }
             Group {
                 HStack{
-                    Image(systemName: "person")
-                        .scaledToFit()
-                        .frame(width: 20,height: 20)
-                        .foregroundColor(.secondary)
+//                    Image(systemName: "person")
+//                        .scaledToFit()
+//                        .frame(width: 20,height: 20)
+//                        .foregroundColor(.secondary)
                     if isSecure {
                         SecureField(title ?? "", text: $text)
                             .textContentType(.password)
@@ -52,7 +52,7 @@ struct ValidatedTextField: View {
                 .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .strokeBorder(borderColor, lineWidth: 1)
+                        .strokeBorder(borderColor, lineWidth: 0.5)
                         .background(
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                .fill(Color(.white))
@@ -89,7 +89,7 @@ struct ValidatedTextField: View {
         if isSubmit {
             return .red
         }
-        return isFocused ? .accentColor : .secondary
+        return isFocused ? .lightGray : .secondary
     }
 
     private func validate() {

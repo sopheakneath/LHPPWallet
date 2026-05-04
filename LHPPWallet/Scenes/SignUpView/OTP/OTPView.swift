@@ -72,8 +72,15 @@ struct OTPView: View {
                 VStack {
                     Text("Re-send code in")
                         .padding(.leading, 20)
-                    Text("\(timeRemaining) sec")
-                        .padding(.leading, 20)
+                    
+                    HStack {
+                        Text("\(timeRemaining)")
+                            .foregroundColor(.red)
+                           // .padding(.leading, 20)
+                        Text("sec")
+                            //.padding(.leading, 20)
+                    }
+                   
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 HStack(spacing: 12) {

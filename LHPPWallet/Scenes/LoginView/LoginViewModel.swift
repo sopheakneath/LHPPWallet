@@ -99,17 +99,17 @@ class LoginViewModel: ObservableObject {
                 SecureStorage.share.save(value: user.token, for: "auth_token")
                
                 print("tocken\(user.token)")
-                // ✅ Immediately verify
+                //  Immediately verify
                 let savedToken = SecureStorage.share.getValue(for: "auth_token_test")
  
                 if savedToken == user.token {
-                   // alertMessage = "✅ Login + Secure Save SUCCESS"
+                    alertMessage = "Login + Secure Save SUCCESS"
                 } else {
-                //alertMessage = "❌ Token mismatch"
+                alertMessage = "Token mismatch"
                 }
 
             } catch {
-                alertMessage = "❌ Login failed: \(error)"
+                alertMessage = "Login failed: \(error)"
             }
             
             isLoading = false

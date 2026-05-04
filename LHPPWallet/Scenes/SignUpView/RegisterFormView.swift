@@ -27,43 +27,59 @@ struct RegisterFormView: View {
 
 
     @State private var biometric = true
-      @State private var notification = false
+    @State private var notification = false
     
     
     var body: some View {
+    
     NavigationView{
         ScrollView {
                 HStack{
-                    Text("1")
-                        .frame(width: 40,height: 40)
-                        .background(Color.red)
-                        .cornerRadius(20)
+                    VStack{
+                        Text("1")
+                            .frame(width: 40,height: 40)
+                            .foregroundColor(.white)
+                            .background(Color.red)
+                            .cornerRadius(20)
+                        Text("Fill Form")
+                    }
                    
-                    Text("---------------")
-                        .foregroundColor(Color.red)
+                  
                    
-                    Text("2")
-                        .frame(width: 40,height: 40)
-                        .background(Color.gray)
-                        .cornerRadius(20)
+                    Rectangle()
+                        .frame(width: 100)
+                            .frame(height: 1)
+                            .foregroundColor(.red)
+                            .padding(.bottom,30)
+                            .padding(.trailing, -40)
+                    
+                           
+                    
+                    VStack {
+                        Text("2")
+                            .frame(width: 40,height: 40)
+                            .foregroundColor(.white)
+                            .background(Color.gray)
+                            .cornerRadius(20)
+                        Text("Update Document")
+                    }
+                    
                 }
                 
-                HStack {
-                    ValidatedTextField(title: "First Name", placeHolder: "", text: $firsName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-                        .padding(.trailing, 10)
+             
+                    ValidatedTextField(title: "First Name", placeHolder: "First Name", text: $firsName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
                     
-                    
-                    ValidatedTextField(title: "Last name", placeHolder: "", text: $lastName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-                        .padding(.leading, 10)
-                }
-                ValidatedTextField(title: "User name", placeHolder: "", text: $userName, validator: { value in
+                    ValidatedTextField(title: "Last name", placeHolder: "Last Name", text: $lastName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+                      
+                
+                ValidatedTextField(title: "User name", placeHolder: "User Name", text: $userName, validator: { value in
                     if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 7 {
                         return "user name is required"
                     }
                     return nil
                     
                 }, keyboardType: .default, isSecure: false, isTitleFrame: false)
-                ValidatedTextField(title: "password", placeHolder: "",
+                ValidatedTextField(title: "password", placeHolder: "Password",
                                    text: $password,
                                    validator: { value in
                                        if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 4 {
@@ -77,14 +93,23 @@ struct RegisterFormView: View {
                                    isTitleFrame: false
                                    
                 )
+            ValidatedTextField(title: "Nick Name", placeHolder: "Nick Name", text: $dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
+            ValidatedTextField(title: "Date of birth", placeHolder: "Date of birtd", text: $dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
+            ValidatedTextField(title: "Emain", placeHolder: "Email adress (optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Province", placeHolder: "Province", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "District", placeHolder: "District", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Commune (Optional)", placeHolder: "Commune (Optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Village (Optional)", placeHolder: "Village (Optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Country", placeHolder: "Country", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
             
-                ValidatedTextField(title: "Date of birth", placeHolder: "", text: $dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
-                ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Referral code", placeHolder: "", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Address", placeHolder: "Address", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            
+            ValidatedTextField(title: "Address 2 (Optional)", placeHolder: "Address 2 (Optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            
+            ValidatedTextField(title: "Address 3 (Optional)", placeHolder: "Address 3 (Optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Gender", placeHolder: "Gender", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Occupation", placeHolder: "Occupation", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+//
 //
 //                HStack(spacing: 0) {
 //                        genderButton(title: "Male", value: "M")
@@ -111,17 +136,20 @@ struct RegisterFormView: View {
                         .foregroundColor(Color.white)
                        // .background(Color(hex:"#286CB3"))
                         .background(Color.primaryBlue)
-                        .cornerRadius(30)
-                        .padding(.horizontal, 90)
+                        .cornerRadius(8)
+                       // .padding(.horizontal, 90)
                        
                 }
+               // .frame(maxWidth: .infinity)
                // .padding(.top, 50)
                 
             }
+            
             .padding(.horizontal, 14)
-            .background(Color.lightGray)
+            .background(Color.brightGray)
         }
     .customBackToolbar(title: "Account Registration")
+   
       
     }
 }

@@ -23,6 +23,7 @@
        
     <key>NSCameraUsageDescription</key>
     <string>We need camera to scan QR code</string>
+   
     
 
     <key>UIDesignRequiresCompatibility</key>

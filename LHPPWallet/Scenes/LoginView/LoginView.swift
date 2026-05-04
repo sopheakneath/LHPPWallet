@@ -9,6 +9,7 @@ import SwiftUI
 
 
 
+
 //@available(iOS 16.0, *)
 //@available(iOS 15.0, *)
 @available(iOS 15.0, *)
@@ -16,8 +17,6 @@ struct LoginView: View {
     
     @State private var isFocused: Bool = false
     @StateObject var viewModel = LoginViewModel() // viewModel should expose an @Published var isLoggedIn: Bool used to drive navigation
-   
-
     var body: some View {
         
         NavigationView {
@@ -29,6 +28,8 @@ struct LoginView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal,65 )
                     .padding(.top, 8)
+                
+               
                 
                 HStack {
                     TextField(("login.phoneOrUsername".localized), text: $viewModel.username)
@@ -112,8 +113,8 @@ struct LoginView: View {
                     }
                 }
                 
-                Text(viewModel.alertMessage ?? "error message not found")
-                    .foregroundColor(Color.red)
+//                Text(viewModel.alertMessage ?? "error message not found")
+//                    .foregroundColor(Color.red)
             
                 HStack {
                     Button{
@@ -177,7 +178,7 @@ struct LoginView: View {
             }
             
             .ignoresSafeArea()
-            .navigationBarBackButtonHidden()
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
 //                    Button {
@@ -192,6 +193,7 @@ struct LoginView: View {
                 Button("OK", role: .cancel) { }
             }
         }
+        .navigationBarBackButtonHidden(true)
        
        
     }
