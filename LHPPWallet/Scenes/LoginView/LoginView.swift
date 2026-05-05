@@ -80,9 +80,10 @@ struct LoginView: View {
                     }
                 }
                 
-                NavigationLink(destination: HomeTabView(), isActive: $viewModel.isLoggedIn) {
+                NavigationLink(destination: OTPView(source: .login), isActive: $viewModel.isLoggedIn) {
                     EmptyView()
                 }
+              
                 .hidden()
                 .onChange(of: viewModel.isSuccess) { newValue in
                     if newValue {
@@ -92,6 +93,7 @@ struct LoginView: View {
                
                 Button {
                    // viewModel.login()
+                    
                     Task {
                         await viewModel.loginSe()
                     }

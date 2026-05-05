@@ -14,12 +14,14 @@ enum OTPDestination: Equatable {
     case registrationFlow
     case transferSuccess
     case resetPasswordFlow
+    case createPin
 }
 
 enum OTPSource {
     case register
     case transfer
     case resetPassword
+    case login
 }
 
 extension OTPSource {
@@ -32,6 +34,8 @@ extension OTPSource {
             return "Confirm Transfer"
         case .resetPassword:
             return "Reset Password"
+        case .login:
+            return "Login"
         }
     }
     
@@ -43,6 +47,8 @@ extension OTPSource {
             return "Confirm"
         case .resetPassword:
             return "Continue"
+        case .login:
+            return "Login"
         }
     }
     
@@ -54,6 +60,8 @@ extension OTPSource {
             return "Transfer Successfully"
         case .resetPassword:
             return "Your password reset success"
+        case.login:
+            return "Create Login PIN"
         }
     }
    
@@ -66,6 +74,8 @@ extension OTPSource {
             return .transferSuccess
         case .resetPassword:
             return .resetPasswordFlow
+        case .login:
+            return .createPin
         }
     }
 }

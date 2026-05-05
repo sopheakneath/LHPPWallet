@@ -38,6 +38,8 @@ struct OTPView: View {
             return "/api/transfer/confirm"
         case .resetPassword:
             return "/api/reset"
+        case .login:
+            return "/api/reset"
         }
     }
     func handleOTPVerified(for source: OTPSource) {
@@ -131,10 +133,11 @@ struct OTPView: View {
                     case .registrationFlow:
                         RegisterFormView()
                     case .transferSuccess:
-                      
                         SuccessView(successTyp: .transfer)
                     case .resetPasswordFlow:
                         TransferView()
+                    case .createPin:
+                        CreatePinView(source: .login)
                     }
 
                 }label: {
@@ -207,7 +210,7 @@ struct OTPTextField: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isFocused ? Color.blue : Color.black, lineWidth: 1)
+                    .stroke(isFocused ? Color.blue : Color.gray, lineWidth: 1)
             )
     }
 }
