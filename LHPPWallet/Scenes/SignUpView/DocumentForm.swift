@@ -9,30 +9,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct DocumentForm: View {
-    @State var nationality: String = ""
-    @State var isUploaded : Bool = false
-    
-    @State private var isMediaPickerPresented: Bool = false
-    @State private var useCamera: Bool = true
-    @State private var image: UIImage?
-    
-    @State private var uploadedItems: [UploadedItem] = []
-    @State private var uploadedSelfie: [UploadedItem] = []
-    @State private var previewImage: UIImage? = nil
-    @State private var isPreviewPresented: Bool = false
-    
-    struct UploadedItem: Identifiable {
-        let id = UUID()
-        let title: String
-        let image: UIImage
-    }
-    
-    enum PickingTarget {
-        case document
-        case selfie
-    }
-    
-    @State private var pickingTarget: PickingTarget = .document
+    @EnvironmentObject var viewModel: RegistrationViewModel
     
     var body: some View {
        
@@ -68,7 +45,7 @@ struct DocumentForm: View {
                 ValidatedTextField(
                     title: "Choose Nationality",
                     placeHolder: "Nationality",
-                    text: $nationality,
+                    text: $viewModel.nationality,
                     validator: { input in
                         input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "This field is required." : nil
                     }
@@ -77,7 +54,7 @@ struct DocumentForm: View {
                 ValidatedTextField(
                     title: "Choose Document type",
                     placeHolder: "Document Type",
-                    text: $nationality,
+                    text: $viewModel.documentType,
                     validator: { input in
                         input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "This field is required." : nil
                     }  )
@@ -86,7 +63,7 @@ struct DocumentForm: View {
                 ValidatedTextField(
                     title: "Document id number",
                     placeHolder: "ID Number",
-                    text: $nationality,
+                    text: $viewModel.documentIdNumber,
                     validator: { input in
                         input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "This field is required." : nil
                     }  )
@@ -109,9 +86,7 @@ struct DocumentForm: View {
                     
                     HStack {
                         Button {
-                            pickingTarget = .document
-                            useCamera = true
-                            isMediaPickerPresented = true
+                            viewModel.presentPicker(target: .document, useCamera: true)
                         } label: {
                             HStack{
                                 Image("camera")
@@ -135,9 +110,7 @@ struct DocumentForm: View {
                         Spacer()
                         
                         Button {
-                            pickingTarget = .document
-                            useCamera = false
-                            isMediaPickerPresented = true
+                            viewModel.presentPicker(target: .document, useCamera: false)
                                
                         } label: {
                             HStack{
@@ -177,20 +150,18 @@ struct DocumentForm: View {
                    )
                 .cornerRadius(8)
              
-                if !uploadedItems.isEmpty {
+                if !viewModel.uploadedDocuments.isEmpty {
                     Text("Uploaded")
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                    
                
-                ForEach(uploadedItems) { item in
+                ForEach(viewModel.uploadedDocuments) { item in
                     StoreImageView(title: item.title, onPreview: {
-                        previewImage = item.image
-                        isPreviewPresented = true
+                        viewModel.previewImage = item.image
+                        viewModel.isPreviewPresented = true
                     }, onDelete: {
-                        if let index = uploadedItems.firstIndex(where: { $0.id == item.id }) {
-                            uploadedItems.remove(at: index)
-                        }
+                        viewModel.deleteDocument(id: item.id)
                     })
                 }
                 
@@ -214,9 +185,7 @@ struct DocumentForm: View {
                     
                     HStack {
                         Button {
-                            pickingTarget = .selfie
-                            useCamera = true
-                            isMediaPickerPresented = true
+                            viewModel.presentPicker(target: .selfie, useCamera: true)
                         } label: {
                             HStack{
                                 Image("camera")
@@ -238,9 +207,7 @@ struct DocumentForm: View {
                            
                         Spacer()
                         Button {
-                            pickingTarget = .selfie
-                            useCamera = false
-                            isMediaPickerPresented = true
+                            viewModel.presentPicker(target: .selfie, useCamera: false)
                            
                         } label: {
                             HStack{
@@ -280,19 +247,17 @@ struct DocumentForm: View {
                 .cornerRadius(8)
              
                 
-                if !uploadedSelfie.isEmpty {
+                if !viewModel.uploadedSelfies.isEmpty {
                     Text("Uploaded")
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                ForEach(uploadedSelfie) { item in
+                ForEach(viewModel.uploadedSelfies) { item in
                     StoreImageView(title: item.title, onPreview: {
                         
-                        previewImage = item.image
-                        isPreviewPresented = true
+                        viewModel.previewImage = item.image
+                        viewModel.isPreviewPresented = true
                     }, onDelete: {
-                        if let index = uploadedSelfie.firstIndex(where: { $0.id == item.id }) {
-                            uploadedSelfie.remove(at: index)
-                        }
+                        viewModel.deleteSelfie(id: item.id)
                     })
                 }
                 
@@ -321,34 +286,19 @@ struct DocumentForm: View {
            
         }
         .customBackToolbar(title: "Registration")
-        .sheet(isPresented: $isMediaPickerPresented) {
-            if useCamera {
+        .sheet(isPresented: $viewModel.isMediaPickerPresented) {
+            if viewModel.useCamera {
                 CameraPicker(sourceType: .camera) { pickedImage in
-                    self.image = pickedImage
-                    let filename = useCamera ? "Camera_\(Int(Date().timeIntervalSince1970)).png" : "Photo_\(Int(Date().timeIntervalSince1970)).png"
-                    let item = UploadedItem(title: filename, image: pickedImage)
-                    if pickingTarget == .document {
-                        uploadedItems.append(item)
-                    } else {
-                        uploadedSelfie.append(item)
-                    }
+                    viewModel.addPickedImage(pickedImage)
                 }
             } else {
                 CameraPicker(sourceType: .photoLibrary) { pickedImage in
-                    self.image = pickedImage
-                    let filename = useCamera ? "Camera_\(Int(Date().timeIntervalSince1970)).png" : "Photo_\(Int(Date().timeIntervalSince1970)).png"
-                    let item = UploadedItem(title: filename, image: pickedImage)
-                    
-                    if pickingTarget == .document {
-                        uploadedItems.append(item)
-                    } else {
-                        uploadedSelfie.append(item)
-                    }
+                    viewModel.addPickedImage(pickedImage)
                 }
             }
         }
-        .sheet(isPresented: $isPreviewPresented) {
-            if let previewImage {
+        .sheet(isPresented: $viewModel.isPreviewPresented) {
+            if let previewImage = viewModel.previewImage {
                 VStack {
                     Image(uiImage: previewImage)
                         .resizable()
@@ -364,7 +314,8 @@ struct DocumentForm: View {
 
 #Preview {
     if #available(iOS 15.0, *) {
-        DocumentForm(nationality: "NATION")
+        DocumentForm()
+            .environmentObject(RegistrationViewModel())
     } else {
         // Fallback on earlier versions
     }

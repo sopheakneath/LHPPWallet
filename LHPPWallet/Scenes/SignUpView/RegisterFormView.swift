@@ -7,27 +7,9 @@
 
 import SwiftUI
 
-
-//@available(iOS 17.0, *)
-//@available(iOS 17.0, *)
-
-//@available(iOS 16.0, *)
-
 @available(iOS 15.0, *)
 struct RegisterFormView: View {
-    @State var firsName: String = ""
-    @State var lastName: String = ""
-    @State var userName: String = ""
-    @State var password: String = ""
-    @State var dateOfBirth: String = ""
-    @State var referCode: String = ""
-    //@State var gender: String = ""
-    @State private var isOn = false
-    @State private var gender = "M"
-
-
-    @State private var biometric = true
-    @State private var notification = false
+    @StateObject private var viewModel = RegistrationViewModel()
     
     
     var body: some View {
@@ -67,12 +49,12 @@ struct RegisterFormView: View {
                 }
                 
              
-                    ValidatedTextField(title: "First Name", placeHolder: "First Name", text: $firsName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+                    ValidatedTextField(title: "First Name", placeHolder: "First Name", text: $viewModel.firstName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
                     
-                    ValidatedTextField(title: "Last name", placeHolder: "Last Name", text: $lastName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+                    ValidatedTextField(title: "Last name", placeHolder: "Last Name", text: $viewModel.lastName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
                       
                 
-                ValidatedTextField(title: "User name", placeHolder: "User Name", text: $userName, validator: { value in
+                ValidatedTextField(title: "User name", placeHolder: "User Name", text: $viewModel.userName, validator: { value in
                     if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 7 {
                         return "user name is required"
                     }
@@ -80,7 +62,7 @@ struct RegisterFormView: View {
                     
                 }, keyboardType: .default, isSecure: false, isTitleFrame: false)
                 ValidatedTextField(title: "password", placeHolder: "Password",
-                                   text: $password,
+                                   text: $viewModel.password,
                                    validator: { value in
                                        if value.trimmingCharacters(in: .whitespacesAndNewlines).count < 4 {
                                            return "Password most be at leasr 8 charater"
@@ -93,22 +75,22 @@ struct RegisterFormView: View {
                                    isTitleFrame: false
                                    
                 )
-            ValidatedTextField(title: "Nick Name", placeHolder: "Nick Name", text: $dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
-            ValidatedTextField(title: "Date of birth", placeHolder: "Date of birtd", text: $dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
-            ValidatedTextField(title: "Emain", placeHolder: "Email adress (optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Province", placeHolder: "Province", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "District", placeHolder: "District", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Commune (Optional)", placeHolder: "Commune (Optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Village (Optional)", placeHolder: "Village (Optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Country", placeHolder: "Country", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Nick Name", placeHolder: "Nick Name", text: $viewModel.preferredName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
+            ValidatedTextField(title: "Date of birth", placeHolder: "Date of birtd", text: $viewModel.dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
+            ValidatedTextField(title: "Emain", placeHolder: "Email adress (optional)", text: $viewModel.email, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Province", placeHolder: "Province", text: $viewModel.province, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "District", placeHolder: "District", text: $viewModel.district, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Commune (Optional)", placeHolder: "Commune (Optional)", text: $viewModel.commune, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Village (Optional)", placeHolder: "Village (Optional)", text: $viewModel.village, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Country", placeHolder: "Country", text: $viewModel.country, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
             
-            ValidatedTextField(title: "Address", placeHolder: "Address", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Address", placeHolder: "Address", text: $viewModel.address1, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
             
-            ValidatedTextField(title: "Address 2 (Optional)", placeHolder: "Address 2 (Optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Address 2 (Optional)", placeHolder: "Address 2 (Optional)", text: $viewModel.address2, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
             
-            ValidatedTextField(title: "Address 3 (Optional)", placeHolder: "Address 3 (Optional)", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Gender", placeHolder: "Gender", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Occupation", placeHolder: "Occupation", text: $referCode, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Address 3 (Optional)", placeHolder: "Address 3 (Optional)", text: $viewModel.address3, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Gender", placeHolder: "Gender", text: $viewModel.gender, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Occupation", placeHolder: "Occupation", text: $viewModel.occupation, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
 //
 //
 //                HStack(spacing: 0) {
@@ -126,6 +108,7 @@ struct RegisterFormView: View {
                 NavigationLink{
                    // LoginView()
                     DocumentForm()
+                        .environmentObject(viewModel)
                 }label: {
                     Text("Register")
                         .frame(maxWidth: .infinity)
@@ -154,24 +137,17 @@ struct RegisterFormView: View {
     }
 }
 
-//func register(){
-//    var registerParam: RegisterModel{
-//        RegisterModel.init(fk: "", deviceId: "", handle: "", lang: "", firstName: "", lastName:"", preferredName: "", gender: "", dob: "", userName: "", userPass: "", timeStamp: "" , type: "", challengeKey: "" , referalCode: "")
-//    }
-//}
-
-
 @available(iOS 15.0, *)
 extension RegisterFormView {
     func genderButton(title: String, value: String) -> some View {
         Button(action: {
-            gender = value
+            viewModel.gender = value
         }) {
             Text(title)
                 .frame(maxWidth: .infinity)
                 .padding(10)
-                .background(gender == value ? Color.blue : Color.clear)
-                .foregroundColor(gender == value ? .white : .black)
+                .background(viewModel.gender == value ? Color.blue : Color.clear)
+                .foregroundColor(viewModel.gender == value ? .white : .black)
                 .cornerRadius(30)
         }
     }
