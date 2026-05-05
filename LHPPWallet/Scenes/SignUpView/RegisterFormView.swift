@@ -10,6 +10,8 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct RegisterFormView: View {
     @StateObject private var viewModel = RegistrationViewModel()
+    @State private var dateOfBirthDate: Date = Date()
+    @State private var isDobPickerPresented: Bool = false
     
     
     var body: some View {
@@ -76,13 +78,86 @@ struct RegisterFormView: View {
                                    
                 )
             ValidatedTextField(title: "Nick Name", placeHolder: "Nick Name", text: $viewModel.preferredName, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
-            ValidatedTextField(title: "Date of birth", placeHolder: "Date of birtd", text: $viewModel.dateOfBirth, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: true, isTitleFrame: false)
+            
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Date of birtd")
+                    .font(.maliRegular)
+                
+                HStack {
+                    Text(viewModel.dateOfBirth.isEmpty ? "yyyy-MM-dd" : viewModel.dateOfBirth)
+                        .font(.maliRegular)
+                        .foregroundColor(viewModel.dateOfBirth.isEmpty ? .secondary : .primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Button {
+                        isDobPickerPresented = true
+                    } label: {
+                        Image(systemName: "calendar")
+                            .scaledToFit()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .strokeBorder(Color.secondary, lineWidth: 0.5)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .fill(Color(.white))
+                        )
+                )
+            }
+            .padding(.bottom, 19)
+            .onAppear {
+                viewModel.dateOfBirth = dobFormatter.string(from: dateOfBirthDate)
+            }
+            .onChange(of: dateOfBirthDate) { newValue in
+                viewModel.dateOfBirth = dobFormatter.string(from: newValue)
+            }
+            .sheet(isPresented: $isDobPickerPresented) {
+                VStack(spacing: 16) {
+                    Text("Select Date of Birth")
+                        .font(.headline)
+                    
+                    DatePicker(
+                        "",
+                        selection: $dateOfBirthDate,
+                        in: ...Date(),
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(.graphical)
+                    .labelsHidden()
+                    
+                    Button("Done") {
+                        isDobPickerPresented = false
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.primaryBlue)
+                    )
+                    .foregroundColor(.white)
+                }
+                .padding()
+            }
             ValidatedTextField(title: "Emain", placeHolder: "Email adress (optional)", text: $viewModel.email, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Province", placeHolder: "Province", text: $viewModel.province, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "District", placeHolder: "District", text: $viewModel.district, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Commune (Optional)", placeHolder: "Commune (Optional)", text: $viewModel.commune, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Village (Optional)", placeHolder: "Village (Optional)", text: $viewModel.village, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Country", placeHolder: "Country", text: $viewModel.country, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Province", placeHolder: "Province", text: $viewModel.province, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
+                print("list all ptovince")
+            })
+            ValidatedTextField(title: "District", placeHolder: "District", text: $viewModel.district, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
+                print("list all ptovince")
+            })
+            ValidatedTextField(title: "Commune (Optional)", placeHolder: "Commune (Optional)", text: $viewModel.commune, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
+                print("list all ptovince")
+            })
+            ValidatedTextField(title: "Village (Optional)", placeHolder: "Village (Optional)", text: $viewModel.village, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
+                print("list all ptovince")
+            })
+            ValidatedTextField(title: "Country", placeHolder: "Country", text: $viewModel.country, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
+                print("list all ptovince")
+            })
             
             ValidatedTextField(title: "Address", placeHolder: "Address", text: $viewModel.address1, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
             
@@ -90,7 +165,9 @@ struct RegisterFormView: View {
             
             ValidatedTextField(title: "Address 3 (Optional)", placeHolder: "Address 3 (Optional)", text: $viewModel.address3, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
             ValidatedTextField(title: "Gender", placeHolder: "Gender", text: $viewModel.gender, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Occupation", placeHolder: "Occupation", text: $viewModel.occupation, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            ValidatedTextField(title: "Occupation", placeHolder: "Occupation", text: $viewModel.occupation, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
+                print("list all ptovince")
+            })
 //
 //
 //                HStack(spacing: 0) {
@@ -136,6 +213,15 @@ struct RegisterFormView: View {
       
     }
 }
+
+@available(iOS 15.0, *)
+private let dobFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.calendar = Calendar(identifier: .gregorian)
+    df.locale = Locale(identifier: "en_US_POSIX")
+    df.dateFormat = "yyyy-MM-dd"
+    return df
+}()
 
 @available(iOS 15.0, *)
 extension RegisterFormView {

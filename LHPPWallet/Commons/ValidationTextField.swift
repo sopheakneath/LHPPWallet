@@ -62,7 +62,7 @@ struct ValidatedTextField: View {
                                     .foregroundColor(.secondary)
                             }
                         } else {
-                            Image(systemName: trailingSystemImageName)
+                            Image(trailingSystemImageName)
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(.secondary)
