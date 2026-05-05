@@ -80,7 +80,10 @@ struct LoginView: View {
                     }
                 }
                 
-                NavigationLink(destination: OTPView(source: .login), isActive: $viewModel.isLoggedIn) {
+//                NavigationLink(destination: OTPView(source: .login), isActive: $viewModel.isLoggedIn) {
+//                    EmptyView()
+//                }
+                NavigationLink(destination: HomeTabView(), isActive: $viewModel.isLoggedIn) {
                     EmptyView()
                 }
               
@@ -163,6 +166,7 @@ struct LoginView: View {
                     TermsConditionsView()
                 } label: {
                     HStack {
+             
                         Text("login.noAccount".localized)
                             .foregroundColor(.black)
                         Text("login.signUp".localized)

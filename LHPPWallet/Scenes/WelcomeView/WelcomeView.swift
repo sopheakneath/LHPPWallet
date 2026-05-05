@@ -12,6 +12,7 @@ struct WelcomeView: View {
     @State var gotoTerms: Bool = false
     @StateObject var localization = LocalizationManager.shared
     
+    
 //    init() {
 //        let appearance = UINavigationBarAppearance()
 //        appearance.configureWithOpaqueBackground()
@@ -68,7 +69,8 @@ struct WelcomeView: View {
                
                 
                 NavigationLink {
-                    LoginView()
+                    //LoginView()
+                    SignUpView(source: .login)
                 } label: {
                     Text("login.loginButton".localized)
                         .font(.maliRegular)

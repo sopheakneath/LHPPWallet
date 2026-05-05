@@ -7,8 +7,10 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct SignUpView: View {
     @State var phone: String = ""
+    let source: OTPSource
     var body: some View {
         NavigationView {
             VStack {
@@ -71,16 +73,16 @@ struct SignUpView: View {
                 
                 Spacer()
                 NavigationLink {
-                    
-                    if #available(iOS 15.0, *) {
-                        OTPView( source: .register)
+                    if source.nextDestination == .createPin {
+                        OTPView( source: .login)
                     } else {
-                        // Fallback on earlier versions
+                        OTPView( source: .register)
                     }
+                 
                 } label: {
                    
                         
-                        Text("GET OTP")
+                        Text("Next")
                             .foregroundColor(Color.white)
                             .frame(maxWidth: .infinity, minHeight: 45)
                         
@@ -135,5 +137,9 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView()
+    if #available(iOS 15.0, *) {
+        SignUpView( source: .login)
+    } else {
+        // Fallback on earlier versions
+    }
 }

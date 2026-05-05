@@ -27,7 +27,7 @@ struct CreatePinView: View {
     let otpCount = 4
     
     
-   
+    
     
     
     var body: some View {
@@ -122,7 +122,7 @@ struct CreatePinView: View {
                     }
 
                 }label: {
-                    Text("VERIFY OTP ")
+                    Text("Done")
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity, minHeight: 45)
                         .background(
@@ -132,9 +132,8 @@ struct CreatePinView: View {
                         .padding(.horizontal, 108)
                 }
                 .padding(.top, 67)
-                .disabled(!viewModel.isComplete)
+                //.disabled(!viewModel.isComplete)
                 .padding(.horizontal,22)
-                
                 
                 Spacer()
                 ZStack{
@@ -149,7 +148,17 @@ struct CreatePinView: View {
             }
             
         }
-        .customBackToolbar(title: source.title)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: LoginView()) {
+                    Text("Skip")
+                }
+
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+       // .customBackToolbar(title: source.title)
+        
        
     }
 }
