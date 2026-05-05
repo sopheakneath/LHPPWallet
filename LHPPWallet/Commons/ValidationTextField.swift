@@ -9,15 +9,20 @@ import SwiftUI
 
 //@available(iOS 17.0, *)
 struct ValidatedTextField: View {
+    
     let title: String?
     let placeHolder: String?
-    // let imageName: String?
     @Binding var text: String
     var validator: (String) -> String?
     var keyboardType: UIKeyboardType = .default
     var isSecure: Bool = false
     var isTitleFrame: Bool = false
-    let isImage: Bool = true
+    
+    /// Optional trailing icon (SF Symbol name). If nil, no icon is shown.
+    var trailingSystemImageName: String? = nil
+    
+    /// Optional action for the trailing icon. If nil, icon is non-interactive.
+    var onTrailingIconTap: (() -> Void)? = nil
     
     @State private var error: String? = nil
     var isFocused: Bool = false
@@ -46,6 +51,22 @@ struct ValidatedTextField: View {
                             .font(.maliRegular)
                             .keyboardType(keyboardType)
                             .autocorrectionDisabled(true)
+                    }
+                    
+                    if let trailingSystemImageName {
+                        if let onTrailingIconTap {
+                            Button(action: onTrailingIconTap) {
+                                Image(trailingSystemImageName)
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.secondary)
+                            }
+                        } else {
+                            Image(systemName: trailingSystemImageName)
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
                 .padding(.horizontal, 12)
@@ -112,3 +133,4 @@ struct ValidatedTextField: View {
         // Fallback on earlier versions
     }
 }
+

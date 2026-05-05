@@ -10,7 +10,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct DocumentForm: View {
     @EnvironmentObject var viewModel: RegistrationViewModel
-    
+    @State private var isPressed = false
     var body: some View {
        
         ScrollView {
@@ -48,6 +48,10 @@ struct DocumentForm: View {
                     text: $viewModel.nationality,
                     validator: { input in
                         input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "This field is required." : nil
+                    },
+                    trailingSystemImageName: "drop_down",
+                    onTrailingIconTap:  {
+                        print("drop down list of contry")
                     }
                 )
                 
@@ -111,15 +115,17 @@ struct DocumentForm: View {
                         
                         Button {
                             viewModel.presentPicker(target: .document, useCamera: false)
-                               
+                            isPressed.toggle()
                         } label: {
                             HStack{
                                 Image("cloud")
                                     .resizable()
                                     .frame(width: 20, height: 20)
+                                    
                                 Text("upload")
                                     .lineLimit(1)
                             }
+                            .foregroundColor(isPressed ? Color.blue : Color.red)
                             .padding(.horizontal, 30)
                             .padding(.vertical, 7)
                             .overlay(
