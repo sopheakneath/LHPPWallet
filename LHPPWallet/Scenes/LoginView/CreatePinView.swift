@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import LocalAuthentication
 
 extension Int {
     func clamped(to range: Range<Int>) -> Int {
@@ -20,12 +21,41 @@ struct CreatePinView: View {
     
     @State var phone: String = ""
     @StateObject private var viewModel = OTPViewModel()
-    @FocusState private var focusedIndex: Int?
     @State private var path: [OTPDestination] = []
     let source: OTPSource
    
     let otpCount = 4
+    @State private var isKeypadVisible: Bool = true
     
+    private var currentIndex: Int {
+        viewModel.pin.prefix(otpCount).firstIndex(where: { $0.isEmpty }) ?? otpCount
+    }
+    
+    private var isPinComplete: Bool {
+        !viewModel.pin.prefix(otpCount).contains(where: { $0.isEmpty })
+    }
+    
+    private func appendDigit(_ digit: Int) {
+        guard (0...9).contains(digit) else { return }
+        guard currentIndex < otpCount else { return }
+        viewModel.pin[currentIndex] = String(digit)
+    }
+    
+    private func deleteLastDigit() {
+        if let lastFilled = viewModel.pin.prefix(otpCount).lastIndex(where: { !$0.isEmpty }) {
+            viewModel.pin[lastFilled] = ""
+        }
+    }
+    
+    private func authenticateBiometricsIfAvailable() {
+        let context = LAContext()
+        var error: NSError?
+        guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else { return }
+        
+        context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Authenticate to continue") { _, _ in
+            // Intentionally no-op on Create PIN screen.
+        }
+    }
     
     
     
@@ -56,49 +86,22 @@ struct CreatePinView: View {
                 
                 
                 
-                // OTP Verify not a 111
-                
                 HStack(spacing: 12) {
                     ForEach(0..<otpCount, id: \.self) { index in
-                        OTPTextField(
-                            text: $viewModel.pin[index],
-                            isFocused: focusedIndex == index
+                        PinDigitBox(
+                            isActive: index == min(currentIndex, otpCount - 1),
+                            isFilled: !(viewModel.pin[index].isEmpty)
                         )
-                        
-                        .focused($focusedIndex, equals: index)
-                        .onChange(of: viewModel.pin[index]) { newValue in
-                            
-                            // Limit to 1 digit
-                            if newValue.count > 1 {
-                                viewModel.update(value: newValue, at: index)
-                                print(newValue)
-                            }
-                            
-                            // Move forward
-                            if newValue.count == 1 {
-                                if index < otpCount - 1 {
-                                    focusedIndex = index + 1
-                                } else {
-                                    focusedIndex = nil
-                                }
-                            }
-                        }
-                        .onChange(of: viewModel.pin[index]) { newValue in
-                            // Handle delete
-                            if newValue.isEmpty {
-                                if index > 0 {
-                                    focusedIndex = index - 1
-                                }
-                            }
-                        }
                     }
-                    
-                    
                 }
-                .padding()
-                .onAppear {
-                    focusedIndex = 0
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
+                        isKeypadVisible = true
+                    }
                 }
+                .padding(.top, 20)
+                .padding(.bottom, 22)
                 .frame(maxWidth: .infinity)
                 
                 
@@ -127,15 +130,27 @@ struct CreatePinView: View {
                         .frame(maxWidth: .infinity, minHeight: 45)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                              //  .fill(viewModel.isComplete ? Color.blue : Color.gray)
+                                .fill(isPinComplete ? Color.blue : Color.gray)
                         )
                         .padding(.horizontal, 108)
                 }
                 .padding(.top, 67)
-                //.disabled(!viewModel.isComplete)
+                .disabled(!isPinComplete)
                 .padding(.horizontal,22)
                 
                 Spacer()
+                
+                if isKeypadVisible {
+                    PinKeypad(
+                        onDigit: appendDigit(_:),
+                        onBiometrics: authenticateBiometricsIfAvailable,
+                        onDelete: deleteLastDigit
+                    )
+                    .padding(.horizontal, 40)
+                    .padding(.bottom, 10)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+                
                 ZStack{
                     Image("camb")
                         .resizable()
@@ -147,6 +162,22 @@ struct CreatePinView: View {
                 
             }
             
+        }
+        .onAppear {
+            // show initially unless already complete
+            isKeypadVisible = !isPinComplete
+        }
+        .onChange(of: isPinComplete) { complete in
+            withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
+                isKeypadVisible = !complete
+            }
+        }
+        .onTapGesture {
+            // tap outside to hide (only if not complete)
+            guard !isPinComplete else { return }
+            withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
+                isKeypadVisible = false
+            }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -168,6 +199,100 @@ struct CreatePinView: View {
         CreatePinView( source: .login)
     } else {
         // Fallback on earlier versions
+    }
+}
+
+@available(iOS 15.0, *)
+private struct PinDigitBox: View {
+    let isActive: Bool
+    let isFilled: Bool
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white)
+                .frame(width: 52, height: 52)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(isActive ? Color.blue : Color.gray.opacity(0.5), lineWidth: 1)
+                )
+            
+            if isFilled {
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 14, height: 14)
+            }
+        }
+    }
+}
+
+@available(iOS 15.0, *)
+private struct PinKeypad: View {
+    let onDigit: (Int) -> Void
+    let onBiometrics: () -> Void
+    let onDelete: () -> Void
+    
+    private let columns: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 18), count: 3)
+    
+    var body: some View {
+        LazyVGrid(columns: columns, spacing: 18) {
+            ForEach(1...9, id: \.self) { n in
+                KeypadButton(title: "\(n)") { onDigit(n) }
+            }
+            
+            KeypadIconButton(systemName: "touchid") { onBiometrics() }
+            KeypadButton(title: "0") { onDigit(0) }
+            KeypadIconButton(systemName: "delete.left") { onDelete() }
+        }
+    }
+}
+
+@available(iOS 15.0, *)
+private struct KeypadButton: View {
+    let title: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .font(.system(size: 20, weight: .medium))
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, minHeight: 56)
+        }
+        .buttonStyle(KeypadButtonStyle())
+    }
+}
+
+@available(iOS 15.0, *)
+private struct KeypadIconButton: View {
+    let systemName: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemName)
+                .font(.system(size: 20, weight: .medium))
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, minHeight: 56)
+        }
+        .buttonStyle(KeypadButtonStyle())
+    }
+}
+
+@available(iOS 15.0, *)
+private struct KeypadButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.white)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.gray.opacity(0.18), lineWidth: 1)
+            )
+            .shadow(color: Color.black.opacity(configuration.isPressed ? 0.06 : 0.10), radius: 10, x: 0, y: 6)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1)
     }
 }
 
