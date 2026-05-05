@@ -8,6 +8,8 @@
 import SwiftUI
 
 
+
+
 //@available(iOS 16.0, *)
 //@available(iOS 15.0, *)
 @available(iOS 15.0, *)
@@ -15,8 +17,6 @@ struct LoginView: View {
     
     @State private var isFocused: Bool = false
     @StateObject var viewModel = LoginViewModel() // viewModel should expose an @Published var isLoggedIn: Bool used to drive navigation
-    
-    
     var body: some View {
         
         NavigationView {
@@ -29,8 +29,10 @@ struct LoginView: View {
                     .padding(.horizontal,65 )
                     .padding(.top, 8)
                 
+               
+                
                 HStack {
-                    TextField("Phone or Username", text: $viewModel.username)
+                    TextField(("login.phoneOrUsername".localized), text: $viewModel.username)
                         .padding(.vertical)
                     Spacer(minLength: 10)
                     Image(systemName: "person")
@@ -49,7 +51,7 @@ struct LoginView: View {
                 .padding(.horizontal, 20)
                 
                 HStack {
-                    SecureField("Password", text: $viewModel.password)
+                    SecureField(("login.password".localized), text: $viewModel.password)
                         .padding(.vertical)
                     Spacer(minLength: 10)
                     Image(systemName: "lock")
@@ -70,7 +72,7 @@ struct LoginView: View {
                     Button{
                         // go to forget paw
                     }label: {
-                        Text("Forget password")
+                        Text("login.forgetPassword".localized)
                             .padding(.top, 15)
                             .frame(alignment: .trailing)
                             .foregroundColor(Color.blue)
@@ -78,9 +80,13 @@ struct LoginView: View {
                     }
                 }
                 
+//                NavigationLink(destination: OTPView(source: .login), isActive: $viewModel.isLoggedIn) {
+//                    EmptyView()
+//                }
                 NavigationLink(destination: HomeTabView(), isActive: $viewModel.isLoggedIn) {
                     EmptyView()
                 }
+              
                 .hidden()
                 .onChange(of: viewModel.isSuccess) { newValue in
                     if newValue {
@@ -89,9 +95,13 @@ struct LoginView: View {
                 }
                
                 Button {
-                    viewModel.login()
+                   // viewModel.login()
+                    
+                    Task {
+                        await viewModel.loginSe()
+                    }
                 } label: {
-                    Text("Login ")
+                    Text("login.loginButton".localized)
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity, minHeight: 45)
                         .background(
@@ -102,26 +112,15 @@ struct LoginView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 34)
-              
-//s
-//                Button {
-//                    viewModel.login()
-//                    print("Login ")
-//                } label: {
-//                    Text("Login ")
-//                        .foregroundColor(Color.white)
-//                        .frame(maxWidth: .infinity, minHeight: 45)
-//                    
-//                        .background(
-//                            RoundedRectangle(cornerRadius: 12)
-//                                .fill(Color.blue)
-//                        )
-//                        .padding(.horizontal, 108)
-//                    
-//                }
-//                .frame(maxWidth: .infinity)
-//                .padding(.top, 34)
+                .onAppear {
+                    Task {
+                        await viewModel.loginTestSecurity()
+                    }
+                }
                 
+//                Text(viewModel.alertMessage ?? "error message not found")
+//                    .foregroundColor(Color.red)
+            
                 HStack {
                     Button{
                         
@@ -130,7 +129,7 @@ struct LoginView: View {
                             Image("face-id")
                                 .scaledToFit()
                                 .frame(width: 73,height: 60)
-                            Text("Face ID")
+                            Text("login.faceId".localized)
                         }
                     }
                     .padding(.trailing, 74)
@@ -139,7 +138,8 @@ struct LoginView: View {
                         
                     } label: {
                         VStack{
-                            Rectangle()
+                            ZStack{
+                                Rectangle( )
                                 .cornerRadius(20)
                                 .frame(width: 38, height: 60)
                                 .foregroundColor(Color.clear)
@@ -147,23 +147,29 @@ struct LoginView: View {
                                     RoundedRectangle(cornerRadius: 30)
                                         .stroke(Color.gray, lineWidth: 2)
                                 )
-                            Text("PIN")
+                                Text("***")
+                                    .foregroundColor(Color.black)
+                            }
+                            
+                            Text("login.pin".localized)
                         }
                         
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 14)
-                
+              
                 
                 Spacer()
                 NavigationLink {
-                    SignUpView()
+                   // SignUpView()
+                    TermsConditionsView()
                 } label: {
                     HStack {
-                        Text("Don't have an account?")
+             
+                        Text("login.noAccount".localized)
                             .foregroundColor(.black)
-                        Text("SIGN UP")
+                        Text("login.signUp".localized)
                             .foregroundColor(.blue)
                             .fontWeight(.semibold)
                     }
@@ -173,20 +179,32 @@ struct LoginView: View {
                 
                 Image("camb")
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFit() 
                     .frame(height: 73)
             }
             
-            // .padding(.horizontal, 20)
-            //.disabled(!viewModel.isValid)
             .ignoresSafeArea()
-            .navigationBarBackButtonHidden()
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button {
+//                        localization.toggleLanguage()
+//                    } label: {
+//                        Text(localization.titleForLanguageButton())
+//                            .font(.maliRegular)
+//                    }
+                }
+            }
+            .alert(viewModel.alertMessage ?? "", isPresented: $viewModel.showAlert) {
+                Button("OK", role: .cancel) { }
+            }
         }
-        .navigationBarBackButtonHidden()
-        //.customBackToolbar(title: "Mobile verification")
+        .navigationBarBackButtonHidden(true)
+       
+       
     }
 }
-
+// 100 0.001 x 400 
 #Preview {
     if #available(iOS 16.0, *) {
         LoginView()

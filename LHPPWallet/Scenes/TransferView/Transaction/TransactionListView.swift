@@ -12,71 +12,116 @@ import UIKit
 struct TransactionListView: View {
     
     @StateObject var viewModel = TransactionViewModel()
-    @State private var isLoading: Bool = false
-    
+    @State var isGoToDetail : Bool = false
     var body: some View {
         ZStack {
             VStack {
-                Text("Transaction")
-                    .font(.headline)
-                    .padding(.top, 50)
-                CollectionViewWrapper(transactions: viewModel.item)
-                    .refreshable {
-                        guard !isLoading else { return }
-                        await refresh()
-                    }
+//                ProgressView()
+//                    .progressViewStyle(CircularProgressViewStyle())
+                  
+                if  viewModel.isloading  {
+                            ProgressView()
+                        .padding(.top, 50)
+                    
+                }
+                
+                CollectionViewWrapper(isGoToDetail: $isGoToDetail, transactions: viewModel.item)
+                    
+//                    .refreshable {
+//                        print("I'm refresh \(refresh)")
+//                        await refresh()
+//                        
+//                    }
+                
+//                if viewModel.item.isEmpty {
+//                    ProgressView()
+//                }else {
+//                    CollectionViewWrapper(transactions: viewModel.item)
+//                        .refreshable {
+//                            guard !isLoading else { return }
+//                            await refresh()
+//                        }
+//                }
+              
                 
             }
-            if isLoading {
-                ZStack {
-                    Color.black.opacity(0.05).ignoresSafeArea()
-                    ProgressView("Loading…")
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .padding()
-                        .background(Color(.systemBackground))
-                        .cornerRadius(12)
-                }
-            }
+//            if isLoading {
+//                ZStack {
+//                    Text("LOSINF")
+//                        .background(Color.red)
+//                    Color.black.opacity(0.05).ignoresSafeArea()
+//                    ProgressView("Loading…")
+//                        .progressViewStyle(CircularProgressViewStyle())
+//                        .padding()
+//                        .background(Color(.systemBackground))
+//                        .cornerRadius(12)
+//                }
+//                .background(Color.red)
+//            }
         }
         .task {
-            isLoading = true
             await refresh()
-            print("loading")
+            
+        }
+        .refreshable {
+            print(" refresh 123")
         }
         .padding(.vertical, 50)
-        
         .ignoresSafeArea()
         .background(Color(UIColor.systemGray6))
         .padding(.bottom, 50)
         
     }
     
-    private func setLoading(_ loading: Bool) {
-        isLoading = loading
-    }
+   
 
     @MainActor
     private func refresh() async {
-        setLoading(true)
-        defer { setLoading(false) }
+        viewModel.isloading = true
         await viewModel.getTransactionAsync()
     }
        
 }
 // ---------------
 
+final class RefreshableCollectionViewController: UICollectionViewController {
+    var onRefresh: (() async -> Void)?
+    private let refreshControl = UIRefreshControl()
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+    }
+
+    @objc private func handleRefresh() {
+        guard let onRefresh else {
+            refreshControl.endRefreshing()
+            return
+        }
+        Task { @MainActor in
+            await onRefresh()
+            self.refreshControl.endRefreshing()
+        }
+    }
+}
+
 struct CollectionViewWrapper: UIViewControllerRepresentable {
+    
+    @Binding var isGoToDetail: Bool
+
     
     let transactions: [TransactionModel]
 
-    func makeUIViewController(context: Context) -> UICollectionViewController {
+    func makeUIViewController(context: Context) -> RefreshableCollectionViewController {
         let layout = UICollectionViewFlowLayout()
         layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 34)
         
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 0
 
-        let vc = UICollectionViewController(collectionViewLayout: layout)
+        let vc = RefreshableCollectionViewController(collectionViewLayout: layout)
         vc.collectionView.register(HostingCollectionViewCell.self,
                                    forCellWithReuseIdentifier: "cell")
         vc.collectionView.register(
@@ -87,16 +132,17 @@ struct CollectionViewWrapper: UIViewControllerRepresentable {
         vc.collectionView.dataSource = context.coordinator
         vc.collectionView.delegate = context.coordinator
         vc.collectionView.backgroundColor = UIColor.systemGray6
+       // vc.onRefresh = onRefresh
         return vc
     }
 
-    func updateUIViewController(_ uiViewController: UICollectionViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: RefreshableCollectionViewController, context: Context) {
         context.coordinator.transactions = transactions
         uiViewController.collectionView.reloadData()
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(transactions: transactions)
+        Coordinator(transactions: transactions, isGoToDetail: $isGoToDetail)
     }
 }
 // ---------------
@@ -113,9 +159,12 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
     var transactions: [TransactionModel] {
         didSet { rebuildSections() }
     }
+    
+    private var isGoToDetail: Binding<Bool>
 
-    init(transactions: [TransactionModel]) {
+    init(transactions: [TransactionModel], isGoToDetail: Binding<Bool>) {
         self.transactions = transactions
+        self.isGoToDetail = isGoToDetail
         super.init()
         rebuildSections()
     }
@@ -193,7 +242,7 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
                                                       for: indexPath) as! HostingCollectionViewCell
         let transaction = sections[indexPath.section].items[indexPath.row]
         cell.host(
-            SwiftUICellView(transaction: transaction)
+            SwiftUICellView(transaction: transaction, isGoToDetail: isGoToDetail)
         )
         return cell
     }
@@ -206,16 +255,33 @@ class Coordinator: NSObject, UICollectionViewDataSource, UICollectionViewDelegat
             : UIScreen.main.bounds.width
         let transaction = sections[indexPath.section].items[indexPath.row]
        //  Custom  dynamic   height matches multiline text.
-        let host = UIHostingController(rootView: SwiftUICellView(transaction: transaction))
+        let host = UIHostingController(rootView: SwiftUICellView(transaction: transaction, isGoToDetail: isGoToDetail))
         let target = CGSize(width: width, height: UIView.layoutFittingCompressedSize.height)
         var height = host.view.systemLayoutSizeFitting(
             target,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
         ).height
+           
         return CGSize(width: width, height: height)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Tapped item at \(indexPath.row)")
+    }
+    
+//    private func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)  {
+//        
+//        
+//        
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
+//                                                      for: indexPath) as! HostingCollectionViewCell
+//        let transaction = sections[indexPath.section].items[indexPath.row]
+//        cell.host(
+//            SwiftUICellView(transaction: transaction, isGoToDetail: isGoToDetail)
+//        )
+//        return cell
+//    }
     
 // MARK  : Custom  dynamic   height matches multiline text. // 
     
@@ -346,6 +412,7 @@ class HostingCollectionReusableView: UICollectionReusableView {
 
 struct SwiftUICellView: View {
     let transaction: TransactionModel
+    @Binding var isGoToDetail: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -375,14 +442,29 @@ struct SwiftUICellView: View {
                 }
             }
             .padding(14)
+         
 //            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.5))
              .background(Color(UIColor.white))
             .onTapGesture {
-                print("hello")
+                isGoToDetail = true
+                
+                print("hello : \(transaction.txnNoInCbs) ")
+                let uuid = NSUUID().uuidString
+                print("UUID:",uuid)
             }
             .cornerRadius(8)
              .padding(.horizontal, 20)
              .background(Color(UIColor.systemGray6))
+            
+            if #available(iOS 15.0, *) {
+                NavigationLink(destination: TransactionDetailView(txnNo: transaction.txnNoInCbs), isActive: $isGoToDetail) {
+                   //
+                    EmptyView()
+                }
+            } else {
+                // Fallback on earlier versions
+                
+            }
         }
     }
 }

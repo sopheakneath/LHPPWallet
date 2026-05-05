@@ -35,9 +35,12 @@ struct CustomBackToolbar: ViewModifier {
                         }
                     }
                     .disabled(didDismiss)
+                    
                 }
             }
+           
     }
 }
+
 
 

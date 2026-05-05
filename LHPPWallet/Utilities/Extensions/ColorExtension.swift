@@ -36,7 +36,10 @@ extension Color {
     static let success = Color(hex: "#2CB431")
     static let softGreen = Color(hex: "#59D793")
     static let prettyGreen = Color(hex: "#346739")
+    static let lightPurple = Color(hex: "#DBE4FF")
+    static let lightRed = Color(hex: "#FFE4E4")
+    static let brightGray = Color(hex: "#EAEAEA")
+    static let brightBlue = Color(hex: "#DEEEFC")
 }
-
 
 

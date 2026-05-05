@@ -9,13 +9,42 @@ import SwiftUI
 import Combine
 
 @available(iOS 15.0, *)
+
+//
+
 struct OTPView: View {
+    
+    
     
     @State var phone: String = ""
     @StateObject private var viewModel = OTPViewModel()
     @FocusState private var focusedIndex: Int?
-    
+    @State private var path: [OTPDestination] = []
+    let source: OTPSource
+   
     let otpCount = 6
+    
+    
+    @State private var timeRemaining = 60 // seconds
+    @State private var timer: Timer? = nil
+
+    
+    //
+    var NavigationtoSucess: String {
+        switch source {
+        case .register:
+            return "/api/register/otp"
+        case .transfer:
+            return "/api/transfer/confirm"
+        case .resetPassword:
+            return "/api/reset"
+        case .login:
+            return "/api/reset"
+        }
+    }
+    func handleOTPVerified(for source: OTPSource) {
+        path.append(source.nextDestination)
+    }
     
     var body: some View {
         NavigationView {
@@ -29,27 +58,34 @@ struct OTPView: View {
                     .padding(.bottom, 30)
                     .padding(.horizontal,103)
                 
-                
-                HStack {
-                    Image("ic-kh-flag")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 33, height: 22)
-                    Text("+855")
-                    Text("|")
-                    TextField("Phone Number", text: $phone)
-                    
+                VStack {
+                    Text("verify_code".localized)
+                    Text("Please type the verification code sent to")
+                    Text("+855 xxx xx x19")
+                        .foregroundColor(Color.blue)
+                        .font(.maliMedium)
                 }
-                .padding(.leading, 20)
-                .padding(.trailing, 20)
+                .frame(maxWidth: .infinity, alignment: .center)
                 
-                // OTP Verify
-              
-                    Text("Enter your OTP code")
-                    .padding(.leading, 20)
-
-                HStack(spacing: 12) {
+                
+                
+                
+                // OTP Verify not a 111
+                VStack {
+                    Text("Re-send code in")
+                        .padding(.leading, 20)
                     
+                    HStack {
+                        Text("\(timeRemaining)")
+                            .foregroundColor(.red)
+                           // .padding(.leading, 20)
+                        Text("sec")
+                            //.padding(.leading, 20)
+                    }
+                   
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                HStack(spacing: 12) {
                     ForEach(0..<otpCount, id: \.self) { index in
                         OTPTextField(
                             text: $viewModel.otp[index],
@@ -84,11 +120,26 @@ struct OTPView: View {
                     }
                 }
                 .padding()
-                .onAppear {focusedIndex = 0}
+                .onAppear {
+                    focusedIndex = 0
+                    startTimer()
+                    
+                }
 
                 NavigationLink{
-                  //  LoginView()
-                    RegisterFormView()
+                    switch source.nextDestination {
+                    case .registrationSuccess:
+                        RegisterFormView()
+                    case .registrationFlow:
+                        RegisterFormView()
+                    case .transferSuccess:
+                        SuccessView(successTyp: .transfer)
+                    case .resetPasswordFlow:
+                        TransferView()
+                    case .createPin:
+                        CreatePinView(source: .login)
+                    }
+
                 }label: {
                     Text("VERIFY OTP ")
                         .foregroundColor(Color.white)
@@ -117,12 +168,29 @@ struct OTPView: View {
             }
             .ignoresSafeArea()
         }
-        .customBackToolbar(title: "Mobile Number verification")
-        
-      
+        .customBackToolbar(title: source.title)
     }
+    
+    
+    func startTimer() {
+            stopTimer() // prevent multiple timers
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                if timeRemaining > 0 {
+                    timeRemaining -= 1
+                } else {
+                    stopTimer()
+                }
+            }
+        }
+    func stopTimer() {
+         //timeRemaining = 60
+            timer?.invalidate()
+            timer = nil
+        }
         
 }
+
+
 
 // ===============================================
 
@@ -142,16 +210,29 @@ struct OTPTextField: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isFocused ? Color.blue : Color.black, lineWidth: 1)
+                    .stroke(isFocused ? Color.blue : Color.gray, lineWidth: 1)
             )
     }
 }
 
 
+private func Hdeader(idx: Int) -> String {
+    switch idx {
+    case 0:
+        return "txt"
+    default:
+        return ""
+    }
+}
+
+
+
+
+
 // ------------------------------------------------
 #Preview {
     if #available(iOS 15.0, *) {
-        OTPView()
+        OTPView(source: .register)
     } else {
         // Fallback on earlier versions
     }

@@ -1,0 +1,28 @@
+{
+    
+  "app_version" : "App version : ",
+  "login.phoneOrUsername": "Phone or Username",
+  "login.password": "Password",
+  "login.forgetPassword": "Forgot Password",
+  "login.loginButton": "Log In",
+  "login.faceId": "Face ID",
+  "login.pin": "PIN",
+  "login.noAccount": "Don't have an account?",
+  "login.signUp": "Sign Up",
+
+  "get_start": "Get Started",
+  "have_acc": "You already have acount?",
+  "discretion": "An easy app to manage all payment to financial and related need",
+  "slogan" : "SIMPLIEYING PAYMENT FOR A BETTER TOMORROW...",
+  "term" : "I have read and agree to the privacy policy",
+  "btn_agree" : "I agree",
+  
+  "phone_number" : "Phone Number",
+  "phone_verify" : "Verify Phone Number",
+  "enter_otp" : "Enter your OTP",
+  "transfer" : "Transfers",
+  "wallets" : "Wallets",
+  
+  "otp_decription" : "We’ll send SMS to you with one time password 6 digits on this phone number",
+  "verify_code" : "Verication Code"
+}

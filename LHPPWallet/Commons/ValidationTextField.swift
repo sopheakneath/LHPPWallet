@@ -9,83 +9,93 @@ import SwiftUI
 
 //@available(iOS 17.0, *)
 struct ValidatedTextField: View {
+    
     let title: String?
     let placeHolder: String?
-    // let imageName: String?
     @Binding var text: String
     var validator: (String) -> String?
     var keyboardType: UIKeyboardType = .default
     var isSecure: Bool = false
     var isTitleFrame: Bool = false
     
+    /// Optional trailing icon (SF Symbol name). If nil, no icon is shown.
+    var trailingSystemImageName: String? = nil
+    
+    /// Optional action for the trailing icon. If nil, icon is non-interactive.
+    var onTrailingIconTap: (() -> Void)? = nil
+    
     @State private var error: String? = nil
     var isFocused: Bool = false
+    var isSubmit: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             if let placeHolder, !placeHolder.isEmpty {
                 Text(placeHolder)
-                    .font(.maliBold)
+                    .font(.maliRegular)
                    // .foregroundStyle(.secondary)
             }
             Group {
                 HStack{
-                    Image(systemName: "person")
-                        .scaledToFit()
-                        .frame(width: 20,height: 20)
-                        .foregroundColor(.secondary)
+//                    Image(systemName: "person")
+//                        .scaledToFit()
+//                        .frame(width: 20,height: 20)
+//                        .foregroundColor(.secondary)
                     if isSecure {
                         SecureField(title ?? "", text: $text)
                             .textContentType(.password)
                             .keyboardType(keyboardType)
-                            //.textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
-                          //  .focused($isFocused)
-                            //.submitLabel(.done)
-                          //  .onSubmit(validate)
                     } else {
                         TextField(title ?? "", text: $text)
                             .font(.maliRegular)
                             .keyboardType(keyboardType)
-                            //.textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
-                            //.focused($isFocused)
-                           // .submitLabel(.done)
-                           // .onSubmit(validate)
                     }
-//                    if let name = imageName, !name.isEmpty {
-//                                    Image(name)
-//                                        .resizable()
-//                                        .frame(width: 40, height: 40)
-//                                }
-//                    Image(imageName ?? "")
-//                        .scaledToFit()
-//                        .frame(width: 20,height: 20)
-//                        .foregroundColor(.secondary)
+                    
+                    if let trailingSystemImageName {
+                        if let onTrailingIconTap {
+                            Button(action: onTrailingIconTap) {
+                                Image(trailingSystemImageName)
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.secondary)
+                            }
+                        } else {
+                            Image(trailingSystemImageName)
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.secondary)
+                        }
+                    }
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .strokeBorder(borderColor, lineWidth: 1)
+                        .strokeBorder(borderColor, lineWidth: 0.5)
                         .background(
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                .fill(Color(.white))
                         )
                 )
                 .onChange(of: text) { _ in
-                    // Live validate while typing
+
                     error = validator(text)
                 }
+               
                 
-                
-                if let error = error, !error.isEmpty {
-                    Text(error)
-                        .font(.maliRegular)
-                        .foregroundColor(Color.red)
+              if  isSubmit {
+                    if let error = error, !error.isEmpty {
                         
-                        .accessibilityLabel("Error: \(error)")
+                        Text(error)
+                            .font(.maliRegular)
+                            .foregroundColor(Color.red)
+                            
+                            .accessibilityLabel("Error: \(error)")
+                    }
                 }
+               
             }
             .padding(.vertical, 1)
         }
@@ -94,10 +104,13 @@ struct ValidatedTextField: View {
     }
 
     private var borderColor: Color {
-        if let error = error, !error.isEmpty {
+//        if let error = error, !error.isEmpty {
+//            return .red
+//        }
+        if isSubmit {
             return .red
         }
-        return isFocused ? .accentColor : .secondary
+        return isFocused ? .lightGray : .secondary
     }
 
     private func validate() {
@@ -120,3 +133,4 @@ struct ValidatedTextField: View {
         // Fallback on earlier versions
     }
 }
+

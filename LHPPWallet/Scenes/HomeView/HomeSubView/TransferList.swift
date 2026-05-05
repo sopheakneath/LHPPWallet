@@ -78,6 +78,8 @@ struct CellTransfer: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(8)
         .contentShape(Rectangle())
+      
+        
         
     }
 }

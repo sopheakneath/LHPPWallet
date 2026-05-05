@@ -33,7 +33,7 @@ struct TermsConditionsView: View {
             Button {
                 isGotoHomeTab = true
             } label: {
-                Text("I agree")
+                Text("btn_agree".localized)
                     .font(.custom("Mali-Medium", fixedSize: 16))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
@@ -49,7 +49,7 @@ struct TermsConditionsView: View {
 //                    EmptyView()
 //                }
                 
-                NavigationLink(destination: LoginView(), isActive: $isGotoHomeTab) {
+                NavigationLink(destination: SignUpView(source: .register), isActive: $isGotoHomeTab) {
                     EmptyView()
                 }
                 
@@ -67,7 +67,7 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
     HStack(){
         RoundedRectangle(cornerRadius: 6)
             .stroke(Color.gray,lineWidth: 0.5)
-            .frame(width: 20, height: 20)
+            .frame(width: 25, height: 25)
             .background(
                 RoundedRectangle(cornerRadius: 6)
                     .fill(isChecked.wrappedValue ? Color.green : Color.white )
@@ -81,7 +81,7 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
             .onTapGesture {
                 isChecked.wrappedValue.toggle()
             }
-        Text("I have read and agree to the privacy policy")
+        Text("term".localized)
             .foregroundColor(.red)
             .font(.custom("Mali-Medium", fixedSize: 12))
         
@@ -89,7 +89,6 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
 //    .navigationBarBackButtonHidden(true)
 //    .navigationTitle("Term")
     .padding(.leading,20)
-    
 }
 #Preview {
     if #available(iOS 15.0, *) {

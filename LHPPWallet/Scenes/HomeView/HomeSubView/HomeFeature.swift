@@ -23,28 +23,40 @@ struct HomeFeature: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
+                
                 ForEach(items, id: \.self) { item in
-                    ItemCell(number: item, image: imageGroup[item - 1], title: titles[item - 1], colors: bgColor[item - 1])
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .aspectRatio(1, contentMode: .fit)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color(.white))
-                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: -5, y: -5) // light top-left
-                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 5, y: 5)
-                        )
-                        .onSubmit {
-                            print("hello on submit")
-                        }
-                        .onTapGesture {
-                            print("hello on tap\(item)")
-                        }
+                    NavigationLink(destination: destinationFeatureView(index: item)) {
+                        ItemCell(number: item, image: imageGroup[item - 1], title: titles[item - 1], colors: bgColor[item - 1])
+                            .padding(10)
+                            .frame(maxWidth: .infinity)
+                            .aspectRatio(1, contentMode: .fit)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(.white))
+                                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: -5, y: -5) // light top-left
+                                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 5, y: 5)
+                            )
+                            .onSubmit {
+                                print("hello on submit")
+                            }
+                           
+                    }
                 }
                 .padding(6)
             }
             .padding(25)
         }
+    }
+}
+
+@available(iOS 15.0, *)
+@ViewBuilder
+private func destinationFeatureView(index : Int) -> some View {
+    switch index {
+    case 0 :
+        TransferView()
+    default:
+        TransferView()
     }
 }
 
@@ -77,11 +89,7 @@ struct ItemCell: View {
         .padding(10)
     }
 }
-
-
-
-
-// ----------------------------------------------
+// ----------------------------------
 
 
 #Preview {

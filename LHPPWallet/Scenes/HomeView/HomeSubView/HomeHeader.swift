@@ -9,11 +9,15 @@ import SwiftUI
 
 struct HomeHeader: View {
    @Binding var isShowbalance: Bool
+    var versionApp: String = "3.2.2"
     var body: some View {
         VStack {
             HStack {
-                Text("Sopheakneath")
-                    .font(.maliBold)
+                VStack (alignment: .leading){
+                    Text("Sopheakneath")
+                        .font(.maliBold)
+                    Text("\("app_version".localized) \(versionApp)")
+                }
                 Spacer()
                 Image("profile")
                     .resizable()
@@ -33,6 +37,8 @@ struct HomeHeader: View {
                         )
                     )
             )
+          
+            
            
 //                    .overlay(
 //                        Rectangle().stroke(Color.green, lineWidth: 5)
@@ -51,27 +57,52 @@ struct HomeHeader: View {
           
             // -----------------------------------
             
-            
-            
-            if isShowbalance {
-                //
-            } else {
-                
-            }
-            
-            Text("Show balance")
+            Text(isShowbalance ? "Hide balance" : "Show balance")
+                .font(.maliMedium)
+                .foregroundColor(Color.white)
                 .padding(10)
                 .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
                 .onTapGesture {
-                    self.isShowbalance = true
-                    print("Show UI")
+                    withAnimation(.easeInOut) {
+                        isShowbalance.toggle()
+                    }
                 }
-           if isShowbalance {
-//                Text("$400")
-//               Text("Saving Account")
+
+            if isShowbalance {
+                
+                
+                HStack(spacing: 4) {
+                    VStack(alignment: .leading) {
+                        Text("USD") // currency
+                            .font(.maliMedium)
+                        Text("$75.79")  // balance
+                            .font(.MaliSemiBold)
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                            Text("PRIMARY ACCOUNT")
+                                .font(.maliRegular)
+                        }
+                        
+                       
+                    }
+                  Spacer()
+                    
+                    Text("More Account")
+                        .font(.maliRegular)
+                        .onTapGesture {
+                            print("add more account")
+                        }
+                    
+                }
+                .padding(.leading, 25)
+                .padding(.trailing,45)
+                .padding(.bottom,22)
+                .foregroundColor(Color.white)
+                .transition(.opacity.combined(with: .move(edge: .top)))
             }
-            // stop here first i need to
-            
         }
         .background(
             Color.red
