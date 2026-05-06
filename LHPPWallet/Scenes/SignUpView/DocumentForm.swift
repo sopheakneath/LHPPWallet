@@ -319,12 +319,8 @@ struct DocumentForm: View {
 }
 
 #Preview {
-    if #available(iOS 15.0, *) {
         DocumentForm()
             .environmentObject(RegistrationViewModel())
-    } else {
-        // Fallback on earlier versions
-    }
 }
 
 // -----------------------------------

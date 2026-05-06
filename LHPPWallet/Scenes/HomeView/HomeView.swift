@@ -8,7 +8,6 @@
 import SwiftUI
 import CryptoKit
 
-@available(iOS 15.0, *)
 struct HomeView: View {
    @State private var isShowBalance: Bool = false
     var body: some View {
@@ -32,9 +31,6 @@ struct HomeView: View {
               // --------------------------
                 
                HomeFeature()
-                    .task {
-                        print("")
-                    }
                  HStack{
                     Text("Recent Transaction")
                     .font(.maliRegular)
@@ -160,10 +156,6 @@ struct CustomCorner: Shape {
 
 
 #Preview {
-    if #available(iOS 15.0, *) {
-        HomeView()
-    } else {
-        // Fallback on earlier versions
-    }
+    HomeView()
 }
 

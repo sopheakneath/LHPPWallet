@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+
 struct ItemSubView: View {
     var body: some View {
         ForEach (0..<4) { i in
@@ -27,14 +27,14 @@ struct ItemSubView: View {
                     Text("USD / KH").font(.maliMedium)
                     Text("US Dollar / Cambodian Riel").font(.maliRegular)
                         .font(.custom("Mali-Regular", fixedSize: 12))
-                        .foregroundStyle(Color.gray)
+                        .foregroundColor(Color.gray)
                 }
                 Spacer()
                 VStack (alignment: .trailing){
                     Text("4,000 / 4,100").font(.maliMedium)
                     Text("Buy / Sell")
                         .font(.custom("Mali-Regular", fixedSize: 12))
-                        .foregroundStyle(Color.gray)
+                        .foregroundColor(Color.gray)
                 }
             }
         }
@@ -43,9 +43,5 @@ struct ItemSubView: View {
 }
 
 #Preview {
-    if #available(iOS 15.0, *) {
-        ItemSubView()
-    } else {
-        // Fallback on earlier versions
-    }
+    ItemSubView()
 }

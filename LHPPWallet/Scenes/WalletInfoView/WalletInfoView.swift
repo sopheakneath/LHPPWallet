@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-//@available(iOS 17.0, *)
-@available(iOS 15.0, *)
+
 struct WalletInfoView: View {
     // User info
     @State private var firstName: String = ""
@@ -229,11 +228,7 @@ struct WalletInfoView: View {
    
 
 #Preview {
-    if #available(iOS 17.0, *) {
         WalletInfoView()
-    } else {
-        // Fallback on earlier versions
-    }
 }
 
 

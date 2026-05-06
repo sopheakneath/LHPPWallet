@@ -8,8 +8,6 @@
 import SwiftUI
 
 
-
-@available(iOS 15.0, *)
 struct TransactionDetailView: View {
     
     @StateObject var vm = TransactionDetailViewModel()
@@ -154,14 +152,10 @@ struct TransactionDetailView: View {
                 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-           // .padding(.vertical,10)
             .background(Color.lightGray)
             .cornerRadius(10)
             .frame(maxWidth: .infinity, alignment: .leading)
-           // .padding(10)
-           // .background(Color.red)
             .cornerRadius(10)
-           // .padding(.horizontal, 10)
             
             
             Spacer()
@@ -179,7 +173,7 @@ struct TransactionDetailView: View {
                             .frame(width: 12, height: 15)
                             .padding(.horizontal,20)
                             .padding(.vertical,11)
-                            .background()
+                           // .background()
                             .cornerRadius(10)
                         Text("Download")
                             .font(.maliRegular)
@@ -198,7 +192,7 @@ struct TransactionDetailView: View {
                             .frame(width: 12, height: 15)
                             .padding(.horizontal,20)
                             .padding(.vertical,11)
-                            .background()
+                          //  .background()
                             .cornerRadius(10)
                         Text("Share")
                             .font(.maliRegular)
@@ -218,7 +212,7 @@ struct TransactionDetailView: View {
                             .frame(width: 12, height: 15)
                             .padding(.horizontal,20)
                             .padding(.vertical,11)
-                            .background()
+                           
                             .cornerRadius(10)
                         Text("Report")
                             .font(.maliRegular)
@@ -236,7 +230,7 @@ struct TransactionDetailView: View {
                             .frame(width: 12, height: 15)
                             .padding(.horizontal,20)
                             .padding(.vertical,11)
-                            .background()
+                          //  .background()
                             .cornerRadius(10)
                         Text("History")
                             .font(.maliRegular)
@@ -256,23 +250,16 @@ struct TransactionDetailView: View {
         .background(Color.lightGray)
         .cornerRadius(10)
         .padding(.horizontal, 12)
-        
-        .task {
-            vm.fetchTransactionDetail(txnNo: txnNo)
-            
+        .onAppear{
+            Task {
+                vm.fetchTransactionDetail(txnNo: txnNo)
+            }
         }
-       
         // Optional padding
         .customBackToolbar(title: "Transaction Detail")
     }
 }
 #Preview {
-    if #available(iOS 15.0, *) {
-        TransactionDetailView(txnNo: "TXN003")
-    } else {
-        // Fallback on earlier versions
-    }
+    TransactionDetailView(txnNo: "TXN003")
 }
 
-
-// get id of transaction from transaction list to get transaction detail

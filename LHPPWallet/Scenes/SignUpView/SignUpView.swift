@@ -137,9 +137,6 @@ struct SignUpView: View {
 }
 
 #Preview {
-    if #available(iOS 15.0, *) {
+    
         SignUpView( source: .login)
-    } else {
-        // Fallback on earlier versions
-    }
 }

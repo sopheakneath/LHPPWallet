@@ -49,9 +49,7 @@ struct RegisterCompletedView: View {
 }
 
 #Preview {
-    if #available(iOS 15.0, *) {
+   
         RegisterCompletedView()
-    } else {
-        // Fallback on earlier versions
-    }
+   
 }

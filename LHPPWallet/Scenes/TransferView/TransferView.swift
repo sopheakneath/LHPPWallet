@@ -91,10 +91,6 @@ private func navigationview(idx: Int)-> some View {
 }
 
 #Preview {
-    if #available(iOS 15.0, *) {
         TransferView()
-    } else {
-        // Fallback on earlier versions
-    }
 }
 

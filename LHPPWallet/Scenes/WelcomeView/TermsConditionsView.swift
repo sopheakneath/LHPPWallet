@@ -44,18 +44,9 @@ struct TermsConditionsView: View {
             }
             .disabled(!isChecked)
             .padding(20)
-            if #available(iOS 16.0, *) {
-//                NavigationLink(destination: HomeTabView(), isActive: $isGotoHomeTab) {
-//                    EmptyView()
-//                }
-                
                 NavigationLink(destination: SignUpView(source: .register), isActive: $isGotoHomeTab) {
                     EmptyView()
                 }
-                
-            } else {
-                // Fallback on earlier versions
-            }
         }
         .customBackToolbar(title: "Privacy Policy")
     }

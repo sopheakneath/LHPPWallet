@@ -154,13 +154,6 @@ struct TransferFormView: View {
             
         }
     }
-        
-    
-       
-       
-       
-        
-    
 }
 
 
@@ -168,10 +161,6 @@ struct TransferFormView: View {
 
 
 #Preview {
-    if #available(iOS 15.0, *) {
-        TransferFormView(amount: .constant(""), inputRemark:.constant(""))
-    } else {
-        // Fallback on earlier versions
-    }
+TransferFormView(amount: .constant(""), inputRemark:.constant(""))
 }
 

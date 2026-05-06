@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
 struct SettingsView: View {
 
     
     var body: some View {
-        NavigationStack{
+        NavigationView{
             
             ScrollView {
                 ProfileDetailView()
@@ -21,7 +20,6 @@ struct SettingsView: View {
                 BlogOfSettingView()
             }
             .padding(.bottom, 100)
-            
         }
         
         
@@ -33,13 +31,11 @@ struct SettingsView: View {
         var id: Int
         var title: String
     }
+
+
     
     #Preview {
-        if #available(iOS 16.0, *) {
             SettingsView()
-        } else {
-            // Fallback on earlier versions
-        }
     }
     
 

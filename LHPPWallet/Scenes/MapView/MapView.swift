@@ -14,7 +14,6 @@ struct IdentifiableLocation: Identifiable {
     let coordinate: CLLocationCoordinate2D
 }
 
-@available(iOS 15.0, *)
 struct MapView: View {
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(
@@ -27,7 +26,7 @@ struct MapView: View {
         )
     )
     @State private var didDismiss = false
-    @Environment(\.dismiss) var dismiss
+    //@Environment(\.dismiss) var dismiss
 
     let location = IdentifiableLocation(
         coordinate: CLLocationCoordinate2D(
@@ -37,7 +36,6 @@ struct MapView: View {
     )
     
     var body: some View {
-      
             Map(
                 coordinateRegion: $region,
                 annotationItems: [location]
@@ -50,10 +48,6 @@ struct MapView: View {
 }
 
 #Preview {
-    if #available(iOS 15.0, *) {
         MapView()
-    } else {
-        // Fallback on earlier versions
-    }
 }
 

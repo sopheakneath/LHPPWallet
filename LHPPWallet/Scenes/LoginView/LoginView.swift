@@ -8,11 +8,6 @@
 import SwiftUI
 
 
-
-
-//@available(iOS 16.0, *)
-//@available(iOS 15.0, *)
-
 struct LoginView: View {
     
     @State private var isFocused: Bool = false
@@ -213,11 +208,7 @@ struct LoginView: View {
 }
 // 100 0.001 x 400 
 #Preview {
-    if #available(iOS 16.0, *) {
         LoginView()
-    } else {
-        // Fallback on earlier versions
-    }
 }
 
 

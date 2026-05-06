@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-@available(iOS 15.0, *)
+
 struct TransactionListView: View {
     
     @StateObject var viewModel = TransactionViewModel()
@@ -59,12 +59,10 @@ struct TransactionListView: View {
 //                .background(Color.red)
 //            }
         }
-        .task {
-            await refresh()
-            
-        }
-        .refreshable {
-            print(" refresh 123")
+        .onAppear{
+            Task{
+                await refresh()
+            }
         }
         .padding(.vertical, 50)
         .ignoresSafeArea()
@@ -456,15 +454,10 @@ struct SwiftUICellView: View {
              .padding(.horizontal, 20)
              .background(Color(UIColor.systemGray6))
             
-            if #available(iOS 15.0, *) {
-                NavigationLink(destination: TransactionDetailView(txnNo: transaction.txnNoInCbs), isActive: $isGoToDetail) {
-                   //
-                    EmptyView()
-                }
-            } else {
-                // Fallback on earlier versions
-                
+            NavigationLink(destination: TransactionDetailView(txnNo: transaction.txnNoInCbs), isActive: $isGoToDetail) {
+            EmptyView()
             }
+           
         }
     }
 }
@@ -472,11 +465,7 @@ struct SwiftUICellView: View {
 
 
 #Preview {
-    if #available(iOS 15.0, *) {
-        TransactionListView()
-    } else {
-        // Fallback on earlier versions
-    }
+    TransactionListView()
 }
 
 extension TransactionViewModel {

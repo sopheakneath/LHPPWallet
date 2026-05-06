@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
 struct ProfileDetailView: View {
     var body: some View {
         ZStack (alignment: .center) {
@@ -33,7 +32,7 @@ struct ProfileDetailView: View {
                 HStack {
                     VStack {
                         Text ("70")
-                            .foregroundStyle(Color.blue)
+                            .foregroundColor(Color.blue)
                             .font(.custom("Mali-Bold", fixedSize: 24))
                         
                         Text ("Loyal point")
@@ -42,7 +41,7 @@ struct ProfileDetailView: View {
                     Spacer()
                     VStack {
                         Text ("Classic")
-                            .foregroundStyle(Color.red)
+                            .foregroundColor(Color.red)
                             .font(.custom("Mali-Bold", fixedSize: 24))
                         
                         
@@ -52,7 +51,7 @@ struct ProfileDetailView: View {
                     Spacer()
                     VStack {
                         Text ("6w349k")
-                            .foregroundStyle(Color.red)
+                            .foregroundColor(Color.red)
                             .font(.maliRegular)
                         Text ("Refferal code")
                             .font(.maliRegular)
@@ -70,10 +69,6 @@ struct ProfileDetailView: View {
 }
 
 #Preview {
-    if #available(iOS 16.0, *) {
-        ProfileDetailView()
-    } else {
-        // Fallback on earlier versions
-    }
+    ProfileDetailView()
 }
 

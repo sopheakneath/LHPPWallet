@@ -224,7 +224,7 @@ private let dobFormatter: DateFormatter = {
     return df
 }()
 
-@available(iOS 15.0, *)
+
 extension RegisterFormView {
     func genderButton(title: String, value: String) -> some View {
         Button(action: {
@@ -243,7 +243,7 @@ extension RegisterFormView {
 
 #Preview {
    
-        RegisterFormView()
+RegisterFormView()
     
 }
 

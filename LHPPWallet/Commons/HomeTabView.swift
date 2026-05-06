@@ -14,7 +14,7 @@ struct HomeTabView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             // Main content (no TabView = no system tab bar)
-            if #available(iOS 17.0, *) {
+           
                 Group {
                     switch selectedTab {
                     case 0: HomeView()
@@ -26,7 +26,7 @@ struct HomeTabView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
+            
             
             HStack {
                 TabBarButton(icon: "home", isSelected: selectedTab == 0) {
@@ -83,8 +83,6 @@ struct HomeTabView: View {
 }
 
 
-
-//@available(iOS 16.0, *)
 struct TabBarButton: View {
     let icon: String
     let isSelected: Bool
@@ -110,9 +108,7 @@ struct TabBarButton: View {
 
 #if canImport(SwiftUI)
 #Preview {
-  
         HomeTabView()
-   
 }
 #endif // canImport(SwiftUI)
 

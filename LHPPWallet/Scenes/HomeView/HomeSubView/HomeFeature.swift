@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+
 struct HomeFeature: View {
     
     let columns = [
@@ -36,9 +36,6 @@ struct HomeFeature: View {
                                     .shadow(color: Color.black.opacity(0.1), radius: 5, x: -5, y: -5) // light top-left
                                     .shadow(color: Color.black.opacity(0.1), radius: 5, x: 5, y: 5)
                             )
-                            .onSubmit {
-                                print("hello on submit")
-                            }
                            
                     }
                 }
@@ -49,7 +46,7 @@ struct HomeFeature: View {
     }
 }
 
-@available(iOS 15.0, *)
+
 @ViewBuilder
 private func destinationFeatureView(index : Int) -> some View {
     switch index {
@@ -93,9 +90,5 @@ struct ItemCell: View {
 
 
 #Preview {
-    if #available(iOS 15.0, *) {
-        HomeFeature()
-    } else {
-        // Fallback on earlier versions
-    }
+    HomeFeature()
 }

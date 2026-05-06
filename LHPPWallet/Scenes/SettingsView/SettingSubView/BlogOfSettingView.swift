@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
+
 struct BlogOfSettingView: View {
     private let data = ["Map","Excange rate" ,"Term & Condition", "Wallet Info"]
     var body: some View {
@@ -52,7 +52,7 @@ struct BlogOfSettingView: View {
     }
 }
 
-@available(iOS 15.0, *)
+
 @ViewBuilder
 func destinationView (indxt : Int) -> some View {
     switch indxt {
@@ -63,11 +63,7 @@ func destinationView (indxt : Int) -> some View {
     case 2:
         TermsConditionsView()
     case 3:
-        if #available(iOS 17.0, *) {
-            WalletInfoView()
-        } else {
-            // Fallback on earlier versions
-        }
+        WalletInfoView()
         
     default:
         Text("Unknown")
@@ -77,10 +73,6 @@ func destinationView (indxt : Int) -> some View {
 
 
 #Preview {
-    if #available(iOS 16.0, *) {
-        BlogOfSettingView()
-    } else {
-        // Fallback on earlier versions
-    }
+    BlogOfSettingView()
 }
 
