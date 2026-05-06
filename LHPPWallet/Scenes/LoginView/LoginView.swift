@@ -12,7 +12,7 @@ import SwiftUI
 
 //@available(iOS 16.0, *)
 //@available(iOS 15.0, *)
-@available(iOS 15.0, *)
+
 struct LoginView: View {
     
     @State private var isFocused: Bool = false
@@ -195,8 +195,15 @@ struct LoginView: View {
 //                    }
                 }
             }
-            .alert(viewModel.alertMessage ?? "", isPresented: $viewModel.showAlert) {
-                Button("OK", role: .cancel) { }
+            
+            .alert(isPresented: $viewModel.showAlert) {
+               
+                Alert(
+                    title: Text("Testing message"),
+                    message: Text(viewModel.alertMessage!),
+                    dismissButton: .cancel()
+                )
+                //Button("OK", role: .cancel) { }
             }
         }
         .navigationBarBackButtonHidden(true)

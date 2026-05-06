@@ -15,11 +15,8 @@ struct TransferItem: Identifiable {
     let title: String
 }
 
-@available(iOS 15.0, *)
 struct TransferView: View {
-    
-    
-    
+
     private let items: [TransferItem] = [
         TransferItem(image: "profile", title: "Wallet"),
         TransferItem(image: "profile", title: "Bank/MFI"),
@@ -70,16 +67,19 @@ struct TransferView: View {
     
         .padding()
         .customBackToolbar(title: "transfer".localized)
-        .task {
-            await viewModel.fetchWalletList()
-            print("wallet list \(viewModel.item.count)")
+        .onAppear{
+            Task {
+                await viewModel.fetchWalletList()
+                print("wallet list \(viewModel.item.count)")
+            }
         }
+       
        
     }
        
 }
  
-@available(iOS 15.0, *)
+
 @ViewBuilder
 private func navigationview(idx: Int)-> some View {
     switch idx {

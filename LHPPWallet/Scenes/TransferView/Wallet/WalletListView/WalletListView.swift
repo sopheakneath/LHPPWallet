@@ -10,7 +10,7 @@ import SwiftUI
 //transfer type => wallet
 //wallet type => ... (identify wallet)
 
-@available(iOS 15.0, *)
+
 struct WalletListView: View {
     
     private let items: [TransferItem] = [
@@ -54,7 +54,7 @@ struct WalletListView: View {
         
 }
 
-@available(iOS 15.0, *)
+
 private func navigationview(idx: Int) -> AnyView {
     switch idx {
     case 0:
@@ -65,10 +65,6 @@ private func navigationview(idx: Int) -> AnyView {
 }
 
 #Preview {
-    if #available(iOS 15.0, *) {
         WalletListView()
-    } else {
-        // Fallback on earlier versions
-    }
 }
 

@@ -8,20 +8,17 @@
 import SwiftUI
 import Combine
 
-@available(iOS 15.0, *)
+
 
 //
 
 struct OTPView: View {
-    
-    
-    
+
     @State var phone: String = ""
     @StateObject private var viewModel = OTPViewModel()
-    @FocusState private var focusedIndex: Int?
+    var focusedIndex: Int?
     @State private var path: [OTPDestination] = []
     let source: OTPSource
-   
     let otpCount = 6
     
     
@@ -47,7 +44,7 @@ struct OTPView: View {
     }
     
     var body: some View {
-        NavigationView {
+        VStack {
             VStack(alignment: .leading) {
                 Image("otp-banner")
                 
@@ -91,7 +88,7 @@ struct OTPView: View {
                             text: $viewModel.otp[index],
                             isFocused: focusedIndex == index
                         )
-                        .focused($focusedIndex, equals: index)
+                      //  .focused($focusedIndex, equals: index)
                         .onChange(of: viewModel.otp[index]) { newValue in
                             
                             // Limit to 1 digit
@@ -101,19 +98,19 @@ struct OTPView: View {
                             }
                             
                             // Move forward
-                            if newValue.count == 1 {
-                                if index < otpCount - 1 {
-                                    focusedIndex = index + 1
-                                } else {
-                                    focusedIndex = nil
-                                }
-                            }
+//                            if newValue.count == 1 {
+//                                if index < otpCount - 1 {
+//                                    focusedIndex = index + 1
+//                                } else {
+//                                    focusedIndex = nil
+//                                }
+//                            }
                         }
                         .onChange(of: viewModel.otp[index]) { newValue in
                             // Handle delete
                             if newValue.isEmpty {
                                 if index > 0 {
-                                    focusedIndex = index - 1
+                                   // focusedIndex = index - 1
                                 }
                             }
                         }
@@ -121,7 +118,7 @@ struct OTPView: View {
                 }
                 .padding()
                 .onAppear {
-                    focusedIndex = 0
+                   // focusedIndex = 0
                     startTimer()
                     
                 }
@@ -231,11 +228,7 @@ private func Hdeader(idx: Int) -> String {
 
 // ------------------------------------------------
 #Preview {
-    if #available(iOS 15.0, *) {
         OTPView(source: .register)
-    } else {
-        // Fallback on earlier versions
-    }
 }
 
 

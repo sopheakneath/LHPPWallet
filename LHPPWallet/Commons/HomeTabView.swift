@@ -75,8 +75,11 @@ struct HomeTabView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .navigationBarBackButtonHidden(true)
+       
+        
         
     }
+        
 }
 
 

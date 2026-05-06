@@ -16,16 +16,17 @@ extension Int {
     }
 }
 
-@available(iOS 15.0, *)
 struct CreatePinView: View {
     
     @State var phone: String = ""
     @StateObject private var viewModel = OTPViewModel()
     @State private var path: [OTPDestination] = []
-    let source: OTPSource
-   
-    let otpCount = 4
     @State private var isKeypadVisible: Bool = true
+    
+    
+    let source: OTPSource
+    let otpCount = 4
+   
     
     private var currentIndex: Int {
         viewModel.pin.prefix(otpCount).firstIndex(where: { $0.isEmpty }) ?? otpCount
@@ -61,7 +62,7 @@ struct CreatePinView: View {
     
     
     var body: some View {
-        NavigationView {
+        VStack {
             VStack(alignment: .leading) {
                 Image("pin_key")
                 
@@ -121,7 +122,8 @@ struct CreatePinView: View {
                     case .resetPasswordFlow:
                         TransferView()
                     case .createPin:
-                        LoginView()
+                        HomeTabView()
+                            .navigationBarBackButtonHidden(true)
                     }
 
                 }label: {
@@ -181,13 +183,15 @@ struct CreatePinView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: LoginView()) {
+                NavigationLink(destination: HomeTabView()) {
                     Text("Skip")
                 }
+                .customBackToolbar(title: "")
 
             }
+            
         }
-        .navigationBarBackButtonHidden(true)
+       // .navigationBarBackButtonHidden(true)
        // .customBackToolbar(title: source.title)
         
        
@@ -195,14 +199,9 @@ struct CreatePinView: View {
 }
 
 #Preview {
-    if #available(iOS 15.0, *) {
-        CreatePinView( source: .login)
-    } else {
-        // Fallback on earlier versions
-    }
+    CreatePinView( source: .login)
 }
 
-@available(iOS 15.0, *)
 private struct PinDigitBox: View {
     let isActive: Bool
     let isFilled: Bool
@@ -226,7 +225,7 @@ private struct PinDigitBox: View {
     }
 }
 
-@available(iOS 15.0, *)
+
 private struct PinKeypad: View {
     let onDigit: (Int) -> Void
     let onBiometrics: () -> Void
@@ -247,7 +246,7 @@ private struct PinKeypad: View {
     }
 }
 
-@available(iOS 15.0, *)
+
 private struct KeypadButton: View {
     let title: String
     let action: () -> Void
@@ -263,7 +262,7 @@ private struct KeypadButton: View {
     }
 }
 
-@available(iOS 15.0, *)
+
 private struct KeypadIconButton: View {
     let systemName: String
     let action: () -> Void
@@ -279,7 +278,7 @@ private struct KeypadIconButton: View {
     }
 }
 
-@available(iOS 15.0, *)
+
 private struct KeypadButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

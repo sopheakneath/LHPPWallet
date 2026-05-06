@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
 struct RegisterCompletedView: View {
     var body: some View {
         VStack{

@@ -12,7 +12,7 @@ struct SignUpView: View {
     @State var phone: String = ""
     let source: OTPSource
     var body: some View {
-        NavigationView {
+        VStack {
             VStack {
                 Image("signup-banner")
                 

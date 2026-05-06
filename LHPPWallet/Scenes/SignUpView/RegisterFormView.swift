@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+
 struct RegisterFormView: View {
     @StateObject private var viewModel = RegistrationViewModel()
     @State private var dateOfBirthDate: Date = Date()
@@ -16,7 +16,7 @@ struct RegisterFormView: View {
     
     var body: some View {
     
-    NavigationView{
+   // NavigationView{
         ScrollView {
                 HStack{
                     VStack{
@@ -207,14 +207,15 @@ struct RegisterFormView: View {
             
             .padding(.horizontal, 14)
             .background(Color.brightGray)
+            .customBackToolbar(title: "Account Registration")
         }
-    .customBackToolbar(title: "Account Registration")
+    
    
       
-    }
+   // }
 }
 
-@available(iOS 15.0, *)
+
 private let dobFormatter: DateFormatter = {
     let df = DateFormatter()
     df.calendar = Calendar(identifier: .gregorian)
@@ -242,12 +243,7 @@ extension RegisterFormView {
 
 #Preview {
    
-    if #available(iOS 16.0, *) {
         RegisterFormView()
-    } else {
-        // Fallback on earlier versions
-    }
-   
     
 }
 

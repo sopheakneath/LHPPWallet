@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+
 struct DocumentForm: View {
     @EnvironmentObject var viewModel: RegistrationViewModel
     @State private var isPressed = false

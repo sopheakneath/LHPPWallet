@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import Combine
 
-@available(iOS 15.0, *)
 final class RegistrationViewModel: ObservableObject {
     // MARK: Step 1 - Form
     @Published var firstName: String = ""
