@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+
 
 struct TermsConditionsView: View {
 
@@ -19,7 +19,7 @@ struct TermsConditionsView: View {
     @State private var isGotoHomeTab: Bool = false
     @State private var isChecked: Bool = false
     
-    @available(iOS 15.0, *)
+   
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
@@ -91,10 +91,8 @@ func checkBox(isChecked: Binding<Bool>) -> some View {
     .padding(.leading,20)
 }
 #Preview {
-    if #available(iOS 15.0, *) {
+   
         TermsConditionsView()
-    } else {
-        // Fallback on earlier versions
-    }
+    
 }
 

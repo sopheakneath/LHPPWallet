@@ -6,26 +6,27 @@
 //
 
 import SwiftUI
+import UIKit
+import Foundation
 
-@available(iOS 17.0, *)
-struct WelcomeView: View {
+struct WelcomeView: View  {
     @State var gotoTerms: Bool = false
     @StateObject var localization = LocalizationManager.shared
     
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+    }
     
-//    init() {
-//        let appearance = UINavigationBarAppearance()
-//        appearance.configureWithOpaqueBackground()
-//        appearance.backgroundColor = .red
-//        UINavigationBar.appearance().standardAppearance = appearance
-//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-//        UINavigationBar.appearance().compactAppearance = appearance
-//    }
-    
-    var body: some View {
+    var body : some View {
         
-        NavigationStack {
-            ScrollView {
+        NavigationView {
+            
+            VStack {
                 VStack{
                     //  GeometryReader
                     Image("image_banner")
@@ -41,91 +42,75 @@ struct WelcomeView: View {
                     }
                     .padding(20)
                 }
-            }
-            
-            Spacer()
-           
-            Button {
-                gotoTerms = true
-            } label: {
-                Text ("get_start".localized)
-                
-                    .font(.system(size: 16, weight: .semibold))
-                    .font(.custom("Mali-Medium", fixedSize: 16))
-                    .foregroundColor(.white)
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 52)
-            }
-            .background(Color.red)
-            .cornerRadius(8)
-            // navigation link
-            NavigationLink(destination: TermsConditionsView(), isActive: $gotoTerms) {}
-            
-            HStack {
-                Text("have_acc".localized)
-                    .foregroundColor(.black)
-                    .font(.maliRegular)
-                
-               
-                
-                NavigationLink {
-                    //LoginView()
-                    SignUpView(source: .login)
+                Button {
+                    gotoTerms = true
                 } label: {
-                    Text("login.loginButton".localized)
-                        .font(.maliRegular)
+                    Text ("get_start".localized)
+                    
+                        .font(.system(size: 16, weight: .semibold))
+                        .font(.custom("Mali-Medium", fixedSize: 16))
+                        .foregroundColor(.white)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 52)
                 }
+                .background(Color.red)
+                .cornerRadius(8)
+                // navigation link
+                NavigationLink(destination: TermsConditionsView(), isActive: $gotoTerms) {}
                 
-//                Button(action: {
-//                    LoginView()
-//                    print("i'm login")
-//                }) {
-//                    Text("login.loginButton".localized)
-//                        .font(.maliRegular)
-//                }
-            }
-            
-            
-            .padding(.top,24)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        print("Menu tapped")
+                HStack {
+                    Text("have_acc".localized)
+                        .foregroundColor(.black)
+                        .font(.maliRegular)
+                    
+                    
+                    
+                    NavigationLink {
+                        //LoginView()
+                        SignUpView(source: .login)
                     } label: {
-                        Image("logo")
-                            .resizable()
-                            .frame(width: 56, height: 56)
-                    }
-                    .buttonStyle(.plain)
-                    .background(Color.clear)
-                   
-                }
-    
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        localization.toggleLanguage()
-                    } label: {
-                        Text(localization.titleForLanguageButton())
+                        Text("login.loginButton".localized)
                             .font(.maliRegular)
-                        Image(localization.imageForLanguageButton())
-                            .resizable()
-                            .frame(width: 40,height: 40)
                     }
-                    .buttonStyle(.plain)
+                }
+
+                .padding(.top,24)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            print("Menu tapped")
+                        } label: {
+                            Image("logo")
+                                .resizable()
+                                .frame(width: 56, height: 56)
+                        }
+                        .buttonStyle(.plain)
+                        .background(Color.clear)
+                        
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            localization.toggleLanguage()
+                        } label: {
+                            Text(localization.titleForLanguageButton())
+                                .font(.maliRegular)
+                            Image(localization.imageForLanguageButton())
+                                .resizable()
+                                .frame(width: 40,height: 40)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
             }
-            .toolbarBackground(.visible, for: .navigationBar)
             
         }
     }
 }
 
 #Preview {
-    if #available(iOS 17.0, *) {
-        WelcomeView()
-    } else {
-        // Fallback on earlier versions
-    }
+    WelcomeView()
+   
 }
 
 

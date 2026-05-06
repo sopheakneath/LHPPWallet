@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
+
 struct SignUpView: View {
     @State var phone: String = ""
     let source: OTPSource
