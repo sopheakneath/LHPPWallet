@@ -85,7 +85,7 @@ struct TransactionDetailView: View {
                     Text("Sending Amount")
                         .font(.maliRegular)
                     
-                    Text("99.23")
+                    Text(vm.transactionDetail?.amount ?? "-")
                         .font(.maliMedium)
                         .padding(.bottom,2)
                     Text("Sending Currency")

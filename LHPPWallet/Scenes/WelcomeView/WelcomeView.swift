@@ -13,19 +13,21 @@ struct WelcomeView: View  {
     @State var gotoTerms: Bool = false
     @StateObject var localization = LocalizationManager.shared
     
-    init() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().compactAppearance = appearance
-    }
+    
+//    func colorForBackground(color: UIColor) -> Color {
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithOpaqueBackground()
+//        appearance.configureWithTransparentBackground()
+//        appearance.backgroundColor = .clear
+//        UINavigationBar.appearance().standardAppearance = appearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//        UINavigationBar.appearance().compactAppearance = appearance
+//        return Color(color)
+//    }
+
     
     var body : some View {
-        
         NavigationView {
-            
             VStack {
                 VStack{
                     //  GeometryReader
@@ -75,6 +77,7 @@ struct WelcomeView: View  {
                 }
 
                 .padding(.top,24)
+                
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
@@ -103,6 +106,7 @@ struct WelcomeView: View  {
                     }
                 }
             }
+           
             
         }
     }

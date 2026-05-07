@@ -48,8 +48,19 @@ struct TermsConditionsView: View {
                     EmptyView()
                 }
         }
-        .customBackToolbar(title: "Privacy Policy")
+        .onAppear{
+            let appearance = UINavigationBarAppearance()
+
+                appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor.red
+
+                UINavigationBar.appearance().standardAppearance = appearance
+                UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
+       // .lhppCustomBackToolbar(title: "iiii",background: .blue, foreground: .white)
+      .customBackToolbar(title: "Privacy")
     }
+    
 }
 
 @ViewBuilder

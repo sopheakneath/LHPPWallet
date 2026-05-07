@@ -33,7 +33,7 @@ struct TransactionModel: Codable {
 struct TransactionDetailModel: Codable, Identifiable {
     let id = UUID()
     let txnNoInCbs: String
-    let amount: Double
+    let amount: String
     let currency: String
     let date: String
     let status: String
@@ -63,12 +63,6 @@ class TransactionSevice {
        }
 }
  
- 
-
-
-
-
-
 
 
 extension TransactionModel {
@@ -127,7 +121,7 @@ extension TransactionDetailModel {
     static let mockTransactions: [TransactionDetailModel] = [
         TransactionDetailModel(
             txnNoInCbs: "TXN001",
-            amount: 120.5,
+            amount: "120.5",
             currency: "USD",
             date: "2026-04-20",
             status: "SUCCESS",
@@ -140,7 +134,7 @@ extension TransactionDetailModel {
         ),
         TransactionDetailModel(
             txnNoInCbs: "TXN002",
-            amount: 75.0,
+            amount:" 75.0",
             currency: "KHQ",
             date: "2026-03-19",
             status: "PENDING",
@@ -153,7 +147,7 @@ extension TransactionDetailModel {
         ),
         TransactionDetailModel(
             txnNoInCbs: "TXN009",
-            amount: 200.0,
+            amount: "200.0",
             currency: "USD",
             date: "2026-04-18",
             status: "FAILED",

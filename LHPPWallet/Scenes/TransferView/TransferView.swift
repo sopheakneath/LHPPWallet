@@ -82,6 +82,7 @@ struct TransferView: View {
 
 @ViewBuilder
 private func navigationview(idx: Int)-> some View {
+    
     switch idx {
     case 0 :
         return WalletListView()
@@ -91,6 +92,6 @@ private func navigationview(idx: Int)-> some View {
 }
 
 #Preview {
-        TransferView()
+    TransferView()
 }
 
