@@ -156,12 +156,12 @@ struct CreatePinView: View {
 //                        .padding(.horizontal, 108)
                 }
                // .padding(.top, 67)
-                .disabled(!isPinComplete)
+              //  .disabled(!isPinComplete)
                 .padding(.horizontal,22)
                 
                 Spacer()
                 
-                if isKeypadVisible {
+               
                     PinKeypad(
                         onDigit: appendDigit(_:),
                         onBiometrics: authenticateBiometricsIfAvailable,
@@ -170,7 +170,7 @@ struct CreatePinView: View {
                     .padding(.horizontal, 40)
                     .padding(.bottom, 10)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
+                
                 
 //                ZStack{
 //                    Image("camb")
@@ -186,33 +186,19 @@ struct CreatePinView: View {
         }
         .onAppear {
             // show initially unless already complete
-            isKeypadVisible = !isPinComplete
+           // isKeypadVisible = !isPinComplete
         }
         .onChange(of: isPinComplete) { complete in
             withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
                 if complete { navigateOnComplete = true }
             }
-        } 
+        }
         .onTapGesture {
             // tap outside to hide (only if not complete)
             guard !isPinComplete else { return }
             withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
-                isKeypadVisible = false
-//                NavigationLink("") {
-//                    switch source.nextDestination {
-//                    case .registrationSuccess:
-//                        RegisterFormView()
-//                    case .registrationFlow:
-//                        RegisterFormView()
-//                    case .transferSuccess:
-//                        SuccessView(successTyp: .transfer)
-//                    case .resetPasswordFlow:
-//                        TransferView()
-//                    case .createPin:
-//                        HomeTabView()
-//                            .navigationBarBackButtonHidden(true)
-//                    }
-//                }
+               // isKeypadVisible = false
+
 
             }
         }
