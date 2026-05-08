@@ -16,11 +16,16 @@ struct OTPView: View {
 
     @State var phone: String = ""
     @StateObject private var viewModel = OTPViewModel()
-    var focusedIndex: Int?
+   // var focusedIndex: Int?
     @State private var path: [OTPDestination] = []
     let source: OTPSource
     let otpCount = 6
     
+    //
+    
+    @State private var focusedIndex: Int? = 0 // start focused on first
+    
+
     
     @State private var timeRemaining = 60 // seconds
     @State private var timer: Timer? = nil
@@ -42,6 +47,7 @@ struct OTPView: View {
     func handleOTPVerified(for source: OTPSource) {
         path.append(source.nextDestination)
     }
+    
     
     var body: some View {
         VStack {
@@ -82,43 +88,55 @@ struct OTPView: View {
                    
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
-                HStack(spacing: 12) {
-                    ForEach(0..<otpCount, id: \.self) { index in
-                        OTPTextField(
-                            text: $viewModel.otp[index],
-                            isFocused: focusedIndex == index
-                        )
-                      //  .focused($focusedIndex, equals: index)
-                        .onChange(of: viewModel.otp[index]) { newValue in
-                            
-                            // Limit to 1 digit
-                            if newValue.count > 1 {
-                                viewModel.update(value: newValue, at: index)
-                                print(newValue)
-                            }
-                            
-                            // Move forward
-//                            if newValue.count == 1 {
-//                                if index < otpCount - 1 {
-//                                    focusedIndex = index + 1
-//                                } else {
-//                                    focusedIndex = nil
+//                HStack(spacing: 12) {
+//                    ForEach(0..<otpCount, id: \.self) { index in
+//                        OTPTextField(
+//                            text: $viewModel.otp[index],
+//                            isFocused: focusedIndex == index
+//                        )
+//                        
+//                      //  .focused($focusedIndex, equals: index)
+//                        .onChange(of: viewModel.otp[index]) { newValue in
+//                            
+//                            // Limit to 1 digit
+//                            if newValue.count > 1 {
+//                                viewModel.update(value: newValue, at: index)
+//                                print(newValue)
+//                            }
+//                            
+//                            // Move forward
+////                            if newValue.count == 1 {
+////                                if index < otpCount - 1 {
+////                                    focusedIndex = index + 1
+////                                } else {
+////                                    focusedIndex = nil
+////                                }
+////                            }
+//                        }
+//                        .onChange(of: viewModel.otp[index]) { newValue in
+//                            // Handle delete
+//                            if newValue.isEmpty {
+//                                if index > 0 {
+//                                   // focusedIndex = index - 1
 //                                }
 //                            }
-                        }
-                        .onChange(of: viewModel.otp[index]) { newValue in
-                            // Handle delete
-                            if newValue.isEmpty {
-                                if index > 0 {
-                                   // focusedIndex = index - 1
-                                }
-                            }
-                        }
+//                        }
+//                    }
+//                }
+                
+                HStack(spacing: 12) {
+                    ForEach(0..<otpCount, id: \.self) { index in
+                        OTPUITextField(
+                            text: $viewModel.otp[index],
+                            tag: index,
+                            focusedIndex: $focusedIndex
+                        )
+                        .frame(width: 50, height: 55)
                     }
                 }
                 .padding()
                 .onAppear {
-                   // focusedIndex = 0
+                    focusedIndex = 0
                     startTimer()
                     
                 }
@@ -187,6 +205,70 @@ struct OTPView: View {
         
 }
 
+// new text field ---------------
+
+
+struct OTPUITextField: UIViewRepresentable {
+    @Binding var text: String
+    var tag: Int
+    @Binding var focusedIndex: Int?
+
+    class Coordinator: NSObject, UITextFieldDelegate {
+        var parent: OTPUITextField
+
+        init(_ parent: OTPUITextField) {
+            self.parent = parent
+        }
+
+        func textFieldDidChangeSelection(_ textField: UITextField) {
+            // Keep only 1 character
+            if let t = textField.text, t.count > 1 {
+                textField.text = String(t.suffix(1))
+            }
+            parent.text = textField.text ?? ""
+
+            // Move forward when 1 digit entered
+            if (textField.text ?? "").count == 1 {
+                parent.focusedIndex = parent.tag + 1
+            }
+        }
+
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            // Handle backspace to move backward
+            if string.isEmpty, (textField.text ?? "").isEmpty {
+                parent.focusedIndex = max((parent.tag - 1), 0)
+            }
+            return true
+        }
+    }
+
+    func makeCoordinator() -> Coordinator { Coordinator(self) }
+
+    func makeUIView(context: Context) -> UITextField {
+        let tf = UITextField()
+        tf.keyboardType = .numberPad
+        tf.textAlignment = .center
+        tf.delegate = context.coordinator
+        tf.layer.cornerRadius = 12
+        tf.layer.borderWidth = 1
+        tf.layer.borderColor = UIColor.gray.cgColor
+        tf.backgroundColor = .white
+        return tf
+    }
+
+    func updateUIView(_ uiView: UITextField, context: Context) {
+        uiView.text = text
+
+        let isFocused = (focusedIndex == tag)
+        uiView.layer.borderColor = (isFocused ? UIColor.systemBlue : UIColor.gray).cgColor
+
+        if isFocused, !uiView.isFirstResponder {
+            uiView.becomeFirstResponder()
+        } else if !isFocused, uiView.isFirstResponder {
+            uiView.resignFirstResponder()
+        }
+    }
+}
 
 
 // ===============================================

@@ -26,7 +26,7 @@
                         }
                     } else {
                         self.height = 0
-                    }
+                    } 
                 }
                 .store(in: &cancellables)
         }

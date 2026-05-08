@@ -21,7 +21,8 @@ struct CreatePinView: View {
     @State var phone: String = ""
     @StateObject private var viewModel = OTPViewModel()
     @State private var path: [OTPDestination] = []
-    @State private var isKeypadVisible: Bool = true
+    @State private var isKeypadVisible: Bool = false
+    @State private var navigateOnComplete: Bool = false
     
     
     let source: OTPSource
@@ -63,6 +64,24 @@ struct CreatePinView: View {
     
     var body: some View {
         VStack {
+            
+                NavigationLink(isActive: $navigateOnComplete) {
+                    switch source.nextDestination {
+                    case .registrationSuccess:
+                        RegisterFormView()
+                    case .registrationFlow:
+                        RegisterFormView()
+                    case .transferSuccess:
+                        SuccessView(successTyp: .transfer)
+                    case .resetPasswordFlow:
+                        TransferView()
+                    case .createPin:
+                        HomeTabView()
+                            .navigationBarBackButtonHidden(true)
+                    }
+                } label: { EmptyView() }
+                .hidden()
+            
             VStack(alignment: .leading) {
                 Image("pin_key")
                 
@@ -98,7 +117,7 @@ struct CreatePinView: View {
                 .contentShape(Rectangle())
                 .onTapGesture {
                     withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
-                        isKeypadVisible = true
+                        isKeypadVisible = false
                     }
                 }
                 .padding(.top, 20)
@@ -127,16 +146,16 @@ struct CreatePinView: View {
                     }
 
                 }label: {
-                    Text("Done")
-                        .foregroundColor(Color.white)
-                        .frame(maxWidth: .infinity, minHeight: 45)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(isPinComplete ? Color.blue : Color.gray)
-                        )
-                        .padding(.horizontal, 108)
+//                    Text("Done")
+//                        .foregroundColor(Color.white)
+//                        .frame(maxWidth: .infinity, minHeight: 45)
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 12)
+//                                .fill(isPinComplete ? Color.blue : Color.gray)
+//                        )
+//                        .padding(.horizontal, 108)
                 }
-                .padding(.top, 67)
+               // .padding(.top, 67)
                 .disabled(!isPinComplete)
                 .padding(.horizontal,22)
                 
@@ -153,14 +172,14 @@ struct CreatePinView: View {
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
                 
-                ZStack{
-                    Image("camb")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 80)
-                    Text("Ly Hour App")
-                        .font(.montserratMedium)
-                }
+//                ZStack{
+//                    Image("camb")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(height: 80)
+//                    Text("Ly Hour App")
+//                        .font(.montserratMedium)
+//                }
                 
             }
             
@@ -171,14 +190,30 @@ struct CreatePinView: View {
         }
         .onChange(of: isPinComplete) { complete in
             withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
-                isKeypadVisible = !complete
+                if complete { navigateOnComplete = true }
             }
-        }
+        } 
         .onTapGesture {
             // tap outside to hide (only if not complete)
             guard !isPinComplete else { return }
             withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
                 isKeypadVisible = false
+//                NavigationLink("") {
+//                    switch source.nextDestination {
+//                    case .registrationSuccess:
+//                        RegisterFormView()
+//                    case .registrationFlow:
+//                        RegisterFormView()
+//                    case .transferSuccess:
+//                        SuccessView(successTyp: .transfer)
+//                    case .resetPasswordFlow:
+//                        TransferView()
+//                    case .createPin:
+//                        HomeTabView()
+//                            .navigationBarBackButtonHidden(true)
+//                    }
+//                }
+
             }
         }
         .toolbar {
