@@ -132,6 +132,24 @@ struct OTPView: View {
                             focusedIndex: $focusedIndex
                         )
                         .frame(width: 50, height: 55)
+                     
+                        .onChange(of: viewModel.otp[index]) { newValue in
+                                                   
+                                                   // Limit to 1 digit
+                                                   if newValue.count > 1 {
+                                                       viewModel.update(value: newValue, at: index)
+                                                       print(newValue)
+                                                   }
+                                                   
+                                                   // Move forward
+                                                   if newValue.count == 1 {
+                                                       if index < otpCount - 1 {
+                                                           focusedIndex = index + 1
+                                                       } else {
+                                                           focusedIndex = nil
+                                                       }
+                                                   }
+                                               }
                     }
                 }
                 .padding()
@@ -212,6 +230,7 @@ struct OTPUITextField: UIViewRepresentable {
     @Binding var text: String
     var tag: Int
     @Binding var focusedIndex: Int?
+   
 
     class Coordinator: NSObject, UITextFieldDelegate {
         var parent: OTPUITextField
@@ -219,7 +238,7 @@ struct OTPUITextField: UIViewRepresentable {
         init(_ parent: OTPUITextField) {
             self.parent = parent
         }
-
+        
         func textFieldDidChangeSelection(_ textField: UITextField) {
             // Keep only 1 character
             if let t = textField.text, t.count > 1 {

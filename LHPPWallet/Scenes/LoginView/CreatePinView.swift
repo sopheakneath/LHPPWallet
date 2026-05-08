@@ -26,25 +26,24 @@ struct CreatePinView: View {
     
     
     let source: OTPSource
-    let otpCount = 4
-   
+    let pinCount = 4
     
     private var currentIndex: Int {
-        viewModel.pin.prefix(otpCount).firstIndex(where: { $0.isEmpty }) ?? otpCount
+        viewModel.pin.prefix(pinCount).firstIndex(where: { $0.isEmpty }) ?? pinCount
     }
     
     private var isPinComplete: Bool {
-        !viewModel.pin.prefix(otpCount).contains(where: { $0.isEmpty })
+        !viewModel.pin.prefix(pinCount).contains(where: { $0.isEmpty })
     }
     
     private func appendDigit(_ digit: Int) {
         guard (0...9).contains(digit) else { return }
-        guard currentIndex < otpCount else { return }
+        guard currentIndex < pinCount else { return }
         viewModel.pin[currentIndex] = String(digit)
     }
     
     private func deleteLastDigit() {
-        if let lastFilled = viewModel.pin.prefix(otpCount).lastIndex(where: { !$0.isEmpty }) {
+        if let lastFilled = viewModel.pin.prefix(pinCount).lastIndex(where: { !$0.isEmpty }) {
             viewModel.pin[lastFilled] = ""
         }
     }
@@ -107,9 +106,9 @@ struct CreatePinView: View {
                 
                 
                 HStack(spacing: 12) {
-                    ForEach(0..<otpCount, id: \.self) { index in
+                    ForEach(0..<pinCount, id: \.self) { index in
                         PinDigitBox(
-                            isActive: index == min(currentIndex, otpCount - 1),
+                            isActive: index == min(currentIndex, pinCount - 1),
                             isFilled: !(viewModel.pin[index].isEmpty)
                         )
                     }
@@ -117,7 +116,7 @@ struct CreatePinView: View {
                 .contentShape(Rectangle())
                 .onTapGesture {
                     withAnimation(.spring(response: 0.32, dampingFraction: 0.9)) {
-                        isKeypadVisible = false
+                       // isKeypadVisible = false
                     }
                 }
                 .padding(.top, 20)
@@ -223,7 +222,7 @@ struct CreatePinView: View {
     CreatePinView( source: .login)
 }
 
-private struct PinDigitBox: View {
+ struct PinDigitBox: View {
     let isActive: Bool
     let isFilled: Bool
     
