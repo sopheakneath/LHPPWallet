@@ -59,8 +59,6 @@ struct CreatePinView: View {
     }
     
     
-    
-    
     var body: some View {
         VStack {
             
@@ -239,7 +237,7 @@ struct CreatePinView: View {
             if isFilled {
                 Circle()
                     .fill(Color.blue)
-                    .frame(width: 14, height: 14)
+                    .frame(width: 22, height: 22)
             }
         }
     }

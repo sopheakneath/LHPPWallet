@@ -13,15 +13,10 @@ class OTPViewModel: ObservableObject {
     
     @Published var otp: [String] = Array(repeating: "", count: 6)
     @Published var pin:[String] = Array(repeating: "", count: 4)
-    
-    var otpCode: String {
-        // combine all digit together
-        otp.joined()
-    }
+    @Published  var otpCode: String = ""
      
     var isComplete: Bool {
-        !otp.contains { $0.isEmpty }
-        
+        return otpCode.count == 6
     }
     
     func update(value: String, at index: Int) {
@@ -29,7 +24,6 @@ class OTPViewModel: ObservableObject {
         guard index < pin.count else { return }
         
         if value.count > 1 {
-            // paste case
             let values = Array(value.prefix(otp.count)).map { String($0) }
             let valuePin = Array(value.prefix(pin.count)).map { String($0)}
             for i in 0..<values.count {
@@ -63,8 +57,6 @@ class OTPViewModel: ObservableObject {
         } else {
             print("not match")
         }
-        
-        // API call here
     }
 }
 

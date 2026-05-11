@@ -9,45 +9,15 @@ import SwiftUI
 import Combine
 
 
-
-//
-
 struct OTPView: View {
 
     @State var phone: String = ""
     @StateObject private var viewModel = OTPViewModel()
-   // var focusedIndex: Int?
-    @State private var path: [OTPDestination] = []
-    let source: OTPSource
-    let otpCount = 6
-    
-    //
-    
-    @State private var focusedIndex: Int? = 0 // start focused on first
-    
-
-    
+    @State private var navigate = false
     @State private var timeRemaining = 60 // seconds
     @State private var timer: Timer? = nil
 
-    
-    //
-    var NavigationtoSucess: String {
-        switch source {
-        case .register:
-            return "/api/register/otp"
-        case .transfer:
-            return "/api/transfer/confirm"
-        case .resetPassword:
-            return "/api/reset"
-        case .login:
-            return "/api/reset"
-        }
-    }
-    func handleOTPVerified(for source: OTPSource) {
-        path.append(source.nextDestination)
-    }
-    
+    let source: OTPSource
     
     var body: some View {
         VStack {
@@ -69,11 +39,6 @@ struct OTPView: View {
                         .font(.maliMedium)
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
-                
-                
-                
-                
-                // OTP Verify not a 111
                 VStack {
                     Text("Re-send code in")
                         .padding(.leading, 20)
@@ -81,85 +46,52 @@ struct OTPView: View {
                     HStack {
                         Text("\(timeRemaining)")
                             .foregroundColor(.red)
-                           // .padding(.leading, 20)
-                        Text("sec")
-                            //.padding(.leading, 20)
                     }
-                   
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
-//                HStack(spacing: 12) {
-//                    ForEach(0..<otpCount, id: \.self) { index in
-//                        OTPTextField(
-//                            text: $viewModel.otp[index],
-//                            isFocused: focusedIndex == index
-//                        )
-//                        
-//                      //  .focused($focusedIndex, equals: index)
-//                        .onChange(of: viewModel.otp[index]) { newValue in
-//                            
-//                            // Limit to 1 digit
-//                            if newValue.count > 1 {
-//                                viewModel.update(value: newValue, at: index)
-//                                print(newValue)
-//                            }
-//                            
-//                            // Move forward
-////                            if newValue.count == 1 {
-////                                if index < otpCount - 1 {
-////                                    focusedIndex = index + 1
-////                                } else {
-////                                    focusedIndex = nil
-////                                }
-////                            }
-//                        }
-//                        .onChange(of: viewModel.otp[index]) { newValue in
-//                            // Handle delete
-//                            if newValue.isEmpty {
-//                                if index > 0 {
-//                                   // focusedIndex = index - 1
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-                
-                HStack(spacing: 12) {
-                    ForEach(0..<otpCount, id: \.self) { index in
-                        OTPUITextField(
-                            text: $viewModel.otp[index],
-                            tag: index,
-                            focusedIndex: $focusedIndex
-                        )
-                        .frame(width: 50, height: 55)
-                     
-                        .onChange(of: viewModel.otp[index]) { newValue in
-                                                   
-                                                   // Limit to 1 digit
-                                                   if newValue.count > 1 {
-                                                       viewModel.update(value: newValue, at: index)
-                                                       print(newValue)
-                                                   }
-                                                   
-                                                   // Move forward
-                                                   if newValue.count == 1 {
-                                                       if index < otpCount - 1 {
-                                                           focusedIndex = index + 1
-                                                       } else {
-                                                           focusedIndex = nil
-                                                       }
-                                                   }
-                                               }
+                ZStack(alignment: .center) {
+                    OTPCodeTextField(text: $viewModel.otpCode)
+                        .frame(width: 0, height: 0)
+                        .opacity(0.01)
+
+                    HStack(spacing: 12) {
+
+                        ForEach(0..<6, id: \.self) { index in
+
+                            ZStack {
+
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.white)
+                                    .frame(width: 50, height: 55)
+
+                                Text(getDigit(at: index))
+                                    .font(.system(size: 24, weight: .semibold))
+
+                            }
+                           
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke( currentInputIndex() == index ? Color.blue : Color.lightGray, lineWidth: 1)
+                            )
+                            .onAppear() {
+                                print("index: \(index)")
+                                stopTimer()
+                            }
+                            .onDisappear() {
+                                stopTimer()
+                            }
+                        }
                     }
                 }
-                .padding()
-                .onAppear {
-                    focusedIndex = 0
-                    startTimer()
-                    
+                .frame(maxWidth: .infinity)
+              //  .padding()
+                .onChange(of: viewModel.isComplete) { isComplete in
+                    if isComplete {
+                        navigate = true
+                    }
                 }
-
-                NavigationLink{
+                
+                NavigationLink(isActive: $navigate) {
                     switch source.nextDestination {
                     case .registrationSuccess:
                         RegisterFormView()
@@ -172,21 +104,9 @@ struct OTPView: View {
                     case .createPin:
                         CreatePinView(source: .login)
                     }
-
-                }label: {
-                    Text("VERIFY OTP ")
-                        .foregroundColor(Color.white)
-                        .frame(maxWidth: .infinity, minHeight: 45)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(viewModel.isComplete ? Color.blue : Color.gray)
-                        )
-                        .padding(.horizontal, 108)
+                } label: {
+                    EmptyView()
                 }
-                .padding(.top, 67)
-                .disabled(!viewModel.isComplete)
-                .padding(.horizontal,22)
-                
                 
                 Spacer()
                 ZStack{
@@ -204,14 +124,33 @@ struct OTPView: View {
         .customBackToolbar(title: source.title)
     }
     
+   
+        
+}
+// function
+extension OTPView {
+    private func currentInputIndex() -> Int {
+        let count = min(viewModel.otpCode.count, 6)
+        return count
+    }
+    
+    func getDigit(at index: Int) -> String {
+
+        if index < viewModel.otpCode.count {
+
+            let array = Array(viewModel.otpCode)
+            return String(array[index])
+        }
+
+        return ""
+    }
     
     func startTimer() {
-            stopTimer() // prevent multiple timers
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 if timeRemaining > 0 {
                     timeRemaining -= 1
                 } else {
-                    stopTimer()
+                   
                 }
             }
         }
@@ -220,116 +159,79 @@ struct OTPView: View {
             timer?.invalidate()
             timer = nil
         }
-        
 }
 
-// new text field ---------------
 
 
-struct OTPUITextField: UIViewRepresentable {
+// textField customize
+
+struct OTPCodeTextField: UIViewRepresentable {
+
     @Binding var text: String
-    var tag: Int
-    @Binding var focusedIndex: Int?
-   
+    @State var isFirstResponder: Bool = false
+
 
     class Coordinator: NSObject, UITextFieldDelegate {
-        var parent: OTPUITextField
 
-        init(_ parent: OTPUITextField) {
+        var parent: OTPCodeTextField
+
+        init(parent: OTPCodeTextField) {
             self.parent = parent
         }
-        
+
         func textFieldDidChangeSelection(_ textField: UITextField) {
-            // Keep only 1 character
-            if let t = textField.text, t.count > 1 {
-                textField.text = String(t.suffix(1))
-            }
-            parent.text = textField.text ?? ""
 
-            // Move forward when 1 digit entered
-            if (textField.text ?? "").count == 1 {
-                parent.focusedIndex = parent.tag + 1
-            }
-        }
+            let value = textField.text ?? ""
+            let filtered = value.filter { $0.isNumber }
+            parent.text = String(filtered.prefix(6))
 
-        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            // Handle backspace to move backward
-            if string.isEmpty, (textField.text ?? "").isEmpty {
-                parent.focusedIndex = max((parent.tag - 1), 0)
-            }
-            return true
+            textField.text = parent.text
+           
+            print("Parent \(parent.text)")
         }
     }
 
-    func makeCoordinator() -> Coordinator { Coordinator(self) }
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
 
     func makeUIView(context: Context) -> UITextField {
-        let tf = UITextField()
-        tf.keyboardType = .numberPad
-        tf.textAlignment = .center
-        tf.delegate = context.coordinator
-        tf.layer.cornerRadius = 12
-        tf.layer.borderWidth = 1
-        tf.layer.borderColor = UIColor.gray.cgColor
-        tf.backgroundColor = .white
-        return tf
+
+        let textField = UITextField()
+
+        textField.delegate = context.coordinator
+        textField.keyboardType = .numberPad
+        textField.textContentType = .oneTimeCode
+
+        // Auto focus
+        DispatchQueue.main.async {
+            textField.becomeFirstResponder()
+            isFirstResponder = true
+        }
+        if isFirstResponder {
+            print("Become first responder")
+        }
+        
+        return textField
     }
 
     func updateUIView(_ uiView: UITextField, context: Context) {
-        uiView.text = text
-
-        let isFocused = (focusedIndex == tag)
-        uiView.layer.borderColor = (isFocused ? UIColor.systemBlue : UIColor.gray).cgColor
-
-        if isFocused, !uiView.isFirstResponder {
+        if uiView.text != text {
+            uiView.text = text
+        }
+        if !uiView.isFirstResponder, isFirstResponder {
             uiView.becomeFirstResponder()
-        } else if !isFocused, uiView.isFirstResponder {
-            uiView.resignFirstResponder()
+           // uiView.backgroundColor = .red
         }
     }
 }
-
-
-// ===============================================
-
-struct OTPTextField: View {
-    @Binding var text: String
-    var isFocused: Bool
-    
-    var body: some View {
-        
-        SecureField("", text: $text)
-            .keyboardType(.numberPad)
-            .multilineTextAlignment(.center)
-            .frame(width: 50, height: 55)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.white))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(isFocused ? Color.blue : Color.gray, lineWidth: 1)
-            )
-    }
-}
-
-
-private func Hdeader(idx: Int) -> String {
-    switch idx {
-    case 0:
-        return "txt"
-    default:
-        return ""
-    }
-}
-
 
 
 
 
 // ------------------------------------------------
 #Preview {
-        OTPView(source: .register)
+    OTPView(source: .register)
 }
 
 
@@ -368,5 +270,7 @@ private func makeDate(_ year: Int, _ month: Int, _ day: Int, _ hour: Int, _ minu
     components.calendar = Calendar(identifier: .gregorian)
     return components.date ?? Date()
 }
+
+
 
 
