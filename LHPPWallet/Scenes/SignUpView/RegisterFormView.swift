@@ -12,7 +12,19 @@ struct RegisterFormView: View {
     @StateObject private var viewModel = RegistrationViewModel()
     @State private var dateOfBirthDate: Date = Date()
     @State private var isDobPickerPresented: Bool = false
+    @State private var selectedGender: DropdownItem?
+    @State private var showPicker: Bool = false
+    @State private var showProvincePicker: Bool = false
     
+    let provind = [
+        DropdownItem(title: "kompong change"),
+        DropdownItem(title: "Seamreap"),
+        DropdownItem(title: "Batdombong"),
+        DropdownItem(title: "preh vihear"),
+    ]
+    @State private var selectedFruit = "kompong change"
+
+       let fruits = ["Apple", "Banana", "Orange"]
     
     var body: some View {
     
@@ -116,6 +128,7 @@ struct RegisterFormView: View {
             .onChange(of: dateOfBirthDate) { newValue in
                 viewModel.dateOfBirth = dobFormatter.string(from: newValue)
             }
+            
             .sheet(isPresented: $isDobPickerPresented) {
                 VStack(spacing: 16) {
                     Text("Select Date of Birth")
@@ -142,10 +155,54 @@ struct RegisterFormView: View {
                 }
                 .padding()
             }
+         
+           
+            
             ValidatedTextField(title: "Emain", placeHolder: "Email adress (optional)", text: $viewModel.email, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
-            ValidatedTextField(title: "Province", placeHolder: "Province", text: $viewModel.province, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
-                print("list all ptovince")
+            
+            ValidatedTextField(title: "province", placeHolder: "select province", text: $viewModel.province, validator: {
+                value in value.isEmpty ? "Please select province" : nil
             })
+            
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Province")
+                    .font(.maliRegular)
+                HStack(spacing: 0) {
+                    TextField("Province", text: $viewModel.province)
+                        .font(.maliRegular)
+                        .foregroundColor(.primary)
+                    Spacer(minLength: 8)
+                    Menu {
+                        ForEach(provind, id: \.title) { item in
+                            Button(item.title) {
+                                viewModel.province = item.title
+                            }
+                        }
+                    } label: {
+                        HStack(spacing: 0) {
+//                            Text(viewModel.province.isEmpty ? "Select" : viewModel.province)
+//                                .foregroundColor(viewModel.province.isEmpty ? .secondary : .accentColor)
+                            Image(systemName: "chevron.down")
+                                .foregroundColor(.secondary)
+                        }
+                      //  .padding(.horizontal, 10)
+                        //.padding(.vertical, 6)
+                        //
+                    }
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .strokeBorder(Color.secondary, lineWidth: 0.5)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .fill(Color(.white))
+                        )
+                )
+            }
+            .padding(.bottom, 19)
+            
             ValidatedTextField(title: "District", placeHolder: "District", text: $viewModel.district, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
                 print("list all ptovince")
             })

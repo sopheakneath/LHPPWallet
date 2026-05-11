@@ -11,13 +11,15 @@ import Combine
 
 struct OTPView: View {
 
-    @State var phone: String = ""
+   
     @StateObject private var viewModel = OTPViewModel()
     @State private var navigate = false
     @State private var timeRemaining = 60 // seconds
     @State private var timer: Timer? = nil
+   
 
     let source: OTPSource
+    let phone: String?
     
     var body: some View {
         VStack {
@@ -34,7 +36,7 @@ struct OTPView: View {
                 VStack {
                     Text("verify_code".localized)
                     Text("Please type the verification code sent to")
-                    Text("+855 xxx xx x19")
+                    Text(phone!)
                         .foregroundColor(Color.blue)
                         .font(.maliMedium)
                 }
@@ -231,10 +233,8 @@ struct OTPCodeTextField: UIViewRepresentable {
 
 // ------------------------------------------------
 #Preview {
-    OTPView(source: .register)
+    OTPView(source: .register, phone: "")
 }
-
-
 
 // ----------------------------------------------
 

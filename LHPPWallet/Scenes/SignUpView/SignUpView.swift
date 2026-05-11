@@ -74,14 +74,12 @@ struct SignUpView: View {
                 Spacer()
                 NavigationLink {
                     if source.nextDestination == .createPin {
-                        OTPView( source: .login)
+                        OTPView( source: .login, phone: phone)
                     } else {
-                        OTPView( source: .register)
+                        OTPView( source: .register, phone: phone)
                     }
                  
                 } label: {
-                   
-                        
                         Text("Next")
                             .foregroundColor(Color.white)
                             .frame(maxWidth: .infinity, minHeight: 45)

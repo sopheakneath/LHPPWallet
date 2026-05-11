@@ -26,7 +26,7 @@ struct TransferFormView: View {
    
         ZStack {
             // Hidden NavigationLink for programmatic navigation
-            NavigationLink(destination: OTPView(source: .transfer), isActive: $goToOTP) { EmptyView() }
+            NavigationLink(destination: OTPView(source: .transfer, phone: ""), isActive: $goToOTP) { EmptyView() }
 
             VStack(alignment: .leading) {
                 
