@@ -15,12 +15,43 @@ struct RegisterFormView: View {
     @State private var selectedGender: DropdownItem?
     @State private var showPicker: Bool = false
     @State private var showProvincePicker: Bool = false
+    @State private var isExpanded = false
     
     let provind = [
         DropdownItem(title: "kompong change"),
         DropdownItem(title: "Seamreap"),
         DropdownItem(title: "Batdombong"),
         DropdownItem(title: "preh vihear"),
+    ]
+    
+    let dataProvince: [DataList] = [
+        DataList(title: "Cambodia"),
+        DataList( title: "UK"),
+        DataList( title: "UKRAN"),
+        DataList( title: "Canada"),
+        
+        DataList(title: "Cambodiak"),
+        DataList( title: "UKk"),
+        DataList( title: "UKRANj"),
+        DataList( title: "Canadak"),
+        
+        DataList(title: "Cambodiaj"),
+        DataList( title: "UKj"),
+        DataList( title: "UKRANj"),
+        DataList( title: "Canadan"),
+        
+        DataList(title: "Cambodimk"),
+        DataList( title: "UKo"),
+        DataList( title: "UKRANi"),
+        DataList( title: "Canadaj")
+        
+    ]
+    
+    let District: [DataList] = [
+        DataList(title: "russy koe"),
+        DataList( title: "tek tla"),
+        DataList( title: "sen sok"),
+        DataList( title: "don penh"),
     ]
     @State private var selectedFruit = "kompong change"
 
@@ -160,52 +191,81 @@ struct RegisterFormView: View {
             
             ValidatedTextField(title: "Emain", placeHolder: "Email adress (optional)", text: $viewModel.email, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
             
+            
             ValidatedTextField(title: "province", placeHolder: "select province", text: $viewModel.province, validator: {
                 value in value.isEmpty ? "Please select province" : nil
             })
             
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Province")
-                    .font(.maliRegular)
-                HStack(spacing: 0) {
-                    TextField("Province", text: $viewModel.province)
-                        .font(.maliRegular)
-                        .foregroundColor(.primary)
-                    Spacer(minLength: 8)
-                    Menu {
-                        ForEach(provind, id: \.title) { item in
-                            Button(item.title) {
-                                viewModel.province = item.title
-                            }
-                        }
-                    } label: {
-                        HStack(spacing: 0) {
-//                            Text(viewModel.province.isEmpty ? "Select" : viewModel.province)
-//                                .foregroundColor(viewModel.province.isEmpty ? .secondary : .accentColor)
-                            Image(systemName: "chevron.down")
-                                .foregroundColor(.secondary)
-                        }
-                      //  .padding(.horizontal, 10)
-                        //.padding(.vertical, 6)
-                        //
+//            VStack(alignment: .leading, spacing: 0) {
+//                Text("Province")
+//                    .font(.maliRegular)
+//                HStack(spacing: 0) {
+//                    TextField("Province", text: $viewModel.province)
+//                        .font(.maliRegular)
+//                        .foregroundColor(.primary)
+//                    Spacer(minLength: 8)
+//                    Menu {
+//                        ForEach(provind, id: \.title) { item in
+//                            Button(item.title) {
+//                                viewModel.province = item.title
+//                            }
+//                        }
+//                    } label: {
+//                        HStack(spacing: 0) {
+//                            
+////                            Text(viewModel.province.isEmpty ? "Select" : viewModel.province)
+////                                .foregroundColor(viewModel.province.isEmpty ? .secondary : .accentColor)
+//                            Image(systemName: "chevron.down")
+//                                .foregroundColor(.secondary)
+//                        }
+//                      //  .padding(.horizontal, 10)
+//                        //.padding(.vertical, 6)
+//                        //
+//                    }
+//                }
+//                .padding(.horizontal, 12)
+//                .padding(.vertical, 10)
+//                .background(
+//                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+//                        .strokeBorder(Color.secondary, lineWidth: 0.5)
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+//                                .fill(Color(.white))
+//                        )
+//                )
+//            }
+//            .padding(.bottom, 19)
+//            .background(Color.red)
+            
+            
+            // TESTING customDropDown ---------------------
+            CustomDropdownView(data: dataProvince)
+            Text("Disctrict")
+                .font(.maliRegular)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            CustomDropdownView(data: District)
+                .padding(.vertical, 20)
+               
+            ValidatedTextField(title: "District", placeHolder: "District", text: $viewModel.district, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
+                isExpanded.toggle()
+                print("list all District")
+            })
+            if isExpanded {
+                ZStack(alignment: .topLeading){
+                    VStack{
+                        Text("hello list")
+                        Text("hello list")
+                        Text("hello list")
                     }
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
-                .background(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .strokeBorder(Color.secondary, lineWidth: 0.5)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(Color(.white))
-                        )
-                )
+                .background(Color.green)
+                .offset(y: 0)
+                .transition(.scale)
+                
+               
             }
-            .padding(.bottom, 19)
             
-            ValidatedTextField(title: "District", placeHolder: "District", text: $viewModel.district, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
-                print("list all ptovince")
-            })
+           
             ValidatedTextField(title: "Commune (Optional)", placeHolder: "Commune (Optional)", text: $viewModel.commune, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
                 print("list all ptovince")
             })
@@ -221,10 +281,13 @@ struct RegisterFormView: View {
             ValidatedTextField(title: "Address 2 (Optional)", placeHolder: "Address 2 (Optional)", text: $viewModel.address2, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
             
             ValidatedTextField(title: "Address 3 (Optional)", placeHolder: "Address 3 (Optional)", text: $viewModel.address3, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            
             ValidatedTextField(title: "Gender", placeHolder: "Gender", text: $viewModel.gender, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false)
+            
             ValidatedTextField(title: "Occupation", placeHolder: "Occupation", text: $viewModel.occupation, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
                 print("list all ptovince")
             })
+            
 //
 //
 //                HStack(spacing: 0) {

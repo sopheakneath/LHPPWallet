@@ -16,6 +16,7 @@ struct ValidatedTextField: View {
     var keyboardType: UIKeyboardType = .default
     var isSecure: Bool = false
     var isTitleFrame: Bool = false
+ 
     
     /// Optional trailing icon (SF Symbol name). If nil, no icon is shown.
     var trailingSystemImageName: String? = nil
@@ -26,6 +27,14 @@ struct ValidatedTextField: View {
     @State private var error: String? = nil
     var isFocused: Bool = false
     var isSubmit: Bool = false
+    var data = [] as [String]
+    
+    let provind = [
+        DropdownItem(title: "kompong change"),
+        DropdownItem(title: "Seamreap"),
+        DropdownItem(title: "Batdombong"),
+        DropdownItem(title: "preh vihear"),
+    ]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -54,12 +63,37 @@ struct ValidatedTextField: View {
                     
                     if let trailingSystemImageName {
                         if let onTrailingIconTap {
+
                             Button(action: onTrailingIconTap) {
                                 Image(trailingSystemImageName)
                                     .scaledToFit()
                                     .frame(width: 20, height: 20)
                                     .foregroundColor(.secondary)
                             }
+                            
+                            Menu {
+                                ForEach(provind, id: \.title) { item in
+                                    Button(item.title) {
+                                    
+                                       // item.title = $text
+                                    }
+                                    
+                                }
+                            } label: {
+                                HStack(spacing: 0) {
+                                    
+        //                            Text(viewModel.province.isEmpty ? "Select" : viewModel.province)
+        //                                .foregroundColor(viewModel.province.isEmpty ? .secondary : .accentColor)
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(.secondary)
+                                }
+                              //  .padding(.horizontal, 10)
+                                //.padding(.vertical, 6)
+                                //
+                            }
+                          
+                            
+                            
                         } else {
                             Image(trailingSystemImageName)
                                 .scaledToFit()
@@ -82,7 +116,7 @@ struct ValidatedTextField: View {
 
                     error = validator(text)
                 }
-               
+            
                 
               if  isSubmit {
                     if let error = error, !error.isEmpty {
