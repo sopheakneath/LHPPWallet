@@ -52,7 +52,7 @@ struct TermsConditionsView: View {
             let appearance = UINavigationBarAppearance()
 
                 appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = UIColor.red
+                //appearance.backgroundColor = UIColor.red
 
                 UINavigationBar.appearance().standardAppearance = appearance
                 UINavigationBar.appearance().scrollEdgeAppearance = appearance

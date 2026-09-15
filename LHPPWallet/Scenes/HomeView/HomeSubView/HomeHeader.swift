@@ -95,6 +95,9 @@ struct HomeHeader: View {
                         .onTapGesture {
                             print("add more account")
                         }
+                        .task {
+                            print("request some api")
+                        }
                     
                 }
                 .padding(.leading, 25)

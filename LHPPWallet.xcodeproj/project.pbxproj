@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D9EBAA130403AB400CC8BDB /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9EBAA030403AB400CC8BDB /* WidgetKit.framework */; };
+		0D9EBAA330403AB400CC8BDB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9EBAA230403AB400CC8BDB /* SwiftUI.framework */; };
+		0D9EBAB430403AB600CC8BDB /* MyWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0D9EBA9F30403AB400CC8BDB /* MyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1AC9074840EAB1820B638113 /* Pods_LHPPWallet_LHPPWalletUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F15686980002420258D0D8 /* Pods_LHPPWallet_LHPPWalletUITests.framework */; };
 		1F0F826C3E7F32BF8DEE4F81 /* Pods_LHPPWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D14A3BBAF9DB5674A58D2126 /* Pods_LHPPWallet.framework */; };
 		D3CAAC40889FD6EDAB68B3E1 /* Pods_LHPPWalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AEA65A9228E88ADA7214889 /* Pods_LHPPWalletTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0D9EBAB230403AB600CC8BDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0DE8F0A32F57DF3800888B9D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D9EBA9E30403AB400CC8BDB;
+			remoteInfo = MyWidgetExtension;
+		};
 		0DE8F0BE2F57DF3A00888B9D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0DE8F0A32F57DF3800888B9D /* Project object */;
@@ -29,7 +39,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0D9EBAB530403AB600CC8BDB /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0D9EBAB430403AB600CC8BDB /* MyWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0D9EBA9F30403AB400CC8BDB /* MyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D9EBAA030403AB400CC8BDB /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		0D9EBAA230403AB400CC8BDB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		0D9EBABA3041267500CC8BDB /* MyWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		0DE8F0AB2F57DF3800888B9D /* LHPPWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LHPPWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE8F0BD2F57DF3A00888B9D /* LHPPWalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LHPPWalletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE8F0C72F57DF3A00888B9D /* LHPPWalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LHPPWalletUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,9 +81,24 @@
 			);
 			target = 0DE8F0AA2F57DF3800888B9D /* LHPPWallet */;
 		};
+		0D9EBAB930403AB600CC8BDB /* Exceptions for "MyWidget" folder in "MyWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0D9EBA9E30403AB400CC8BDB /* MyWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		0D9EBAA430403AB400CC8BDB /* MyWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0D9EBAB930403AB600CC8BDB /* Exceptions for "MyWidget" folder in "MyWidgetExtension" target */,
+			);
+			path = MyWidget;
+			sourceTree = "<group>";
+		};
 		0DE8F0AD2F57DF3800888B9D /* LHPPWallet */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -77,6 +120,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0D9EBA9C30403AB400CC8BDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D9EBAA330403AB400CC8BDB /* SwiftUI.framework in Frameworks */,
+				0D9EBAA130403AB400CC8BDB /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0DE8F0A82F57DF3800888B9D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -107,9 +159,11 @@
 		0DE8F0A22F57DF3800888B9D = {
 			isa = PBXGroup;
 			children = (
+				0D9EBABA3041267500CC8BDB /* MyWidgetExtensionDebug.entitlements */,
 				0DE8F0AD2F57DF3800888B9D /* LHPPWallet */,
 				0DE8F0C02F57DF3A00888B9D /* LHPPWalletTests */,
 				0DE8F0CA2F57DF3A00888B9D /* LHPPWalletUITests */,
+				0D9EBAA430403AB400CC8BDB /* MyWidget */,
 				0DE8F0AC2F57DF3800888B9D /* Products */,
 				3524B5D2C31DC5208ED287C0 /* Pods */,
 				383E137FA8135CBE677A97F8 /* Frameworks */,
@@ -122,6 +176,7 @@
 				0DE8F0AB2F57DF3800888B9D /* LHPPWallet.app */,
 				0DE8F0BD2F57DF3A00888B9D /* LHPPWalletTests.xctest */,
 				0DE8F0C72F57DF3A00888B9D /* LHPPWalletUITests.xctest */,
+				0D9EBA9F30403AB400CC8BDB /* MyWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,6 +200,8 @@
 				D14A3BBAF9DB5674A58D2126 /* Pods_LHPPWallet.framework */,
 				A8F15686980002420258D0D8 /* Pods_LHPPWallet_LHPPWalletUITests.framework */,
 				5AEA65A9228E88ADA7214889 /* Pods_LHPPWalletTests.framework */,
+				0D9EBAA030403AB400CC8BDB /* WidgetKit.framework */,
+				0D9EBAA230403AB400CC8BDB /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -152,6 +209,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0D9EBA9E30403AB400CC8BDB /* MyWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D9EBAB830403AB600CC8BDB /* Build configuration list for PBXNativeTarget "MyWidgetExtension" */;
+			buildPhases = (
+				0D9EBA9B30403AB400CC8BDB /* Sources */,
+				0D9EBA9C30403AB400CC8BDB /* Frameworks */,
+				0D9EBA9D30403AB400CC8BDB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0D9EBAA430403AB400CC8BDB /* MyWidget */,
+			);
+			name = MyWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = MyWidgetExtension;
+			productReference = 0D9EBA9F30403AB400CC8BDB /* MyWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		0DE8F0AA2F57DF3800888B9D /* LHPPWallet */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DE8F0D12F57DF3A00888B9D /* Build configuration list for PBXNativeTarget "LHPPWallet" */;
@@ -160,10 +239,12 @@
 				0DE8F0A72F57DF3800888B9D /* Sources */,
 				0DE8F0A82F57DF3800888B9D /* Frameworks */,
 				0DE8F0A92F57DF3800888B9D /* Resources */,
+				0D9EBAB530403AB600CC8BDB /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0D9EBAB330403AB600CC8BDB /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				0DE8F0AD2F57DF3800888B9D /* LHPPWallet */,
@@ -227,6 +308,9 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					0D9EBA9E30403AB400CC8BDB = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					0DE8F0AA2F57DF3800888B9D = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -262,11 +346,19 @@
 				0DE8F0AA2F57DF3800888B9D /* LHPPWallet */,
 				0DE8F0BC2F57DF3A00888B9D /* LHPPWalletTests */,
 				0DE8F0C62F57DF3A00888B9D /* LHPPWalletUITests */,
+				0D9EBA9E30403AB400CC8BDB /* MyWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0D9EBA9D30403AB400CC8BDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0DE8F0A92F57DF3800888B9D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -360,6 +452,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0D9EBA9B30403AB400CC8BDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0DE8F0A72F57DF3800888B9D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -384,6 +483,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0D9EBAB330403AB600CC8BDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0D9EBA9E30403AB400CC8BDB /* MyWidgetExtension */;
+			targetProxy = 0D9EBAB230403AB600CC8BDB /* PBXContainerItemProxy */;
+		};
 		0DE8F0BF2F57DF3A00888B9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0DE8F0AA2F57DF3800888B9D /* LHPPWallet */;
@@ -397,6 +501,70 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0D9EBAB630403AB600CC8BDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MyWidgetExtensionDebug.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W42L7GQ3X7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Flexi.LHPPWallet.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0D9EBAB730403AB600CC8BDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W42L7GQ3X7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.LHPPWallet.MyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		0DE8F0CF2F57DF3A00888B9D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -536,7 +704,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -575,7 +743,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -681,6 +849,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0D9EBAB830403AB600CC8BDB /* Build configuration list for PBXNativeTarget "MyWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D9EBAB630403AB600CC8BDB /* Debug */,
+				0D9EBAB730403AB600CC8BDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0DE8F0A62F57DF3800888B9D /* Build configuration list for PBXProject "LHPPWallet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

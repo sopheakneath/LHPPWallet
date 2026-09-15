@@ -52,19 +52,33 @@ struct MyWidgetEntryView : View {
             Text("Favorite Emoji:")
             Text(entry.configuration.favoriteEmoji)
         }
+        .padding(20)
+        .background(Color.red)
     }
 }
 
 struct MyWidget: Widget {
     let kind: String = "MyWidget"
-
-    var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
-            MyWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+        // ...
+        var body: some WidgetConfiguration {
+            AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+                MyWidgetEntryView(entry: entry)
+                    .containerBackground(.fill.tertiary, for: .widget)
+            }
+            .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
         }
     }
-}
+
+//struct MyWidget: Widget {
+//    let kind: String = "MyWidget"
+//
+//    var body: some WidgetConfiguration {
+//        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+//            MyWidgetEntryView(entry: entry)
+//                .containerBackground(.fill.tertiary, for: .widget)
+//        }
+//    }
+//}
 
 extension ConfigurationAppIntent {
     fileprivate static var smiley: ConfigurationAppIntent {

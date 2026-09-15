@@ -18,9 +18,10 @@ class TransactionDetailViewModel : ObservableObject {
     private let serviceTra = TransactionSevice()
        
        func fetchTransactionDetail(txnNo: String) {
-           transactionDetail = serviceTra.getTransactionDetail(txnNoInCbs: "TXN002")
+          // transactionDetail = serviceTra.getTransactionDetail(txnNoInCbs: "TXN002")
            // send the wrong data(txnNo)
-          // transactionDetail = serviceTra.getTransactionDetail(txnNoInCbs: txnNo)
+           transactionDetail = serviceTra.getTransactionDetail(txnNoInCbs: txnNo)
+           print("txnNo: \(txnNo)")
        }
    
 }

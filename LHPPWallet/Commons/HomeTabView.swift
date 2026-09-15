@@ -12,6 +12,7 @@ struct HomeTabView: View {
    
     
     var body: some View {
+        
         ZStack(alignment: .bottom) {
             // Main content (no TabView = no system tab bar)
            
@@ -26,6 +27,7 @@ struct HomeTabView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+               // .background(Color(.red))
             
             
             HStack {
@@ -93,7 +95,7 @@ struct TabBarButton: View {
             ZStack {
                 Circle()
                     .frame(width: 48, height: 48)
-                    .foregroundColor(isSelected ? Color.gray : Color.blue)
+                    .foregroundColor(isSelected ? Color.gray.opacity(0.5) : Color.blue)
                 
                 Image(icon)
                     .font(.system(size: 24))

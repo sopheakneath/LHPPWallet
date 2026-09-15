@@ -16,6 +16,9 @@ struct ValidatedTextField: View {
     var keyboardType: UIKeyboardType = .default
     var isSecure: Bool = false
     var isTitleFrame: Bool = false
+    
+    @State private var showingAlert: Bool = false
+
  
     
     /// Optional trailing icon (SF Symbol name). If nil, no icon is shown.
@@ -70,28 +73,34 @@ struct ValidatedTextField: View {
                                     .frame(width: 20, height: 20)
                                     .foregroundColor(.secondary)
                             }
-                            
-                            Menu {
-                                ForEach(provind, id: \.title) { item in
-                                    Button(item.title) {
-                                    
-                                       // item.title = $text
-                                    }
-                                    
-                                }
-                            } label: {
-                                HStack(spacing: 0) {
-                                    
-        //                            Text(viewModel.province.isEmpty ? "Select" : viewModel.province)
-        //                                .foregroundColor(viewModel.province.isEmpty ? .secondary : .accentColor)
-                                    Image(systemName: "chevron.down")
-                                        .foregroundColor(.secondary)
-                                }
-                              //  .padding(.horizontal, 10)
-                                //.padding(.vertical, 6)
-                                //
+                            .alert(isPresented: $showingAlert) {
+                                Alert(
+                                   
+                                    title: Text("Important Message"),
+                                    message: Text("This is the detailed information."),
+                                    dismissButton: .cancel(Text("OK"))
+                                )
                             }
-                          
+                            // **** using menu
+//                            Menu {
+//                                ForEach(provind, id: \.title) { item in
+//                                    Button(item.title) {
+//                                    
+//                                       // item.title = $text
+//                                    }
+//                                    
+//                                }
+//                            } label: {
+//                                HStack(spacing: 0) {
+//                                    
+//        //                            Text(viewModel.province.isEmpty ? "Select" : viewModel.province)
+//        //                                .foregroundColor(viewModel.province.isEmpty ? .secondary : .accentColor)
+//                                    Image(systemName: "chevron.down")
+//                                        .foregroundColor(.secondary)
+//                                }
+//                              
+//                            }
+//                          
                             
                             
                         } else {

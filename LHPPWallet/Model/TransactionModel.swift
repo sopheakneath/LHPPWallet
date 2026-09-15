@@ -60,7 +60,14 @@ class TransactionSevice {
     
     func getTransactionDetail(txnNoInCbs: String) -> TransactionDetailModel? {
         return TransactionDetailModel.mockTransactions.first { $0.txnNoInCbs == txnNoInCbs }
+        
        }
+    
+    func getDetail(txnNoInCbs: String, completion: @escaping (TransactionDetailModel?) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            completion(TransactionDetailModel.mockTransactions.first { $0.txnNoInCbs == txnNoInCbs })
+        }
+    }
 }
  
 
@@ -114,6 +121,60 @@ extension TransactionModel {
         TransactionModel(txnNoInCbs: "FT260831PH0W", txnRefNo: "FTQR260830810000009", isDebit: true, debitAccName: "Makara71,", accountName: "Makara", debitAccNo: "000482502", creditAccNo: "000483990", icon: "", currency: "KHQR", creditAccName: "TBA TEST12", isPayment: false, title: "transfer to testing", txnDescription: "to QR Within Bank", accountId: "XCvwwOh+5/7JkPHflvtcmUlc9rc6PnpW7g==", txnDate: "21 Jan 2026, 11:35 AM", amount: 34, txnType: "1021"),
         
     ]
+    static let mockTransactions: [TransactionDetailModel] = [
+        TransactionDetailModel(
+            txnNoInCbs: "TXN001",
+            amount: "120.5",
+            currency: "USD",
+            date: "2026-04-20",
+            status: "SUCCESS",
+            description: "Payment to ABA",
+            senderAcc: "00023413",
+            receiverAcc: "01232111",
+            trxNum: "txe20984554",
+            AuthNUM: "1200999",
+            feeAmount: "0.50"
+        ),
+        TransactionDetailModel(
+            txnNoInCbs: "TXN002",
+            amount:" 75.0",
+            currency: "KHQ",
+            date: "2026-03-19",
+            status: "PENDING",
+            description: "Top up phone",
+            senderAcc: "00023413",
+            receiverAcc: "01232111",
+            trxNum: "txe20984554",
+            AuthNUM: "1200999",
+            feeAmount: "0.00"
+        ),
+        TransactionDetailModel(
+            txnNoInCbs: "TXN009",
+            amount: "200.0",
+            currency: "USD",
+            date: "2026-04-18",
+            status: "FAILED",
+            description: "Transfer failed",
+            senderAcc: "00023413",
+            receiverAcc: "01232111",
+            trxNum: "txe20984554",
+            AuthNUM: "1200999",
+            feeAmount: "0.00"
+        ),
+        TransactionDetailModel(
+            txnNoInCbs: "TXN006",
+            amount: "200.0",
+            currency: "USD",
+            date: "2026-04-18",
+            status: "FAILED",
+            description: "Transfer failed",
+            senderAcc: "00023413",
+            receiverAcc: "01232111",
+            trxNum: "txe20984554",
+            AuthNUM: "1200999",
+            feeAmount: "0.00"
+        )
+    ]
 }
 
 
@@ -152,6 +213,32 @@ extension TransactionDetailModel {
             date: "2026-04-18",
             status: "FAILED",
             description: "Transfer failed",
+            senderAcc: "00023413",
+            receiverAcc: "01232111",
+            trxNum: "txe20984554",
+            AuthNUM: "1200999",
+            feeAmount: "0.00"
+        ),
+        TransactionDetailModel(
+            txnNoInCbs: "TXN003",
+            amount: "200.0",
+            currency: "USD",
+            date: "2026-04-18",
+            status: "FAILED",
+            description: "own transer",
+            senderAcc: "00023413",
+            receiverAcc: "01232111",
+            trxNum: "txe20984554",
+            AuthNUM: "1200999",
+            feeAmount: "0.00"
+        ),
+        TransactionDetailModel(
+            txnNoInCbs: "TXN004",
+            amount: "200.0",
+            currency: "USD",
+            date: "2026-04-18",
+            status: "FAILED",
+            description: "Loan payment",
             senderAcc: "00023413",
             receiverAcc: "01232111",
             trxNum: "txe20984554",

@@ -96,14 +96,16 @@ struct CustomDropdownView: View {
                     Image(systemName: isExpanded
                           ? "chevron.up"
                           : "chevron.down")
+                    .foregroundColor(Color.gray)
                 }
                 .padding(8)
-                .background(Color.white)
+                
                 
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.gray.opacity(0.3))
                 )
+                .background(Color.white)
             }
             
             // Dropdown List
@@ -121,7 +123,7 @@ struct CustomDropdownView: View {
                   
                     Divider()
                    
-                    // Scrollable List
+                    // Scrollable List //
                     ScrollView() {
                         
                         VStack(spacing: 0) {

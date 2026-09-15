@@ -134,6 +134,7 @@ struct RegisterFormView: View {
                     
                     Button {
                         isDobPickerPresented = true
+                        
                     } label: {
                         Image(systemName: "calendar")
                             .scaledToFit()
@@ -194,7 +195,8 @@ struct RegisterFormView: View {
             
             ValidatedTextField(title: "province", placeHolder: "select province", text: $viewModel.province, validator: {
                 value in value.isEmpty ? "Please select province" : nil
-            })
+              
+            } )
             
 //            VStack(alignment: .leading, spacing: 0) {
 //                Text("Province")
@@ -246,24 +248,25 @@ struct RegisterFormView: View {
             CustomDropdownView(data: District)
                 .padding(.vertical, 20)
                
-            ValidatedTextField(title: "District", placeHolder: "District", text: $viewModel.district, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
-                isExpanded.toggle()
-                print("list all District")
-            })
-            if isExpanded {
-                ZStack(alignment: .topLeading){
-                    VStack{
-                        Text("hello list")
-                        Text("hello list")
-                        Text("hello list")
-                    }
-                }
-                .background(Color.green)
-                .offset(y: 0)
-                .transition(.scale)
-                
-               
-            }
+//            ValidatedTextField(title: "District", placeHolder: "District", text: $viewModel.district, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {
+//                isExpanded.toggle()
+//                print("list all District")
+//            })
+//            if isExpanded {
+//                ZStack(alignment: .topLeading){
+//                    VStack{
+//                        Text("hello list")
+//                        Text("hello list")
+//                        Text("hello list")
+//                    }
+//                }
+//                .background(Color.green)
+//                .offset(y: 0)
+//                .transition(.scale)
+//                .padding()
+//                
+//               
+//            }
             
            
             ValidatedTextField(title: "Commune (Optional)", placeHolder: "Commune (Optional)", text: $viewModel.commune, validator: { value in value.isEmpty ? "" : nil }, keyboardType: .numberPad, isSecure: false, isTitleFrame: false,trailingSystemImageName: "drop_down",onTrailingIconTap: {

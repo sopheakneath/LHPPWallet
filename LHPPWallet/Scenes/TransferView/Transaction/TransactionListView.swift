@@ -455,6 +455,7 @@ struct SwiftUICellView: View {
              .background(Color(UIColor.systemGray6))
             
             NavigationLink(destination: TransactionDetailView(txnNo: transaction.txnNoInCbs), isActive: $isGoToDetail) {
+              
             EmptyView()
             }
            
